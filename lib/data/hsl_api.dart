@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:bussit/model/stop_model.dart';
 
+// Get the api client for GraphQlProvider
 getHslApiClient(){
   const endPoint = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
   final httpLink = HttpLink(endPoint);
@@ -15,6 +16,7 @@ getHslApiClient(){
   return client;
 }
 
+// Get an options object for a stop query
 stopQueryOptions({ids, name, maxResults}) {
   const String query = """
 query StopData(\$ids: [String], \$name: String, \$maxResults: Int){
@@ -25,7 +27,6 @@ query StopData(\$ids: [String], \$name: String, \$maxResults: Int){
   }
 }
 """;
-
   final opts = QueryOptions(
     document: gql(query),
     variables: {
@@ -37,10 +38,12 @@ query StopData(\$ids: [String], \$name: String, \$maxResults: Int){
   return opts;
 }
 
+// convert one stop from the result into a Stop object
 Stop convertToStop(stop){
   return Stop(stop['code'], stop['name']);
 }
 
+// Convert a stop query result into a list of Stops
 List<Stop>? convertStopQueryResult(QueryResult result){
 
   List? stops = result.data?['stops'];
