@@ -1,0 +1,35 @@
+query StopData($ids: [String], $name: String, $maxResults: Int){
+  stops(ids: $ids, name: $name, maxResults: $maxResults) {
+    name
+    code
+    desc
+    zoneId
+    vehicleMode
+    gtfsId
+    locationType
+    platformCode
+    parentStation {
+      name
+    }
+    cluster {
+      name
+    }
+    stoptimesWithoutPatterns {
+      scheduledArrival
+      realtimeArrival
+      arrivalDelay
+      scheduledDeparture
+      realtimeDeparture
+      departureDelay
+      realtime
+      realtimeState
+      serviceDay
+      headsign
+      trip {
+        route {
+          shortName
+        }
+      }
+    }
+  }
+}
