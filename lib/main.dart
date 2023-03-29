@@ -1,8 +1,10 @@
 import 'package:bussit/data/hsl_api.dart';
+import 'package:bussit/model/saved_stops.dart';
 import 'package:bussit/ui/saved_stops_view.dart';
 import 'package:bussit/ui/stop_search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 void main() {
 
   runApp(const MyApp());
@@ -57,7 +59,13 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: const SearchStops(),
+      body: ChangeNotifierProvider(
+        create: (context) => SavedStopIds(),
+        child:  Column(children: [
+          Expanded(child: StopsView(),),
+          Expanded(child: SearchStops(),),
+        ],),
+      ),
     );
   }
 }

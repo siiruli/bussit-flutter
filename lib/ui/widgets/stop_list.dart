@@ -1,7 +1,11 @@
+import 'dart:js';
+
+import 'package:bussit/model/saved_stops.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:bussit/data/hsl_api.dart';
 import 'package:bussit/model/stop_model.dart';
+import 'package:provider/provider.dart';
 
 // Widget showin a list of stops
 class StopListWidget extends StatelessWidget {
@@ -17,10 +21,32 @@ class StopListWidget extends StatelessWidget {
 }
 // Build one item of a stop list
 Widget stopItemBuilder(Stop stop){
+  const saveIcon = Icon(Icons.save_alt);
+  const deleteIcon = Icon(Icons.delete_forever);
+
+
+  final iconButton = Consumer<SavedStopIds>(
+    builder: (context, savedIds, child) {
+      if(savedIds.isSaved(stop.id)){
+        return IconButton(
+          onPressed: () => savedIds.remove(stop.id), 
+          icon: deleteIcon,
+        );
+      }
+      else{
+        return IconButton(
+          onPressed: () => savedIds.add(stop.id), 
+          icon: saveIcon,
+        );
+      }
+    }
+  );
+
   return Card(
     child: ListTile(
       title: Text(stop.name),
-      subtitle: Text(stop.id),
+      subtitle: Text(stop.code),
+      trailing: iconButton,
     )
   );
 }

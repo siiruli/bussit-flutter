@@ -40,7 +40,7 @@ query StopData(\$ids: [String], \$name: String, \$maxResults: Int){
 
 // convert one stop from the result into a Stop object
 Stop convertToStop(stop){
-  return Stop(stop['code'], stop['name']);
+  return Stop(stop['gtfsId'], stop['name'], stop['code']);
 }
 
 // Convert a stop query result into a list of Stops

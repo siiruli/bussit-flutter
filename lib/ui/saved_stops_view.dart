@@ -1,6 +1,7 @@
+import 'package:bussit/model/saved_stops.dart';
 import 'package:flutter/material.dart';
 import 'package:bussit/ui/widgets/stop_list.dart';
-
+import 'package:provider/provider.dart';
 
 class StopsView extends StatefulWidget {
   const StopsView({Key? key}) : super(key: key);
@@ -11,28 +12,20 @@ class StopsView extends StatefulWidget {
 }
 
 class _StopsViewState extends State<StopsView> {
-  List<String> stopIdList = [];
-
-  void _findStops(){
-
-  }
-  void _toggleFavorite(String id){
-    setState(() {
-      if(stopIdList.contains(id)) {
-        stopIdList.remove(id);
-      }
-      else {
-        stopIdList.add(id);
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    // List stops that is rebuilt when the id-list changes
+    final stopList = Consumer<SavedStopIds>(
+      builder: (context, savedIds, child) {
+        return StopListWidget(ids: savedIds.ids);
+      },
+    );
+
     return Scaffold(
-      body: StopListWidget(ids: stopIdList),
+      body: stopList,
       floatingActionButton: FloatingActionButton(
-        onPressed: _findStops,
+        onPressed: (){},
         tooltip: 'Find stops',
         child: const Icon(Icons.add),
       ),
