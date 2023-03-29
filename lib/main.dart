@@ -19,13 +19,16 @@ class MyApp extends StatelessWidget {
 
     return GraphQLProvider( 
       client: getHslApiClient(),
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      child: ChangeNotifierProvider(
+        create: (context) => SavedStopIds(),
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: const MyHomePage(title: 'Stop list'),
         ),
-        home: const MyHomePage(title: 'Stop list'),
-      )
+      ),
     );
   }
 }
@@ -40,32 +43,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: ChangeNotifierProvider(
-        create: (context) => SavedStopIds(),
-        child:  Column(children: [
-          Expanded(child: StopsView(),),
-          Expanded(child: SearchStops(),),
-        ],),
-      ),
-    );
+    return const StopsView();
   }
 }

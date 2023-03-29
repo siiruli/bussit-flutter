@@ -1,4 +1,5 @@
 import 'package:bussit/model/saved_stops.dart';
+import 'package:bussit/ui/stop_search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:bussit/ui/widgets/stop_list.dart';
 import 'package:provider/provider.dart';
@@ -23,9 +24,16 @@ class _StopsViewState extends State<StopsView> {
     );
 
     return Scaffold(
+      appBar: AppBar(title: const Text("Saved stops"),),
       body: stopList,
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: (){
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const SearchStops()
+            )
+          );
+        },
         tooltip: 'Find stops',
         child: const Icon(Icons.add),
       ),

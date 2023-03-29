@@ -22,12 +22,16 @@ class _SearchStopsState extends State<SearchStops> {
   @override
   Widget build(BuildContext context) {
     final searchNameField = Form(child: TextFormField(
+      autofocus: true,
       onChanged: _updSearchName,
       decoration: const InputDecoration(
         hintText: "Stop name...",
       ),
     ));
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Find stops by name"),
+      ),
       body: Column(
         children: [
           searchNameField,
