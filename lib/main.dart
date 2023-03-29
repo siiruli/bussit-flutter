@@ -1,5 +1,6 @@
 import 'package:bussit/data/hsl_api.dart';
-import 'package:bussit/ui/widgets/stop_list.dart';
+import 'package:bussit/ui/saved_stops_view.dart';
+import 'package:bussit/ui/stop_search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 void main() {
@@ -56,12 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: const StopListWidget(searchName: ""),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      body: const SearchStops(),
     );
   }
 }

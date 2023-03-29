@@ -40,6 +40,7 @@ Widget stopListBuilder(QueryResult result, { VoidCallback? refetch, FetchMore? f
   }
 
   return ListView.builder(
+    shrinkWrap: true,
     itemCount: stops.length,
     itemBuilder: (context, index) {
       return stopItemBuilder(stops[index]);
