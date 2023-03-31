@@ -7,10 +7,10 @@ import 'dart:developer' as developer;
 
 // Widget showin a list of stops
 class StopListWidget extends StatelessWidget {
-  const StopListWidget({this.ids, this.searchName, Key? key}) : super(key: key);
+  const StopListWidget({this.ids, this.searchName, this.maxResults, Key? key}) : super(key: key);
   final List<String>? ids;
   final String? searchName;
-
+  final int? maxResults;
   @override 
   Widget build(BuildContext context) {
     return Query$StopData$Widget(
@@ -18,6 +18,7 @@ class StopListWidget extends StatelessWidget {
         variables: Variables$Query$StopData(
           ids: ids?.toList(),
           name: searchName,
+          maxResults: maxResults,
         )
       ),
       builder: stopListBuilder,

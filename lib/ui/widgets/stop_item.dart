@@ -20,16 +20,46 @@ class StopItemWidget extends StatelessWidget {
     final stop = stopMaybe!;
     final iconButton = getSaveIconButton(stop);
 
-    List<Widget>? stopTimes = stop.stoptimesWithoutPatterns?.map(
+    List<Widget> stopTimes = stop.stoptimesWithoutPatterns?.map(
       (e) => StopTimeWidget(e)
-    ).toList();
+    ).toList() ?? [];
+    if(stopTimes.isEmpty){
+      stopTimes = <Widget>[
+        const Card(child: ListTile(
+          title: Text("No departures"),
+        ))
+      ];
+    }
+    List<InlineSpan> titleText = [];
+    if(stop.platformCode != null) {
+      titleText.add(TextSpan(
+        text: ' ' + stop.platformCode!,
+      ));
+    }
+    List<InlineSpan> subtitle = [];
+    if(stop.code != null){
+      subtitle.add(TextSpan(text: stop.code));
+    }
+    if(stop.desc != null){
+      subtitle.add(TextSpan(text: ', ' + stop.desc!));
+    }
 
+    if(stop.vehicleMode != null){
+      subtitle.add(TextSpan(text: ', ' + stop.vehicleMode!.name));
+    }
+    if(stop.zoneId != null){
+      subtitle.add(TextSpan(text: ', zone: ' + stop.zoneId!));
+    }
     return Card(
+      
       child: ExpansionTile(
-        title: Text(stop.name),
-        subtitle: stop.code == null ? null : Text(stop.code!),
+        title: Text.rich(
+          TextSpan(text: stop.name, 
+          children: titleText
+        )),
+        subtitle: Text.rich(TextSpan(text: '', children: subtitle)),
         trailing: iconButton,
-        children: stopTimes ?? <Widget>[const Text("No departures")],
+        children: stopTimes,
         controlAffinity: ListTileControlAffinity.leading,
       )
     );
