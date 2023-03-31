@@ -1,4 +1,7 @@
+import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
+import 'package:graphql/client.dart' as graphql;
+import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
 class Variables$Query$StopData {
   factory Variables$Query$StopData({
@@ -432,6 +435,128 @@ const documentNodeQueryStopData = DocumentNode(definitions: [
     ]),
   ),
 ]);
+Query$StopData _parserFn$Query$StopData(Map<String, dynamic> data) =>
+    Query$StopData.fromJson(data);
+
+class Options$Query$StopData extends graphql.QueryOptions<Query$StopData> {
+  Options$Query$StopData({
+    String? operationName,
+    Variables$Query$StopData? variables,
+    graphql.FetchPolicy? fetchPolicy,
+    graphql.ErrorPolicy? errorPolicy,
+    graphql.CacheRereadPolicy? cacheRereadPolicy,
+    Object? optimisticResult,
+    Duration? pollInterval,
+    graphql.Context? context,
+  }) : super(
+          variables: variables?.toJson() ?? {},
+          operationName: operationName,
+          fetchPolicy: fetchPolicy,
+          errorPolicy: errorPolicy,
+          cacheRereadPolicy: cacheRereadPolicy,
+          optimisticResult: optimisticResult,
+          pollInterval: pollInterval,
+          context: context,
+          document: documentNodeQueryStopData,
+          parserFn: _parserFn$Query$StopData,
+        );
+}
+
+class WatchOptions$Query$StopData
+    extends graphql.WatchQueryOptions<Query$StopData> {
+  WatchOptions$Query$StopData({
+    String? operationName,
+    Variables$Query$StopData? variables,
+    graphql.FetchPolicy? fetchPolicy,
+    graphql.ErrorPolicy? errorPolicy,
+    graphql.CacheRereadPolicy? cacheRereadPolicy,
+    Object? optimisticResult,
+    graphql.Context? context,
+    Duration? pollInterval,
+    bool? eagerlyFetchResults,
+    bool carryForwardDataOnException = true,
+    bool fetchResults = false,
+  }) : super(
+          variables: variables?.toJson() ?? {},
+          operationName: operationName,
+          fetchPolicy: fetchPolicy,
+          errorPolicy: errorPolicy,
+          cacheRereadPolicy: cacheRereadPolicy,
+          optimisticResult: optimisticResult,
+          context: context,
+          document: documentNodeQueryStopData,
+          pollInterval: pollInterval,
+          eagerlyFetchResults: eagerlyFetchResults,
+          carryForwardDataOnException: carryForwardDataOnException,
+          fetchResults: fetchResults,
+          parserFn: _parserFn$Query$StopData,
+        );
+}
+
+class FetchMoreOptions$Query$StopData extends graphql.FetchMoreOptions {
+  FetchMoreOptions$Query$StopData({
+    required graphql.UpdateQuery updateQuery,
+    Variables$Query$StopData? variables,
+  }) : super(
+          updateQuery: updateQuery,
+          variables: variables?.toJson() ?? {},
+          document: documentNodeQueryStopData,
+        );
+}
+
+extension ClientExtension$Query$StopData on graphql.GraphQLClient {
+  Future<graphql.QueryResult<Query$StopData>> query$StopData(
+          [Options$Query$StopData? options]) async =>
+      await this.query(options ?? Options$Query$StopData());
+  graphql.ObservableQuery<Query$StopData> watchQuery$StopData(
+          [WatchOptions$Query$StopData? options]) =>
+      this.watchQuery(options ?? WatchOptions$Query$StopData());
+  void writeQuery$StopData({
+    required Query$StopData data,
+    Variables$Query$StopData? variables,
+    bool broadcast = true,
+  }) =>
+      this.writeQuery(
+        graphql.Request(
+          operation: graphql.Operation(document: documentNodeQueryStopData),
+          variables: variables?.toJson() ?? const {},
+        ),
+        data: data.toJson(),
+        broadcast: broadcast,
+      );
+  Query$StopData? readQuery$StopData({
+    Variables$Query$StopData? variables,
+    bool optimistic = true,
+  }) {
+    final result = this.readQuery(
+      graphql.Request(
+        operation: graphql.Operation(document: documentNodeQueryStopData),
+        variables: variables?.toJson() ?? const {},
+      ),
+      optimistic: optimistic,
+    );
+    return result == null ? null : Query$StopData.fromJson(result);
+  }
+}
+
+graphql_flutter.QueryHookResult<Query$StopData> useQuery$StopData(
+        [Options$Query$StopData? options]) =>
+    graphql_flutter.useQuery(options ?? Options$Query$StopData());
+graphql.ObservableQuery<Query$StopData> useWatchQuery$StopData(
+        [WatchOptions$Query$StopData? options]) =>
+    graphql_flutter.useWatchQuery(options ?? WatchOptions$Query$StopData());
+
+class Query$StopData$Widget extends graphql_flutter.Query<Query$StopData> {
+  Query$StopData$Widget({
+    widgets.Key? key,
+    Options$Query$StopData? options,
+    required graphql_flutter.QueryBuilder<Query$StopData> builder,
+  }) : super(
+          key: key,
+          options: options ?? Options$Query$StopData(),
+          builder: builder,
+        );
+}
 
 class Query$StopData$stops {
   Query$StopData$stops({

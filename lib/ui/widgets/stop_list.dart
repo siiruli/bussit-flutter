@@ -14,14 +14,19 @@ class StopListWidget extends StatelessWidget {
 
   @override 
   Widget build(BuildContext context) {
-    final opts = stopQueryOptions(ids: ids?.toList(), name: searchName);
-
-    developer.log('query options: ' + ids.toString() + searchName.toString(), name: 'bussit.stop_list');
-
-    return Query(options: opts, builder: stopListBuilder); 
+    return Query$StopData$Widget(
+      options: Options$Query$StopData(
+        variables: Variables$Query$StopData(
+          ids: ids?.toList(),
+          name: searchName,
+        )
+      ),
+      builder: stopListBuilder,
+    );
   }
 }
-// Build one item of a stop list
+
+
 Widget stopItemBuilder(Query$StopData$stops? stop){
 
   if(stop == null){

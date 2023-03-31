@@ -17,29 +17,6 @@ getHslApiClient(){
   return client;
 }
 
-// Get an options object for a stop query
-stopQueryOptions({List<String>? ids, name, maxResults}) {
-  const String query = """
-query StopData(\$ids: [String], \$name: String, \$maxResults: Int){
-  stops(ids: \$ids, name: \$name, maxResults: \$maxResults) {
-    name
-    gtfsId
-    code
-  }
-}
-""";
-  developer.log('ID list: ' + ids.toString(), name: 'my.app.category');
-  final opts = QueryOptions(
-    document: gql(query),
-    variables: {
-      'name': name,
-      'maxResults': maxResults,
-      'ids': ids,
-    },
-  );
-  return opts;
-}
-
 
 // Convert a stop query result into a list of Stops
 List<Query$StopData$stops?>? convertStopQueryResult(QueryResult result){
