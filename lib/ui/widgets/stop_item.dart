@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../graphql/stops_query.graphql.dart';
 import '../../model/saved_stops.dart';
-
+import 'package:intl/intl.dart';
 
 
 
@@ -47,17 +47,26 @@ class StopTimeWidget extends StatelessWidget {
     }
     String busName = stoptime?.trip?.route.shortName ?? "unnamed";
     busName += ' ' + (stoptime?.headsign ?? "-");
+    Widget? depTime = getDepartureTime(
+      stoptime?.serviceDay,
+      stoptime?.realtimeDeparture
+    );
     return Card(
       child: ListTile(
         title: Text(busName),
-        leading: getDepartureTime(stoptime?.realtimeDeparture),
+        leading: depTime,
       ),
     );
   }
 }
 
-Widget getDepartureTime(int? time){
-  String timeStr = time?.toString() ?? "--";
+Widget getDepartureTime(int? serviceDay, int? depTime){
+  if(serviceDay == null || depTime == null){
+    return const Text("--:--");
+  }
+  DateTime time = DateTime.fromMillisecondsSinceEpoch((serviceDay+depTime)*1000);
+  
+  String timeStr = DateFormat('kk:mm:ss').format(time);
   return Text(timeStr);
 }
 Widget getSaveIconButton(stop){
