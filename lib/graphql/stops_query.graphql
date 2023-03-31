@@ -4,5 +4,33 @@ query StopData($ids: [String], $name: String, $maxResults: Int){
     name
     gtfsId
     code
+    desc
+    zoneId
+    vehicleMode
+    locationType
+    platformCode
+    parentStation {
+      name
+    }
+    cluster {
+      name
+    }
+    stoptimesWithoutPatterns {
+      scheduledArrival
+      realtimeArrival
+      arrivalDelay
+      scheduledDeparture
+      realtimeDeparture
+      departureDelay
+      realtime
+      realtimeState
+      serviceDay
+      headsign
+      trip {
+        route {
+          shortName
+        }
+      }
+    }
   }
 }

@@ -6,4 +6,10 @@ targets:
           clients:
             - graphql
             - graphql_flutter
+          scalars:
+            Long:
+              type: int
+              fromJsonFunctionName: longFromJson
+              toJsonFunctionName: longToJson
+              import: package:bussit/graphql/scalar.dart
 
