@@ -2,8 +2,6 @@
 
 
 import 'dart:collection';
-
-import 'package:bussit/model/stop_model.dart';
 import 'package:flutter/material.dart';
 
 class SavedStopIds extends ChangeNotifier {

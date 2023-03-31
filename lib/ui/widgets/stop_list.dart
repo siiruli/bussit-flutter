@@ -1,11 +1,10 @@
-import 'dart:js';
-
+import 'package:bussit/graphql/stops_query.graphql.dart';
 import 'package:bussit/model/saved_stops.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:bussit/data/hsl_api.dart';
-import 'package:bussit/model/stop_model.dart';
 import 'package:provider/provider.dart';
+import 'dart:developer' as developer;
 
 // Widget showin a list of stops
 class StopListWidget extends StatelessWidget {
@@ -15,27 +14,34 @@ class StopListWidget extends StatelessWidget {
 
   @override 
   Widget build(BuildContext context) {
-    final opts = stopQueryOptions(ids: ids, name: searchName);
+    final opts = stopQueryOptions(ids: ids?.toList(), name: searchName);
+
+    developer.log('query options: ' + ids.toString() + searchName.toString(), name: 'bussit.stop_list');
+
     return Query(options: opts, builder: stopListBuilder); 
   }
 }
 // Build one item of a stop list
-Widget stopItemBuilder(Stop stop){
+Widget stopItemBuilder(Query$StopData$stops? stop){
+
+  if(stop == null){
+    return const Text("Stop is null");
+  }
   const saveIcon = Icon(Icons.save_alt);
   const deleteIcon = Icon(Icons.delete_forever);
 
 
   final iconButton = Consumer<SavedStopIds>(
     builder: (context, savedIds, child) {
-      if(savedIds.isSaved(stop.id)){
+      if(savedIds.isSaved(stop.gtfsId)){
         return IconButton(
-          onPressed: () => savedIds.remove(stop.id), 
+          onPressed: () => savedIds.remove(stop.gtfsId), 
           icon: deleteIcon,
         );
       }
       else{
         return IconButton(
-          onPressed: () => savedIds.add(stop.id), 
+          onPressed: () => savedIds.add(stop.gtfsId), 
           icon: saveIcon,
         );
       }
@@ -45,26 +51,34 @@ Widget stopItemBuilder(Stop stop){
   return Card(
     child: ListTile(
       title: Text(stop.name),
-      subtitle: Text(stop.code),
+      subtitle: stop.code == null ? null : Text(stop.code!),
       trailing: iconButton,
     )
   );
 }
 // Build a stop list from a query result
 Widget stopListBuilder(QueryResult result, { VoidCallback? refetch, FetchMore? fetchMore }){
+  developer.log('Query result: ' + result.toString(), name: 'my.app.category');
+  final tmp = result.data?['stops'];
+  developer.log('Query data: ' + tmp.toString(), name: 'my.app.category');
+  
+  
+  
   if (result.hasException) {
     return Text(result.exception.toString());
   }
 
   if (result.isLoading) {
-    return const Text('Loading');
+    return const Text('Loading...');
   }
-
-  List<Stop>? stops = convertStopQueryResult(result);
-  if(stops == null){
+  List<Query$StopData$stops?>? stops = convertStopQueryResult(result);
+  if(stops == null || stops.isEmpty){
+    developer.log('zero stops: ' + stops.toString(), name: 'my.app.category');
+    
     return const Text('No stops');
   }
 
+  
   return ListView.builder(
     shrinkWrap: true,
     itemCount: stops.length,

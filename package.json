@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "get-graphql-schema": "^2.1.2",
+    "graphql-cli": "^4.1.0"
+  },
+  "devDependencies": {
+    "graphql-cli": "4.1.0"
+  }
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:bussit/model/stop_model.dart';
+import 'package:bussit/graphql/stops_query.graphql.dart';
+import 'dart:developer' as developer;
 
 // Get the api client for GraphQlProvider
 getHslApiClient(){
@@ -17,7 +18,7 @@ getHslApiClient(){
 }
 
 // Get an options object for a stop query
-stopQueryOptions({ids, name, maxResults}) {
+stopQueryOptions({List<String>? ids, name, maxResults}) {
   const String query = """
 query StopData(\$ids: [String], \$name: String, \$maxResults: Int){
   stops(ids: \$ids, name: \$name, maxResults: \$maxResults) {
@@ -27,6 +28,7 @@ query StopData(\$ids: [String], \$name: String, \$maxResults: Int){
   }
 }
 """;
+  developer.log('ID list: ' + ids.toString(), name: 'my.app.category');
   final opts = QueryOptions(
     document: gql(query),
     variables: {
@@ -38,21 +40,15 @@ query StopData(\$ids: [String], \$name: String, \$maxResults: Int){
   return opts;
 }
 
-// convert one stop from the result into a Stop object
-Stop convertToStop(stop){
-  return Stop(stop['gtfsId'], stop['name'], stop['code']);
-}
 
 // Convert a stop query result into a list of Stops
-List<Stop>? convertStopQueryResult(QueryResult result){
-
-  List? stops = result.data?['stops'];
-
-  if (stops == null) {
+List<Query$StopData$stops?>? convertStopQueryResult(QueryResult result){
+  if(result.data == null){
     return null;
   }
+  
+  final data =  Query$StopData.fromJson(result.data!).stops;
+  developer.log('Data: ' + result.data.toString(), name: 'my.app.category');
 
-  List<Stop> stopList = stops.map(convertToStop).toList();
-
-  return stopList;
+  return data;
 }

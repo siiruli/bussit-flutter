@@ -1,0 +1,8 @@
+
+query StopData($ids: [String], $name: String, $maxResults: Int){
+  stops(ids: $ids, name: $name, maxResults: $maxResults) {
+    name
+    gtfsId
+    code
+  }
+}
