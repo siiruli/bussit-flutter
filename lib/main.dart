@@ -1,11 +1,16 @@
 import 'package:bussit/data/hsl_api.dart';
+import 'package:bussit/database/database.dart';
 import 'package:bussit/model/saved_stops.dart';
 import 'package:bussit/ui/saved_stops_view.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-void main() {
+import 'dart:developer' as developer;
 
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+ 
   runApp(const MyApp());
 }
 
