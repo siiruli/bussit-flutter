@@ -95,8 +95,12 @@ Widget getDepartureTime(int? serviceDay, int? depTime){
     return const Text("--:--");
   }
   DateTime time = DateTime.fromMillisecondsSinceEpoch((serviceDay+depTime)*1000);
-  
-  String timeStr = DateFormat('kk:mm:ss').format(time);
+  DateTime now = DateTime.now();  
+
+  Duration timeLeft = time.difference(now);
+
+  String timeStr = DateFormat('kk:mm').format(time);
+  timeStr += ' ${timeLeft.inMinutes.toString()} min';
   return Text(timeStr);
 }
 Widget getSaveIconButton(stop){

@@ -1,33 +1,40 @@
 import 'package:bussit/graphql/stops_query.graphql.dart';
 import 'package:bussit/ui/widgets/stop_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:bussit/data/hsl_api.dart';
 import 'dart:developer' as developer;
 
 // Widget showin a list of stops
-class StopListWidget extends StatelessWidget {
+class StopListWidget extends HookWidget {
   const StopListWidget({this.ids, this.searchName, this.maxResults, Key? key}) : super(key: key);
   final List<String>? ids;
   final String? searchName;
   final int? maxResults;
   @override 
   Widget build(BuildContext context) {
-    return Query$StopData$Widget(
-      options: Options$Query$StopData(
+
+    final result = useQuery$StopData(
+      Options$Query$StopData(
+        // fetchResults: true,
+        fetchPolicy: FetchPolicy.cacheAndNetwork,
         variables: Variables$Query$StopData(
           ids: ids?.toList(),
           name: searchName,
           maxResults: maxResults,
-        )
-      ),
-      builder: stopListBuilder,
+        ),
+        pollInterval: const Duration(seconds: 5),
+      )
     );
+    return stopListBuilder(result.result);
   }
 }
 // Build a stop list from a query result
-Widget stopListBuilder(QueryResult result, { VoidCallback? refetch, FetchMore? fetchMore }){
-    
+Widget stopListBuilder(QueryResult? result, { VoidCallback? refetch, FetchMore? fetchMore }){
+  if(result == null){
+    return const Text("No result...");
+  }
   if (result.hasException) {
     return Text(result.exception.toString());
   }
