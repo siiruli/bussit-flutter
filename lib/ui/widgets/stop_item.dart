@@ -1,5 +1,8 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 
 import '../../graphql/stops_query.graphql.dart';
@@ -77,7 +80,7 @@ class StopTimeWidget extends StatelessWidget {
     }
     String busName = stoptime?.trip?.route.shortName ?? "unnamed";
     busName += ' ' + (stoptime?.headsign ?? "-");
-    Widget? depTime = getDepartureTime(
+    Widget? depTime = DepartureTimeWidget(
       stoptime?.serviceDay,
       stoptime?.realtimeDeparture
     );
@@ -90,19 +93,53 @@ class StopTimeWidget extends StatelessWidget {
   }
 }
 
-Widget getDepartureTime(int? serviceDay, int? depTime){
-  if(serviceDay == null || depTime == null){
-    return const Text("--:--");
+Widget formatDuration(Duration duration){
+  int minutes = duration.inMinutes;
+  int seconds = duration.inSeconds.remainder(60);
+  String text;
+
+  if(minutes.abs() == 0){
+    text = '${seconds.toString()}s';
   }
-  DateTime time = DateTime.fromMillisecondsSinceEpoch((serviceDay+depTime)*1000);
-  DateTime now = DateTime.now();  
-
-  Duration timeLeft = time.difference(now);
-
-  String timeStr = DateFormat('kk:mm').format(time);
-  timeStr += ' ${timeLeft.inMinutes.toString()} min';
-  return Text(timeStr);
+  else{
+    text = '${minutes.toString()}min';
+    if(minutes.abs() < 5) {
+      text += ' ${seconds.abs().toString()}s';
+    }
+  }
+  final color = duration.isNegative ? Colors.red : Colors.green;
+  return Text(
+    text,
+    style: TextStyle(color: color),
+  );
 }
+
+class DepartureTimeWidget extends StatelessWidget {
+  const DepartureTimeWidget(this.serviceDay, this.depTime, {Key? key}) : super(key: key);
+  final int? serviceDay;
+  final int? depTime;
+
+  @override
+  Widget build(BuildContext context){
+    if(serviceDay == null || depTime == null){
+      return const Text("--:--");
+    }
+    
+    DateTime time = DateTime.fromMillisecondsSinceEpoch(
+      (serviceDay!+depTime!)*1000
+    );
+    DateTime now = DateTime.now().add(const Duration(seconds: 5));  
+
+    final timeStr = Text(DateFormat('kk:mm').format(time));
+    final timeLeft = formatDuration(time.difference(now));
+    return Column(
+      children: [timeStr, timeLeft],
+      mainAxisAlignment: MainAxisAlignment.center,
+    );
+  }
+
+}
+
 Widget getSaveIconButton(stop){
 const saveIcon = Icon(Icons.save_alt);
   const deleteIcon = Icon(Icons.delete_forever);
