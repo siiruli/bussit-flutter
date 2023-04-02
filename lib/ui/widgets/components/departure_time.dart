@@ -15,9 +15,10 @@ class DepartureTimeWidget extends StatelessWidget {
     DateTime time = DateTime.fromMillisecondsSinceEpoch(
       (serviceDay!+depTime!)*1000
     );
-    DateTime now = DateTime.now().add(const Duration(seconds: 5));  
+    DateTime now = DateTime.now().add(const Duration(seconds: 5));
 
-    final timeStr = Text(DateFormat('kk:mm').format(time));
+    Locale locale = Localizations.localeOf(context);
+    final timeStr = Text(DateFormat.Hm(locale.toLanguageTag()).format(time));
     final timeLeft = formatDuration(time.difference(now));
     return Column(
       children: [timeStr, timeLeft],
