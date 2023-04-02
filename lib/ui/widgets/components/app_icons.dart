@@ -38,13 +38,13 @@ class TransitMode {
 
 class TransitModeData {
   static final _transitModeData = {
-    Enum$Mode.BUS:TransitMode(Colors.blue, Icons.square),
-    Enum$Mode.RAIL:TransitMode(Colors.purple, Icons.square),
-    Enum$Mode.SUBWAY:TransitMode(Colors.orange, Icons.square),
-    Enum$Mode.WALK:TransitMode(Colors.black, Icons.square),
-    Enum$Mode.FERRY:TransitMode(Colors.cyan, Icons.square),
-    Enum$Mode.TRAM:TransitMode(Colors.green, Icons.square),
-    Enum$Mode.BICYCLE:TransitMode(Colors.blueGrey, Icons.square),
+    Enum$Mode.BUS:TransitMode(Colors.blue, Icons.directions_bus_filled),
+    Enum$Mode.RAIL:TransitMode(Colors.purple, Icons.directions_railway_filled),
+    Enum$Mode.SUBWAY:TransitMode(Colors.orange, Icons.directions_subway_filled),
+    Enum$Mode.WALK:TransitMode(Colors.black, Icons.directions_walk),
+    Enum$Mode.FERRY:TransitMode(Colors.cyan, Icons.directions_ferry),
+    Enum$Mode.TRAM:TransitMode(Colors.green, Icons.tram),
+    Enum$Mode.BICYCLE:TransitMode(Colors.blueGrey, Icons.directions_bike),
   };
 
   static TransitMode transitModeIcon(Enum$Mode? mode){
