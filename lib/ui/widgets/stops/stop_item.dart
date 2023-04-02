@@ -1,4 +1,5 @@
 
+import 'package:bussit/ui/widgets/components/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bussit/graphql/stops_query.graphql.dart';
@@ -42,13 +43,6 @@ class StopItemWidget extends StatelessWidget {
     if(stop.desc != null){
       subtitle.add(TextSpan(text: ', ' + stop.desc!));
     }
-
-    if(stop.vehicleMode != null){
-      subtitle.add(TextSpan(text: ', ' + stop.vehicleMode!.name));
-    }
-    if(stop.zoneId != null){
-      subtitle.add(TextSpan(text: ', zone: ' + stop.zoneId!));
-    }
     return Card(
       
       child: ExpansionTile(
@@ -57,7 +51,14 @@ class StopItemWidget extends StatelessWidget {
           children: titleText
         )),
         subtitle: Text.rich(TextSpan(text: '', children: subtitle)),
-        trailing: iconButton,
+        trailing: Row(
+          children: [
+            TransitModeIcon(stop.vehicleMode), 
+            ZoneIdIcon(stop.zoneId),
+            iconButton,
+          ],
+          mainAxisSize: MainAxisSize.min,
+        ),
         children: stopTimes,
         controlAffinity: ListTileControlAffinity.leading,
       )
