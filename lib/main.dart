@@ -26,6 +26,9 @@ class MyApp extends StatelessWidget {
           title: 'Bussit',
           theme: ThemeData(
             primarySwatch: Colors.blue,
+            listTileTheme: const ListTileThemeData(
+              minLeadingWidth: 0,
+            ),
           ),
           home: const MyHomePage(title: 'Stop list'),
         ),
