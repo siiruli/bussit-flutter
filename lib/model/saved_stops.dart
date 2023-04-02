@@ -1,14 +1,13 @@
 import 'dart:collection';
 import 'package:bussit/database/database.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:bussit/database/stop_dao.dart';
 import 'dart:developer' as developer;
 
 class SavedStopIds extends ChangeNotifier {
 
   final List<String> _list = [];
-  AppDatabase? _database = null;
+  AppDatabase? _database;
   
 
   UnmodifiableListView<String> get ids => UnmodifiableListView(_list);
