@@ -15,10 +15,45 @@ class RouteView extends StatefulWidget {
 
 class _RouteViewState extends State<RouteView> {
 
+  
+
   @override
   Widget build(BuildContext context) {
     // List stops that is rebuilt when the id-list changes
-    return Text("Routes");
+    return Padding(
+      padding: const EdgeInsets.all(8), 
+      child: Form(
+        child: Column(children: const [
+          LocationField(hint: "From...",),
+          LocationField(hint: "To...",)
+        ])
+      ),
+    );
   }
 
 }
+
+class LocationField extends StatefulWidget {
+  const LocationField({this.hint, Key? key}) : super(key: key);
+
+  final hint;
+
+  @override
+  State<LocationField> createState() => _LocationFieldState();
+
+}
+
+class _LocationFieldState extends State<LocationField> {
+
+  
+
+  @override
+  Widget build(BuildContext context) {
+    // List stops that is rebuilt when the id-list changes
+    return TextFormField(
+      decoration: InputDecoration(hintText: widget.hint),
+    );
+  }
+
+}
+
