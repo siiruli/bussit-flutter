@@ -26,21 +26,7 @@ class _StopsViewState extends State<StopsView> {
       },
     );
 
-    return Scaffold(
-      appBar: AppBar(title: const Text("Saved stops"),),
-      body: stopList,
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const SearchStops()
-            )
-          );
-        },
-        tooltip: 'Find stops',
-        child: const Icon(Icons.add),
-      ),
-    );
+    return stopList;
   }
 
 }

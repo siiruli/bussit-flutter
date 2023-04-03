@@ -1,6 +1,8 @@
 import 'package:bussit/data/hsl_api.dart';
 import 'package:bussit/model/saved_stops.dart';
+import 'package:bussit/ui/route_view.dart';
 import 'package:bussit/ui/saved_stops_view.dart';
+import 'package:bussit/ui/stop_search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
@@ -18,20 +20,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final app = MaterialApp(
+      title: 'Bussit',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        listTileTheme: const ListTileThemeData(
+          minLeadingWidth: 0,
+        ),
+      ),
+      home: const MyHomePage(title: "Bussit",),
+    );
+
+    // Wrap the app with providers
     return GraphQLProvider( 
       client: getHslApiClient(),
       child: ChangeNotifierProvider(
         create: (context) => SavedStopIds(),
-        child: MaterialApp(
-          title: 'Bussit',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            listTileTheme: const ListTileThemeData(
-              minLeadingWidth: 0,
-            ),
-          ),
-          home: const MyHomePage(title: 'Stop list'),
-        ),
+        child: app,
       ),
     );
   }
@@ -46,10 +51,60 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+  final _tabTitle = [
+    'Saved stops',
+    'Find Route',
+  ];
+  final _tabIcon = [
+    const Icon(Icons.directions_bus),
+    const Icon(Icons.route),
+  ];
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: _tabIcon.length);
+    _tabController.addListener(() {
+      setState((){});
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const StopsView();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_tabTitle[_tabController.index]),
+        bottom: TabBar(
+          controller: _tabController,
+          isScrollable: false,
+          tabs: _tabIcon.map((e) => Tab(icon: e)).toList(),
+        ),
+      ),
+      // body: StopsView(),
+      body: TabBarView(
+        controller: _tabController,
+        children: const [StopsView(), RouteView()],
+      ),
+      floatingActionButton: (_tabController.index != 0) ? 
+        null : FloatingActionButton(
+        onPressed: (){
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const SearchStops()
+            )
+          );
+        },
+        tooltip: 'Find stops',
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }
