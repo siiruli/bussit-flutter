@@ -39,7 +39,7 @@ class _SearchStopsState extends State<SearchStops> {
       body: Column(
         children: [
           searchNameField,
-          Expanded(child: StopListWidget(searchName: searchName, maxResults: 15,)),
+          Expanded(child: StopListWidget(searchName: searchName, maxResults: 10,)),
         ],
       ),
     );

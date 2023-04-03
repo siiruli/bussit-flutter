@@ -22,7 +22,7 @@ class StopListWidget extends HookWidget {
         variables: Variables$Query$StopData(
           ids: ids?.toList(),
           name: searchName,
-          maxResults: maxResults,
+          maxResults: (searchName == '') ? 0 : maxResults,
         ),
         pollInterval: const Duration(seconds: 5),
       )
@@ -42,7 +42,7 @@ Widget stopListBuilder(QueryResult? result, { VoidCallback? refetch, FetchMore? 
   if (result.isLoading) {
     return const Text('Loading...');
   }
-  List<Query$StopData$stops?>? stops = convertStopQueryResult(result);
+  List<dynamic>? stops = convertStopQueryResult(result);
   if(stops == null || stops.isEmpty){
     developer.log('zero stops: ' + stops.toString(), name: 'my.app.category');
     

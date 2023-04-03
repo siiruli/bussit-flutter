@@ -10,19 +10,27 @@ import 'package:bussit/ui/widgets/components/departure_time.dart';
 
 class StopItemWidget extends StatelessWidget {
   const StopItemWidget(this.stopMaybe, {Key? key}) : super(key: key);
-  final Query$StopData$stops? stopMaybe;
+  final dynamic stopMaybe;
 
   @override
   Widget build(BuildContext context){
     if(stopMaybe == null){
       return const Text("Stop is null");
     }
+    if((stopMaybe !is Query$StopData$stations?) && 
+        (stopMaybe !is Query$StopData$stops?)
+    ){
+      return const Text("Wrong type");
+    }
     final stop = stopMaybe!;
+
     final iconButton = getSaveIconButton(stop);
 
-    List<Widget> stopTimes = stop.stoptimesWithoutPatterns?.map(
+    List? stopTimeData = stop.stoptimesWithoutPatterns;
+    List<Widget> stopTimes = stopTimeData?.map(
       (e) => StopTimeWidget(e)
-    ).toList() ?? [];
+    ).toList() ?? <Widget>[];
+    
     if(stopTimes.isEmpty){
       stopTimes = <Widget>[
         const Card(child: ListTile(
@@ -36,13 +44,13 @@ class StopItemWidget extends StatelessWidget {
         text: ' ' + stop.platformCode!,
       ));
     }
-    List<InlineSpan> subtitle = [];
-    if(stop.code != null){
-      subtitle.add(TextSpan(text: stop.code));
-    }
-    if(stop.desc != null){
-      subtitle.add(TextSpan(text: ', ' + stop.desc!));
-    }
+    List<String?> subtitleTexts = [
+      (stop is Query$StopData$stations)? "Station" : stop.code,
+      stop.desc,
+    ];
+    subtitleTexts = subtitleTexts.where((element) => element != null).toList();
+    List<Widget> subtitle = subtitleTexts.map((e) => Text(e! + ' ')).toList(); 
+    
     return Card(
       
       child: ExpansionTile(
@@ -50,9 +58,9 @@ class StopItemWidget extends StatelessWidget {
           TextSpan(text: stop.name, 
           children: titleText
         )),
-        subtitle: Text.rich(TextSpan(text: '', children: subtitle)),
+        subtitle: Row(children: subtitle),
         trailing: Row(
-          children: [
+          children: <Widget>[
             TransitModeIcon(stop.vehicleMode), 
             ZoneIdIcon(stop.zoneId),
             iconButton,
@@ -68,7 +76,7 @@ class StopItemWidget extends StatelessWidget {
 
 class StopTimeWidget extends StatelessWidget {
   const StopTimeWidget(this.stoptime, {Key? key}) : super(key: key);
-  final Query$StopData$stops$stoptimesWithoutPatterns? stoptime;
+  final dynamic stoptime;
 
   @override
   Widget build(BuildContext context){
@@ -79,12 +87,16 @@ class StopTimeWidget extends StatelessWidget {
     busName += ' ' + (stoptime?.headsign ?? "-");
     Widget? depTime = DepartureTimeWidget(
       stoptime?.serviceDay,
-      stoptime?.realtimeDeparture
+      stoptime?.realtimeDeparture, 
+      isRealTime: stoptime?.realtime,
     );
+    final platFormCode = stoptime?.stop?.platformCode;
+    final code = (platFormCode == null) ? null : Text(platFormCode);
     return Card(
       child: ListTile(
         title: Text(busName),
         leading: depTime,
+        trailing: code,
       ),
     );
   }

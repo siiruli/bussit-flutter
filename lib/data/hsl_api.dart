@@ -27,13 +27,20 @@ getHslApiClient(){
 
 
 // Convert a stop query result into a list of Stops
-List<Query$StopData$stops?>? convertStopQueryResult(QueryResult result){
+List<dynamic>? convertStopQueryResult(QueryResult result){
   if(result.data == null){
     return null;
   }
   
-  final data =  Query$StopData.fromJson(result.data!).stops;
-  developer.log('Data: ' + result.data.toString(), name: 'my.app.category');
+  final data =  Query$StopData.fromJson(result.data!);
 
-  return data;
+  // developer.log('Data: ' + result.data.toString(), name: 'my.app.category');
+  List res = [];
+  if(data.stations != null) {
+    res += data.stations!;
+  }
+  if(data.stops != null) {
+    res += data.stops!;
+  }
+  return res.where((element) => element != null).toList();
 }

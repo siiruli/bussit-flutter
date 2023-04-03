@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DepartureTimeWidget extends StatelessWidget {
-  const DepartureTimeWidget(this.serviceDay, this.depTime, {Key? key}) : super(key: key);
+  const DepartureTimeWidget(this.serviceDay, this.depTime, 
+    {
+      this.isRealTime, Key? key
+    }) : super(key: key);
   final int? serviceDay;
   final int? depTime;
+  final bool? isRealTime;
 
   @override
   Widget build(BuildContext context){
@@ -19,7 +23,7 @@ class DepartureTimeWidget extends StatelessWidget {
 
     Locale locale = Localizations.localeOf(context);
     final timeStr = Text(DateFormat.Hm(locale.toLanguageTag()).format(time));
-    final timeLeft = formatDuration(time.difference(now));
+    final timeLeft = formatDuration(time.difference(now), isRealTime);
     return Column(
       children: [timeStr, timeLeft],
       mainAxisAlignment: MainAxisAlignment.center,
@@ -28,7 +32,7 @@ class DepartureTimeWidget extends StatelessWidget {
 
 }
 
-Widget formatDuration(Duration duration){
+Widget formatDuration(Duration duration, bool? isRealTime){
   int minutes = duration.inMinutes;
   int seconds = duration.inSeconds.remainder(60);
   String text;
@@ -42,7 +46,10 @@ Widget formatDuration(Duration duration){
       text += ' ${seconds.abs().toString()}s';
     }
   }
-  final color = duration.isNegative ? Colors.red : Colors.green;
+  Color? color;
+  if(isRealTime != null && isRealTime == true) {
+    color = duration.isNegative ? Colors.red : Colors.green;
+  }
   return Text(
     text,
     style: TextStyle(color: color),
