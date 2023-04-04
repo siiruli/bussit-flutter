@@ -1,8 +1,8 @@
-import 'package:bussit/model/saved_stops.dart';
-import 'package:bussit/ui/stop_search_view.dart';
+import 'dart:async';
+
+import 'package:bussit/api/location_api.dart';
+import 'package:bussit/model/address.dart';
 import 'package:flutter/material.dart';
-import 'package:bussit/ui/widgets/stops/stop_list.dart';
-import 'package:provider/provider.dart';
 import 'dart:developer' as developer;
 
 class RouteView extends StatefulWidget {
@@ -36,22 +36,34 @@ class _RouteViewState extends State<RouteView> {
 class LocationField extends StatefulWidget {
   const LocationField({this.hint, Key? key}) : super(key: key);
 
-  final hint;
+  final String? hint;
 
   @override
   State<LocationField> createState() => _LocationFieldState();
 
 }
 
-class _LocationFieldState extends State<LocationField> {
+FutureOr<Iterable<Feature>> autocompleteBuilder(TextEditingValue value){
+  return fetchAutocomplete(value.text);
+}
 
-  
+String autocompleteOptionString(Feature feature){
+  return feature.properties.label;
+}
 
+class _LocationFieldState extends State<LocationField> {  
   @override
   Widget build(BuildContext context) {
-    // List stops that is rebuilt when the id-list changes
-    return TextFormField(
-      decoration: InputDecoration(hintText: widget.hint),
+    return Autocomplete<Feature>(
+      displayStringForOption: autocompleteOptionString,
+      optionsBuilder: autocompleteBuilder,
+      fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted){
+        return TextFormField(
+          focusNode: focusNode,
+          controller: textEditingController,
+          decoration: InputDecoration(hintText: widget.hint),
+        );
+      },
     );
   }
 

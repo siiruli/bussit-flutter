@@ -1,5 +1,4 @@
 import 'package:bussit/model/saved_stops.dart';
-import 'package:bussit/ui/stop_search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:bussit/ui/widgets/stops/stop_list.dart';
 import 'package:provider/provider.dart';

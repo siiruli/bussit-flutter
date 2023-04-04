@@ -3,7 +3,7 @@ import 'package:bussit/ui/widgets/stops/stop_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:bussit/data/hsl_api.dart';
+import 'package:bussit/api/hsl_api.dart';
 import 'dart:developer' as developer;
 
 // Widget showin a list of stops

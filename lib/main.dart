@@ -1,4 +1,4 @@
-import 'package:bussit/data/hsl_api.dart';
+import 'package:bussit/api/hsl_api.dart';
 import 'package:bussit/model/saved_stops.dart';
 import 'package:bussit/ui/route_view.dart';
 import 'package:bussit/ui/saved_stops_view.dart';

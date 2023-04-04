@@ -42,6 +42,8 @@ dependencies:
   flutter_hooks: ^0.18.3
   intl: ^0.18.0
   floor: ^1.4.1
+  json_serializable: ^6.6.1
+  json_annotation: ^4.8.0
 
 dev_dependencies:
   flutter_test:
@@ -100,5 +102,5 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 dependency_overrides:
-  web_socket_channel: ^2.2.0
+  web_socket_channel: 2.2.0
   analyzer: ^5.0.0

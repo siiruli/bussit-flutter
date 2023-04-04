@@ -1,18 +1,13 @@
-import 'package:bussit/auth/secrets.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:bussit/graphql/stops_query.graphql.dart';
-import 'dart:developer' as developer;
-
+import 'endpoints.dart' as endpoints;
 // Get the api client for GraphQlProvider
 getHslApiClient(){
-  const endPoint = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
+  const endPoint = endpoints.routingApi;
   final httpLink = HttpLink(
     endPoint,
-    defaultHeaders: <String,String>{
-      // The api key should be defined in auth/secrets.dart
-      'digitransit-subscription-key':hslApiKey,
-    }
+    defaultHeaders: endpoints.apiKeyHeader,
   );
   
   ValueNotifier<GraphQLClient> client = ValueNotifier(
