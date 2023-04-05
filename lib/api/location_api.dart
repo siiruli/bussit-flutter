@@ -14,7 +14,7 @@ Future<http.Response> getRequest(Map<String,String> params) async {
   );
 }
 
-Future<Iterable<Feature>> fetchAutocomplete(String text) async {
+Future<Iterable<Address>> fetchAutocomplete(String text) async {
   List<String> lat = ['59.9', '60.45'];
   List<String> lon = ['24.3', '25.5'];
   final response = await getRequest({
@@ -29,5 +29,5 @@ Future<Iterable<Feature>> fetchAutocomplete(String text) async {
     final AutoComplete data = AutoComplete.fromJson(jsonDecode(response.body));
     return data.features;
   };
-  return List<Feature>.empty();
+  return List<Address>.empty();
 }

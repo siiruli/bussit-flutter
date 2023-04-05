@@ -7,16 +7,20 @@ part 'address.g.dart';
 @JsonSerializable()
 class AutoComplete {
   AutoComplete({required this.features});
-  List<Feature> features;
+  List<Address> features;
   factory AutoComplete.fromJson(Map<String, dynamic> json) => _$AutoCompleteFromJson(json);
 }
 
 @JsonSerializable()
-class Feature {
-  Feature({required this.geometry, required this.properties});
+class Address {
+  Address({required this.geometry, required this.properties});
   Geometry geometry;
   Properties properties;
-  factory Feature.fromJson(Map<String, dynamic> json) => _$FeatureFromJson(json);
+  factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
+
+  String toString() {
+    return properties.label;
+  }
 }
 
 

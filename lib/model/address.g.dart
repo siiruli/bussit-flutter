@@ -8,7 +8,7 @@ part of 'address.dart';
 
 AutoComplete _$AutoCompleteFromJson(Map<String, dynamic> json) => AutoComplete(
       features: (json['features'] as List<dynamic>)
-          .map((e) => Feature.fromJson(e as Map<String, dynamic>))
+          .map((e) => Address.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -17,13 +17,13 @@ Map<String, dynamic> _$AutoCompleteToJson(AutoComplete instance) =>
       'features': instance.features,
     };
 
-Feature _$FeatureFromJson(Map<String, dynamic> json) => Feature(
+Address _$AddressFromJson(Map<String, dynamic> json) => Address(
       geometry: Geometry.fromJson(json['geometry'] as Map<String, dynamic>),
       properties:
           Properties.fromJson(json['properties'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$FeatureToJson(Feature instance) => <String, dynamic>{
+Map<String, dynamic> _$AddressToJson(Address instance) => <String, dynamic>{
       'geometry': instance.geometry,
       'properties': instance.properties,
     };
