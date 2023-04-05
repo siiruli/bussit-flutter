@@ -1,0 +1,22 @@
+
+query Itinerary(
+  $fromPlace: String,
+  $toPlace: String,
+  $nResults: Int,
+){
+  plan(
+    fromPlace: $fromPlace,
+    toPlace: $toPlace,
+    numItineraries: $nResults,
+  ) {
+    itineraries {
+      legs {
+        startTime
+        endTime
+        mode 
+        duration
+        distance
+      }
+    }
+  }
+}

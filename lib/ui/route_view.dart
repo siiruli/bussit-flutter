@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bussit/api/location_api.dart';
 import 'package:bussit/model/address.dart';
+import 'package:bussit/ui/widgets/routes/itinerary_item.dart';
+import 'package:bussit/ui/widgets/routes/itinerary_list.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 
@@ -24,38 +26,50 @@ class RouteForm extends StatefulWidget {
 class _RouteFormState extends State<RouteForm> {
 
   final _formKey = GlobalKey<FormState>();  
+  Address? _locationFrom, _locationTo;
+
 
   @override
   Widget build(BuildContext context) {
-    Address? locationFrom, locationTo;
   
     // List stops that is rebuilt when the id-list changes
-    return Padding(
+    final form = Padding(
       padding: const EdgeInsets.all(8), 
       child: Form(
         key: _formKey,
         child: Column(children: [
           LocationField(
             hint: "From...",
-            onSaved: (Address? value){locationFrom = value;},
+            onSaved: (Address? value){_locationFrom = value;},
           ),
           LocationField(
             hint: "To...",
-            onSaved: (Address? value){locationTo = value;},
+            onSaved: (Address? value){_locationTo = value;},
           ),
           TextButton(onPressed: (){
             if(_formKey.currentState!.validate()){
               _formKey.currentState!.save();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(locationFrom.toString() + ' -> ' + locationTo.toString()),
+                  content: Text(_locationFrom.toString() + ' -> ' + _locationTo.toString()),
                 ),
               );
+              setState(() {});
             }
-          }, child: Text("Search routes"))
+          }, child: const Text("Search routes"))
         ])
       ),
     );
+    final result = (_locationFrom == null || _locationTo == null) 
+      ? Text("No search") : ItineraryListWidget(
+        from: _locationFrom!,
+        to: _locationTo!,
+        nResults: 8,
+    );
+
+    return Column(children: [form, Card(child: result)],);
+
+
   }
 
 }

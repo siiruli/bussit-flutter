@@ -28,6 +28,9 @@ class Address {
 class Geometry {
   Geometry({required this.coordinates});
   List<num> coordinates;
+  num get lat {return coordinates[1];}
+  num get lon {return coordinates[0];}
+
   factory Geometry.fromJson(Map<String, dynamic> json) => _$GeometryFromJson(json);
 }
 
