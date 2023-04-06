@@ -89,12 +89,12 @@ class PlaceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    Widget res = Text('');
+    Widget res = const Text('');
     if(place.stop != null){
       res = StopItemWidget(place.stop);
     }
     else{
-      ListTile(
+      res = ListTile(
         title: Text(place.name),
       );
     } 
@@ -129,17 +129,17 @@ class LegItem extends StatelessWidget {
       info = Text(mins.toString() + 'min');
     }
     List<Widget> list = [
+      TransitModeIcon(leg?.mode),
       DepartureTimeWidget(
         milliseconds: leg?.startTime, 
         isRealTime: leg?.realTime,
       ),
-      TransitModeIcon(leg?.mode),
       desc,
-      Spacer(),
+      const Spacer(),
       info,
     ];
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 32),
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
       child:  Row(
         children: list
       ),
