@@ -75,7 +75,9 @@ List<Widget> legList(List<Query$Itinerary$plan$itineraries$legs?>? legs){
   List<Widget> items = [];
   items.add(PlaceItem(legs[0]?.from));
   for(Query$Itinerary$plan$itineraries$legs? leg in legs){
+    items.add(const Divider());
     items.add(LegItem(leg));
+    items.add(const Divider());
     items.add(PlaceItem(leg?.to));
   }
   return items;
@@ -87,9 +89,19 @@ class PlaceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    return Text(place.name ?? '');
+    Widget res = Text('');
+    if(place.stop != null){
+      res = StopItemWidget(place.stop);
+    }
+    else{
+      ListTile(
+        title: Text(place.name),
+      );
+    } 
+    return res;
   }
 }
+
 class LegItem extends StatelessWidget {
   const LegItem(this.leg, {Key? key}) : super(key: key);
   final Query$Itinerary$plan$itineraries$legs? leg;
@@ -116,20 +128,21 @@ class LegItem extends StatelessWidget {
       int mins = (leg!.duration! / 60).round();
       info = Text(mins.toString() + 'min');
     }
-    return ListTile(
-      leading: DepartureTimeWidget(
+    List<Widget> list = [
+      DepartureTimeWidget(
         milliseconds: leg?.startTime, 
         isRealTime: leg?.realTime,
       ),
-      title: Wrap(
-        spacing: 8,
-        direction: Axis.horizontal,
-        children: [
-          TransitModeIcon(leg?.mode),
-          desc,
-        ],
+      TransitModeIcon(leg?.mode),
+      desc,
+      Spacer(),
+      info,
+    ];
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 32),
+      child:  Row(
+        children: list
       ),
-      trailing: info,
     );
   }
 }

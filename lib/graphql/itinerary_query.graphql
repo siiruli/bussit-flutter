@@ -27,17 +27,27 @@ query Itinerary(
         from {
           name 
           stop {
-            code 
-            name 
+            name
             gtfsId
+            code
+            desc
+            zoneId
+            vehicleMode
+            locationType
+            platformCode
           }
         }
         to {
           name 
           stop {
-            code 
-            name 
+            name
             gtfsId
+            code
+            desc
+            zoneId
+            vehicleMode
+            locationType
+            platformCode
           }
         }
         trip {

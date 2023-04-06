@@ -474,13 +474,6 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
                         directives: [],
                         selectionSet: SelectionSetNode(selections: [
                           FieldNode(
-                            name: NameNode(value: 'code'),
-                            alias: null,
-                            arguments: [],
-                            directives: [],
-                            selectionSet: null,
-                          ),
-                          FieldNode(
                             name: NameNode(value: 'name'),
                             alias: null,
                             arguments: [],
@@ -489,6 +482,48 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
                           ),
                           FieldNode(
                             name: NameNode(value: 'gtfsId'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'code'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'desc'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'zoneId'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'vehicleMode'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'locationType'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'platformCode'),
                             alias: null,
                             arguments: [],
                             directives: [],
@@ -532,13 +567,6 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
                         directives: [],
                         selectionSet: SelectionSetNode(selections: [
                           FieldNode(
-                            name: NameNode(value: 'code'),
-                            alias: null,
-                            arguments: [],
-                            directives: [],
-                            selectionSet: null,
-                          ),
-                          FieldNode(
                             name: NameNode(value: 'name'),
                             alias: null,
                             arguments: [],
@@ -547,6 +575,48 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
                           ),
                           FieldNode(
                             name: NameNode(value: 'gtfsId'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'code'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'desc'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'zoneId'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'vehicleMode'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'locationType'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'platformCode'),
                             alias: null,
                             arguments: [],
                             directives: [],
@@ -1665,42 +1735,84 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$from<TRes>
 
 class Query$Itinerary$plan$itineraries$legs$from$stop {
   Query$Itinerary$plan$itineraries$legs$from$stop({
-    this.code,
     required this.name,
     required this.gtfsId,
+    this.code,
+    this.desc,
+    this.zoneId,
+    this.vehicleMode,
+    this.locationType,
+    this.platformCode,
     required this.$__typename,
   });
 
   factory Query$Itinerary$plan$itineraries$legs$from$stop.fromJson(
       Map<String, dynamic> json) {
-    final l$code = json['code'];
     final l$name = json['name'];
     final l$gtfsId = json['gtfsId'];
+    final l$code = json['code'];
+    final l$desc = json['desc'];
+    final l$zoneId = json['zoneId'];
+    final l$vehicleMode = json['vehicleMode'];
+    final l$locationType = json['locationType'];
+    final l$platformCode = json['platformCode'];
     final l$$__typename = json['__typename'];
     return Query$Itinerary$plan$itineraries$legs$from$stop(
-      code: (l$code as String?),
       name: (l$name as String),
       gtfsId: (l$gtfsId as String),
+      code: (l$code as String?),
+      desc: (l$desc as String?),
+      zoneId: (l$zoneId as String?),
+      vehicleMode: l$vehicleMode == null
+          ? null
+          : fromJson$Enum$Mode((l$vehicleMode as String)),
+      locationType: l$locationType == null
+          ? null
+          : fromJson$Enum$LocationType((l$locationType as String)),
+      platformCode: (l$platformCode as String?),
       $__typename: (l$$__typename as String),
     );
   }
-
-  final String? code;
 
   final String name;
 
   final String gtfsId;
 
+  final String? code;
+
+  final String? desc;
+
+  final String? zoneId;
+
+  final Enum$Mode? vehicleMode;
+
+  final Enum$LocationType? locationType;
+
+  final String? platformCode;
+
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
-    final l$code = code;
-    _resultData['code'] = l$code;
     final l$name = name;
     _resultData['name'] = l$name;
     final l$gtfsId = gtfsId;
     _resultData['gtfsId'] = l$gtfsId;
+    final l$code = code;
+    _resultData['code'] = l$code;
+    final l$desc = desc;
+    _resultData['desc'] = l$desc;
+    final l$zoneId = zoneId;
+    _resultData['zoneId'] = l$zoneId;
+    final l$vehicleMode = vehicleMode;
+    _resultData['vehicleMode'] =
+        l$vehicleMode == null ? null : toJson$Enum$Mode(l$vehicleMode);
+    final l$locationType = locationType;
+    _resultData['locationType'] = l$locationType == null
+        ? null
+        : toJson$Enum$LocationType(l$locationType);
+    final l$platformCode = platformCode;
+    _resultData['platformCode'] = l$platformCode;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -1708,14 +1820,24 @@ class Query$Itinerary$plan$itineraries$legs$from$stop {
 
   @override
   int get hashCode {
-    final l$code = code;
     final l$name = name;
     final l$gtfsId = gtfsId;
+    final l$code = code;
+    final l$desc = desc;
+    final l$zoneId = zoneId;
+    final l$vehicleMode = vehicleMode;
+    final l$locationType = locationType;
+    final l$platformCode = platformCode;
     final l$$__typename = $__typename;
     return Object.hashAll([
-      l$code,
       l$name,
       l$gtfsId,
+      l$code,
+      l$desc,
+      l$zoneId,
+      l$vehicleMode,
+      l$locationType,
+      l$platformCode,
       l$$__typename,
     ]);
   }
@@ -1729,11 +1851,6 @@ class Query$Itinerary$plan$itineraries$legs$from$stop {
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$code = code;
-    final lOther$code = other.code;
-    if (l$code != lOther$code) {
-      return false;
-    }
     final l$name = name;
     final lOther$name = other.name;
     if (l$name != lOther$name) {
@@ -1742,6 +1859,36 @@ class Query$Itinerary$plan$itineraries$legs$from$stop {
     final l$gtfsId = gtfsId;
     final lOther$gtfsId = other.gtfsId;
     if (l$gtfsId != lOther$gtfsId) {
+      return false;
+    }
+    final l$code = code;
+    final lOther$code = other.code;
+    if (l$code != lOther$code) {
+      return false;
+    }
+    final l$desc = desc;
+    final lOther$desc = other.desc;
+    if (l$desc != lOther$desc) {
+      return false;
+    }
+    final l$zoneId = zoneId;
+    final lOther$zoneId = other.zoneId;
+    if (l$zoneId != lOther$zoneId) {
+      return false;
+    }
+    final l$vehicleMode = vehicleMode;
+    final lOther$vehicleMode = other.vehicleMode;
+    if (l$vehicleMode != lOther$vehicleMode) {
+      return false;
+    }
+    final l$locationType = locationType;
+    final lOther$locationType = other.locationType;
+    if (l$locationType != lOther$locationType) {
+      return false;
+    }
+    final l$platformCode = platformCode;
+    final lOther$platformCode = other.platformCode;
+    if (l$platformCode != lOther$platformCode) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -1774,9 +1921,14 @@ abstract class CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop<TRes> {
       _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$from$stop;
 
   TRes call({
-    String? code,
     String? name,
     String? gtfsId,
+    String? code,
+    String? desc,
+    String? zoneId,
+    Enum$Mode? vehicleMode,
+    Enum$LocationType? locationType,
+    String? platformCode,
     String? $__typename,
   });
 }
@@ -1795,19 +1947,35 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$from$stop<TRes>
   static const _undefined = {};
 
   TRes call({
-    Object? code = _undefined,
     Object? name = _undefined,
     Object? gtfsId = _undefined,
+    Object? code = _undefined,
+    Object? desc = _undefined,
+    Object? zoneId = _undefined,
+    Object? vehicleMode = _undefined,
+    Object? locationType = _undefined,
+    Object? platformCode = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Query$Itinerary$plan$itineraries$legs$from$stop(
-        code: code == _undefined ? _instance.code : (code as String?),
         name: name == _undefined || name == null
             ? _instance.name
             : (name as String),
         gtfsId: gtfsId == _undefined || gtfsId == null
             ? _instance.gtfsId
             : (gtfsId as String),
+        code: code == _undefined ? _instance.code : (code as String?),
+        desc: desc == _undefined ? _instance.desc : (desc as String?),
+        zoneId: zoneId == _undefined ? _instance.zoneId : (zoneId as String?),
+        vehicleMode: vehicleMode == _undefined
+            ? _instance.vehicleMode
+            : (vehicleMode as Enum$Mode?),
+        locationType: locationType == _undefined
+            ? _instance.locationType
+            : (locationType as Enum$LocationType?),
+        platformCode: platformCode == _undefined
+            ? _instance.platformCode
+            : (platformCode as String?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
@@ -1821,9 +1989,14 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$from$stop<TRes>
   TRes _res;
 
   call({
-    String? code,
     String? name,
     String? gtfsId,
+    String? code,
+    String? desc,
+    String? zoneId,
+    Enum$Mode? vehicleMode,
+    Enum$LocationType? locationType,
+    String? platformCode,
     String? $__typename,
   }) =>
       _res;
@@ -1990,42 +2163,84 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$to<TRes>
 
 class Query$Itinerary$plan$itineraries$legs$to$stop {
   Query$Itinerary$plan$itineraries$legs$to$stop({
-    this.code,
     required this.name,
     required this.gtfsId,
+    this.code,
+    this.desc,
+    this.zoneId,
+    this.vehicleMode,
+    this.locationType,
+    this.platformCode,
     required this.$__typename,
   });
 
   factory Query$Itinerary$plan$itineraries$legs$to$stop.fromJson(
       Map<String, dynamic> json) {
-    final l$code = json['code'];
     final l$name = json['name'];
     final l$gtfsId = json['gtfsId'];
+    final l$code = json['code'];
+    final l$desc = json['desc'];
+    final l$zoneId = json['zoneId'];
+    final l$vehicleMode = json['vehicleMode'];
+    final l$locationType = json['locationType'];
+    final l$platformCode = json['platformCode'];
     final l$$__typename = json['__typename'];
     return Query$Itinerary$plan$itineraries$legs$to$stop(
-      code: (l$code as String?),
       name: (l$name as String),
       gtfsId: (l$gtfsId as String),
+      code: (l$code as String?),
+      desc: (l$desc as String?),
+      zoneId: (l$zoneId as String?),
+      vehicleMode: l$vehicleMode == null
+          ? null
+          : fromJson$Enum$Mode((l$vehicleMode as String)),
+      locationType: l$locationType == null
+          ? null
+          : fromJson$Enum$LocationType((l$locationType as String)),
+      platformCode: (l$platformCode as String?),
       $__typename: (l$$__typename as String),
     );
   }
-
-  final String? code;
 
   final String name;
 
   final String gtfsId;
 
+  final String? code;
+
+  final String? desc;
+
+  final String? zoneId;
+
+  final Enum$Mode? vehicleMode;
+
+  final Enum$LocationType? locationType;
+
+  final String? platformCode;
+
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
-    final l$code = code;
-    _resultData['code'] = l$code;
     final l$name = name;
     _resultData['name'] = l$name;
     final l$gtfsId = gtfsId;
     _resultData['gtfsId'] = l$gtfsId;
+    final l$code = code;
+    _resultData['code'] = l$code;
+    final l$desc = desc;
+    _resultData['desc'] = l$desc;
+    final l$zoneId = zoneId;
+    _resultData['zoneId'] = l$zoneId;
+    final l$vehicleMode = vehicleMode;
+    _resultData['vehicleMode'] =
+        l$vehicleMode == null ? null : toJson$Enum$Mode(l$vehicleMode);
+    final l$locationType = locationType;
+    _resultData['locationType'] = l$locationType == null
+        ? null
+        : toJson$Enum$LocationType(l$locationType);
+    final l$platformCode = platformCode;
+    _resultData['platformCode'] = l$platformCode;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2033,14 +2248,24 @@ class Query$Itinerary$plan$itineraries$legs$to$stop {
 
   @override
   int get hashCode {
-    final l$code = code;
     final l$name = name;
     final l$gtfsId = gtfsId;
+    final l$code = code;
+    final l$desc = desc;
+    final l$zoneId = zoneId;
+    final l$vehicleMode = vehicleMode;
+    final l$locationType = locationType;
+    final l$platformCode = platformCode;
     final l$$__typename = $__typename;
     return Object.hashAll([
-      l$code,
       l$name,
       l$gtfsId,
+      l$code,
+      l$desc,
+      l$zoneId,
+      l$vehicleMode,
+      l$locationType,
+      l$platformCode,
       l$$__typename,
     ]);
   }
@@ -2054,11 +2279,6 @@ class Query$Itinerary$plan$itineraries$legs$to$stop {
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$code = code;
-    final lOther$code = other.code;
-    if (l$code != lOther$code) {
-      return false;
-    }
     final l$name = name;
     final lOther$name = other.name;
     if (l$name != lOther$name) {
@@ -2067,6 +2287,36 @@ class Query$Itinerary$plan$itineraries$legs$to$stop {
     final l$gtfsId = gtfsId;
     final lOther$gtfsId = other.gtfsId;
     if (l$gtfsId != lOther$gtfsId) {
+      return false;
+    }
+    final l$code = code;
+    final lOther$code = other.code;
+    if (l$code != lOther$code) {
+      return false;
+    }
+    final l$desc = desc;
+    final lOther$desc = other.desc;
+    if (l$desc != lOther$desc) {
+      return false;
+    }
+    final l$zoneId = zoneId;
+    final lOther$zoneId = other.zoneId;
+    if (l$zoneId != lOther$zoneId) {
+      return false;
+    }
+    final l$vehicleMode = vehicleMode;
+    final lOther$vehicleMode = other.vehicleMode;
+    if (l$vehicleMode != lOther$vehicleMode) {
+      return false;
+    }
+    final l$locationType = locationType;
+    final lOther$locationType = other.locationType;
+    if (l$locationType != lOther$locationType) {
+      return false;
+    }
+    final l$platformCode = platformCode;
+    final lOther$platformCode = other.platformCode;
+    if (l$platformCode != lOther$platformCode) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -2099,9 +2349,14 @@ abstract class CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop<TRes> {
       _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$to$stop;
 
   TRes call({
-    String? code,
     String? name,
     String? gtfsId,
+    String? code,
+    String? desc,
+    String? zoneId,
+    Enum$Mode? vehicleMode,
+    Enum$LocationType? locationType,
+    String? platformCode,
     String? $__typename,
   });
 }
@@ -2120,19 +2375,35 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$to$stop<TRes>
   static const _undefined = {};
 
   TRes call({
-    Object? code = _undefined,
     Object? name = _undefined,
     Object? gtfsId = _undefined,
+    Object? code = _undefined,
+    Object? desc = _undefined,
+    Object? zoneId = _undefined,
+    Object? vehicleMode = _undefined,
+    Object? locationType = _undefined,
+    Object? platformCode = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Query$Itinerary$plan$itineraries$legs$to$stop(
-        code: code == _undefined ? _instance.code : (code as String?),
         name: name == _undefined || name == null
             ? _instance.name
             : (name as String),
         gtfsId: gtfsId == _undefined || gtfsId == null
             ? _instance.gtfsId
             : (gtfsId as String),
+        code: code == _undefined ? _instance.code : (code as String?),
+        desc: desc == _undefined ? _instance.desc : (desc as String?),
+        zoneId: zoneId == _undefined ? _instance.zoneId : (zoneId as String?),
+        vehicleMode: vehicleMode == _undefined
+            ? _instance.vehicleMode
+            : (vehicleMode as Enum$Mode?),
+        locationType: locationType == _undefined
+            ? _instance.locationType
+            : (locationType as Enum$LocationType?),
+        platformCode: platformCode == _undefined
+            ? _instance.platformCode
+            : (platformCode as String?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
@@ -2146,9 +2417,14 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$to$stop<TRes>
   TRes _res;
 
   call({
-    String? code,
     String? name,
     String? gtfsId,
+    String? code,
+    String? desc,
+    String? zoneId,
+    Enum$Mode? vehicleMode,
+    Enum$LocationType? locationType,
+    String? platformCode,
     String? $__typename,
   }) =>
       _res;

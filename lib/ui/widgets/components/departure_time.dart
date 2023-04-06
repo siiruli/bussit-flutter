@@ -27,9 +27,12 @@ class DepartureTimeWidget extends StatelessWidget {
 
     final timeStr = Text(formatTime(time, context: context)!);
     final timeLeft = formatDuration(time.difference(now), isRealTime: isRealTime);
-    return Column(
-      children: [timeStr, timeLeft],
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        children: [timeStr, timeLeft],
+        mainAxisAlignment: MainAxisAlignment.center,
+      )
     );
   }
 }

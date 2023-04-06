@@ -7,9 +7,8 @@ import 'package:bussit/model/saved_stops.dart';
 import 'package:bussit/ui/widgets/components/departure_time.dart';
 
 
-
-class StopItemWidget extends StatelessWidget {
-  const StopItemWidget(this.stopMaybe, {Key? key}) : super(key: key);
+class ExpansionStopItem extends StatelessWidget {
+  const ExpansionStopItem(this.stopMaybe, {Key? key}) : super(key: key);
   final dynamic stopMaybe;
 
   @override
@@ -24,8 +23,6 @@ class StopItemWidget extends StatelessWidget {
     }
     final stop = stopMaybe!;
 
-    final iconButton = getSaveIconButton(stop);
-
     List? stopTimeData = stop.stoptimesWithoutPatterns;
     List<Widget> stopTimes = stopTimeData?.map(
       (e) => StopTimeWidget(e)
@@ -38,6 +35,27 @@ class StopItemWidget extends StatelessWidget {
         ))
       ];
     }
+
+    return Card(child: ExpansionTile(
+      childrenPadding: EdgeInsets.zero,
+      title: StopItemWidget(stopMaybe),
+      children: stopTimes,
+      controlAffinity: ListTileControlAffinity.leading,
+    ));
+  }
+}
+class StopItemWidget extends StatelessWidget {
+  const StopItemWidget(this.stopMaybe, {Key? key}) : super(key: key);
+  final dynamic stopMaybe;
+
+  @override
+  Widget build(BuildContext context){
+    if(stopMaybe == null){
+      return const Text("Stop is null");
+    }
+    final stop = stopMaybe!;
+
+    final iconButton = getSaveIconButton(stop);    
     List<InlineSpan> titleText = [];
     if(stop.platformCode != null) {
       titleText.add(TextSpan(
@@ -51,25 +69,20 @@ class StopItemWidget extends StatelessWidget {
     subtitleTexts = subtitleTexts.where((element) => element != null).toList();
     List<Widget> subtitle = subtitleTexts.map((e) => Text(e! + ' ')).toList(); 
     
-    return Card(
-      
-      child: ExpansionTile(
-        title: Text.rich(
-          TextSpan(text: stop.name, 
-          children: titleText
-        )),
-        subtitle: Row(children: subtitle),
-        trailing: Row(
-          children: <Widget>[
-            TransitModeIcon(stop.vehicleMode), 
-            ZoneIdIcon(stop.zoneId),
-            iconButton,
-          ],
-          mainAxisSize: MainAxisSize.min,
-        ),
-        children: stopTimes,
-        controlAffinity: ListTileControlAffinity.leading,
-      )
+    return ListTile(
+      title: Text.rich(
+        TextSpan(text: stop.name, 
+        children: titleText
+      )),
+      subtitle: Row(children: subtitle),
+      trailing: Row(
+        children: <Widget>[
+          TransitModeIcon(stop.vehicleMode), 
+          ZoneIdIcon(stop.zoneId),
+          iconButton,
+        ],
+        mainAxisSize: MainAxisSize.min,
+      ),
     );
   }
 }

@@ -54,7 +54,7 @@ Widget stopListBuilder(QueryResult? result, { VoidCallback? refetch, FetchMore? 
     shrinkWrap: true,
     itemCount: stops.length,
     itemBuilder: (context, index) {
-      return StopItemWidget(stops[index]);
+      return ExpansionStopItem(stops[index]);
     },
   );
   
