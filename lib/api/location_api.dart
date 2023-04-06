@@ -23,7 +23,6 @@ Future<Iterable<Address>> fetchAutocomplete(String text) async {
     'boundary.rect.max_lat':lat[1],
     'boundary.rect.min_lon':lon[0],
     'boundary.rect.max_lon':lon[1],
-    'layers':'address,venue,street,station,localadmin,region,neighbourhood'
   });
   if(response.statusCode == 200){
     final AutoComplete data = AutoComplete.fromJson(jsonDecode(response.body));

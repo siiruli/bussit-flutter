@@ -10,12 +10,40 @@ query Itinerary(
     numItineraries: $nResults,
   ) {
     itineraries {
+      walkDistance
+      duration
+      startTime
+      endTime
+      waitingTime
+
       legs {
+        realTime
         startTime
         endTime
         mode 
+        transitLeg
         duration
         distance
+        from {
+          name 
+          stop {
+            code 
+            name 
+            gtfsId
+          }
+        }
+        to {
+          name 
+          stop {
+            code 
+            name 
+            gtfsId
+          }
+        }
+        trip {
+          tripHeadsign
+          routeShortName 
+        }
       }
     }
   }

@@ -365,11 +365,53 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
             directives: [],
             selectionSet: SelectionSetNode(selections: [
               FieldNode(
+                name: NameNode(value: 'walkDistance'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+              FieldNode(
+                name: NameNode(value: 'duration'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+              FieldNode(
+                name: NameNode(value: 'startTime'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+              FieldNode(
+                name: NameNode(value: 'endTime'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+              FieldNode(
+                name: NameNode(value: 'waitingTime'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+              FieldNode(
                 name: NameNode(value: 'legs'),
                 alias: null,
                 arguments: [],
                 directives: [],
                 selectionSet: SelectionSetNode(selections: [
+                  FieldNode(
+                    name: NameNode(value: 'realTime'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
                   FieldNode(
                     name: NameNode(value: 'startTime'),
                     alias: null,
@@ -392,6 +434,13 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
                     selectionSet: null,
                   ),
                   FieldNode(
+                    name: NameNode(value: 'transitLeg'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                  FieldNode(
                     name: NameNode(value: 'duration'),
                     alias: null,
                     arguments: [],
@@ -404,6 +453,151 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
                     arguments: [],
                     directives: [],
                     selectionSet: null,
+                  ),
+                  FieldNode(
+                    name: NameNode(value: 'from'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                        name: NameNode(value: 'name'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'stop'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(selections: [
+                          FieldNode(
+                            name: NameNode(value: 'code'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'name'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'gtfsId'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: '__typename'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                        ]),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                    ]),
+                  ),
+                  FieldNode(
+                    name: NameNode(value: 'to'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                        name: NameNode(value: 'name'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'stop'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(selections: [
+                          FieldNode(
+                            name: NameNode(value: 'code'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'name'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'gtfsId'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: '__typename'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                        ]),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                    ]),
+                  ),
+                  FieldNode(
+                    name: NameNode(value: 'trip'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                        name: NameNode(value: 'tripHeadsign'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'routeShortName'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                    ]),
                   ),
                   FieldNode(
                     name: NameNode(value: '__typename'),
@@ -722,14 +916,29 @@ class _CopyWithStubImpl$Query$Itinerary$plan<TRes>
 
 class Query$Itinerary$plan$itineraries {
   Query$Itinerary$plan$itineraries({
+    this.walkDistance,
+    this.duration,
+    this.startTime,
+    this.endTime,
+    this.waitingTime,
     required this.legs,
     required this.$__typename,
   });
 
   factory Query$Itinerary$plan$itineraries.fromJson(Map<String, dynamic> json) {
+    final l$walkDistance = json['walkDistance'];
+    final l$duration = json['duration'];
+    final l$startTime = json['startTime'];
+    final l$endTime = json['endTime'];
+    final l$waitingTime = json['waitingTime'];
     final l$legs = json['legs'];
     final l$$__typename = json['__typename'];
     return Query$Itinerary$plan$itineraries(
+      walkDistance: (l$walkDistance as num?)?.toDouble(),
+      duration: l$duration == null ? null : longFromJson(l$duration),
+      startTime: l$startTime == null ? null : longFromJson(l$startTime),
+      endTime: l$endTime == null ? null : longFromJson(l$endTime),
+      waitingTime: l$waitingTime == null ? null : longFromJson(l$waitingTime),
       legs: (l$legs as List<dynamic>)
           .map((e) => e == null
               ? null
@@ -740,12 +949,35 @@ class Query$Itinerary$plan$itineraries {
     );
   }
 
+  final double? walkDistance;
+
+  final int? duration;
+
+  final int? startTime;
+
+  final int? endTime;
+
+  final int? waitingTime;
+
   final List<Query$Itinerary$plan$itineraries$legs?> legs;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
+    final l$walkDistance = walkDistance;
+    _resultData['walkDistance'] = l$walkDistance;
+    final l$duration = duration;
+    _resultData['duration'] =
+        l$duration == null ? null : longToJson(l$duration);
+    final l$startTime = startTime;
+    _resultData['startTime'] =
+        l$startTime == null ? null : longToJson(l$startTime);
+    final l$endTime = endTime;
+    _resultData['endTime'] = l$endTime == null ? null : longToJson(l$endTime);
+    final l$waitingTime = waitingTime;
+    _resultData['waitingTime'] =
+        l$waitingTime == null ? null : longToJson(l$waitingTime);
     final l$legs = legs;
     _resultData['legs'] = l$legs.map((e) => e?.toJson()).toList();
     final l$$__typename = $__typename;
@@ -755,9 +987,19 @@ class Query$Itinerary$plan$itineraries {
 
   @override
   int get hashCode {
+    final l$walkDistance = walkDistance;
+    final l$duration = duration;
+    final l$startTime = startTime;
+    final l$endTime = endTime;
+    final l$waitingTime = waitingTime;
     final l$legs = legs;
     final l$$__typename = $__typename;
     return Object.hashAll([
+      l$walkDistance,
+      l$duration,
+      l$startTime,
+      l$endTime,
+      l$waitingTime,
       Object.hashAll(l$legs.map((v) => v)),
       l$$__typename,
     ]);
@@ -770,6 +1012,31 @@ class Query$Itinerary$plan$itineraries {
     }
     if (!(other is Query$Itinerary$plan$itineraries) ||
         runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$walkDistance = walkDistance;
+    final lOther$walkDistance = other.walkDistance;
+    if (l$walkDistance != lOther$walkDistance) {
+      return false;
+    }
+    final l$duration = duration;
+    final lOther$duration = other.duration;
+    if (l$duration != lOther$duration) {
+      return false;
+    }
+    final l$startTime = startTime;
+    final lOther$startTime = other.startTime;
+    if (l$startTime != lOther$startTime) {
+      return false;
+    }
+    final l$endTime = endTime;
+    final lOther$endTime = other.endTime;
+    if (l$endTime != lOther$endTime) {
+      return false;
+    }
+    final l$waitingTime = waitingTime;
+    final lOther$waitingTime = other.waitingTime;
+    if (l$waitingTime != lOther$waitingTime) {
       return false;
     }
     final l$legs = legs;
@@ -812,6 +1079,11 @@ abstract class CopyWith$Query$Itinerary$plan$itineraries<TRes> {
       _CopyWithStubImpl$Query$Itinerary$plan$itineraries;
 
   TRes call({
+    double? walkDistance,
+    int? duration,
+    int? startTime,
+    int? endTime,
+    int? waitingTime,
     List<Query$Itinerary$plan$itineraries$legs?>? legs,
     String? $__typename,
   });
@@ -837,10 +1109,26 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries<TRes>
   static const _undefined = {};
 
   TRes call({
+    Object? walkDistance = _undefined,
+    Object? duration = _undefined,
+    Object? startTime = _undefined,
+    Object? endTime = _undefined,
+    Object? waitingTime = _undefined,
     Object? legs = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Query$Itinerary$plan$itineraries(
+        walkDistance: walkDistance == _undefined
+            ? _instance.walkDistance
+            : (walkDistance as double?),
+        duration:
+            duration == _undefined ? _instance.duration : (duration as int?),
+        startTime:
+            startTime == _undefined ? _instance.startTime : (startTime as int?),
+        endTime: endTime == _undefined ? _instance.endTime : (endTime as int?),
+        waitingTime: waitingTime == _undefined
+            ? _instance.waitingTime
+            : (waitingTime as int?),
         legs: legs == _undefined || legs == null
             ? _instance.legs
             : (legs as List<Query$Itinerary$plan$itineraries$legs?>),
@@ -870,6 +1158,11 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries<TRes>
   TRes _res;
 
   call({
+    double? walkDistance,
+    int? duration,
+    int? startTime,
+    int? endTime,
+    int? waitingTime,
     List<Query$Itinerary$plan$itineraries$legs?>? legs,
     String? $__typename,
   }) =>
@@ -879,31 +1172,53 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries<TRes>
 
 class Query$Itinerary$plan$itineraries$legs {
   Query$Itinerary$plan$itineraries$legs({
+    this.realTime,
     this.startTime,
     this.endTime,
     this.mode,
+    this.transitLeg,
     this.duration,
     this.distance,
+    required this.from,
+    required this.to,
+    this.trip,
     required this.$__typename,
   });
 
   factory Query$Itinerary$plan$itineraries$legs.fromJson(
       Map<String, dynamic> json) {
+    final l$realTime = json['realTime'];
     final l$startTime = json['startTime'];
     final l$endTime = json['endTime'];
     final l$mode = json['mode'];
+    final l$transitLeg = json['transitLeg'];
     final l$duration = json['duration'];
     final l$distance = json['distance'];
+    final l$from = json['from'];
+    final l$to = json['to'];
+    final l$trip = json['trip'];
     final l$$__typename = json['__typename'];
     return Query$Itinerary$plan$itineraries$legs(
+      realTime: (l$realTime as bool?),
       startTime: l$startTime == null ? null : longFromJson(l$startTime),
       endTime: l$endTime == null ? null : longFromJson(l$endTime),
       mode: l$mode == null ? null : fromJson$Enum$Mode((l$mode as String)),
+      transitLeg: (l$transitLeg as bool?),
       duration: (l$duration as num?)?.toDouble(),
       distance: (l$distance as num?)?.toDouble(),
+      from: Query$Itinerary$plan$itineraries$legs$from.fromJson(
+          (l$from as Map<String, dynamic>)),
+      to: Query$Itinerary$plan$itineraries$legs$to.fromJson(
+          (l$to as Map<String, dynamic>)),
+      trip: l$trip == null
+          ? null
+          : Query$Itinerary$plan$itineraries$legs$trip.fromJson(
+              (l$trip as Map<String, dynamic>)),
       $__typename: (l$$__typename as String),
     );
   }
+
+  final bool? realTime;
 
   final int? startTime;
 
@@ -911,14 +1226,24 @@ class Query$Itinerary$plan$itineraries$legs {
 
   final Enum$Mode? mode;
 
+  final bool? transitLeg;
+
   final double? duration;
 
   final double? distance;
+
+  final Query$Itinerary$plan$itineraries$legs$from from;
+
+  final Query$Itinerary$plan$itineraries$legs$to to;
+
+  final Query$Itinerary$plan$itineraries$legs$trip? trip;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
+    final l$realTime = realTime;
+    _resultData['realTime'] = l$realTime;
     final l$startTime = startTime;
     _resultData['startTime'] =
         l$startTime == null ? null : longToJson(l$startTime);
@@ -926,10 +1251,18 @@ class Query$Itinerary$plan$itineraries$legs {
     _resultData['endTime'] = l$endTime == null ? null : longToJson(l$endTime);
     final l$mode = mode;
     _resultData['mode'] = l$mode == null ? null : toJson$Enum$Mode(l$mode);
+    final l$transitLeg = transitLeg;
+    _resultData['transitLeg'] = l$transitLeg;
     final l$duration = duration;
     _resultData['duration'] = l$duration;
     final l$distance = distance;
     _resultData['distance'] = l$distance;
+    final l$from = from;
+    _resultData['from'] = l$from.toJson();
+    final l$to = to;
+    _resultData['to'] = l$to.toJson();
+    final l$trip = trip;
+    _resultData['trip'] = l$trip?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -937,18 +1270,28 @@ class Query$Itinerary$plan$itineraries$legs {
 
   @override
   int get hashCode {
+    final l$realTime = realTime;
     final l$startTime = startTime;
     final l$endTime = endTime;
     final l$mode = mode;
+    final l$transitLeg = transitLeg;
     final l$duration = duration;
     final l$distance = distance;
+    final l$from = from;
+    final l$to = to;
+    final l$trip = trip;
     final l$$__typename = $__typename;
     return Object.hashAll([
+      l$realTime,
       l$startTime,
       l$endTime,
       l$mode,
+      l$transitLeg,
       l$duration,
       l$distance,
+      l$from,
+      l$to,
+      l$trip,
       l$$__typename,
     ]);
   }
@@ -960,6 +1303,11 @@ class Query$Itinerary$plan$itineraries$legs {
     }
     if (!(other is Query$Itinerary$plan$itineraries$legs) ||
         runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$realTime = realTime;
+    final lOther$realTime = other.realTime;
+    if (l$realTime != lOther$realTime) {
       return false;
     }
     final l$startTime = startTime;
@@ -977,6 +1325,11 @@ class Query$Itinerary$plan$itineraries$legs {
     if (l$mode != lOther$mode) {
       return false;
     }
+    final l$transitLeg = transitLeg;
+    final lOther$transitLeg = other.transitLeg;
+    if (l$transitLeg != lOther$transitLeg) {
+      return false;
+    }
     final l$duration = duration;
     final lOther$duration = other.duration;
     if (l$duration != lOther$duration) {
@@ -985,6 +1338,21 @@ class Query$Itinerary$plan$itineraries$legs {
     final l$distance = distance;
     final lOther$distance = other.distance;
     if (l$distance != lOther$distance) {
+      return false;
+    }
+    final l$from = from;
+    final lOther$from = other.from;
+    if (l$from != lOther$from) {
+      return false;
+    }
+    final l$to = to;
+    final lOther$to = other.to;
+    if (l$to != lOther$to) {
+      return false;
+    }
+    final l$trip = trip;
+    final lOther$trip = other.trip;
+    if (l$trip != lOther$trip) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -1016,13 +1384,21 @@ abstract class CopyWith$Query$Itinerary$plan$itineraries$legs<TRes> {
       _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs;
 
   TRes call({
+    bool? realTime,
     int? startTime,
     int? endTime,
     Enum$Mode? mode,
+    bool? transitLeg,
     double? duration,
     double? distance,
+    Query$Itinerary$plan$itineraries$legs$from? from,
+    Query$Itinerary$plan$itineraries$legs$to? to,
+    Query$Itinerary$plan$itineraries$legs$trip? trip,
     String? $__typename,
   });
+  CopyWith$Query$Itinerary$plan$itineraries$legs$from<TRes> get from;
+  CopyWith$Query$Itinerary$plan$itineraries$legs$to<TRes> get to;
+  CopyWith$Query$Itinerary$plan$itineraries$legs$trip<TRes> get trip;
 }
 
 class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs<TRes>
@@ -1039,26 +1415,65 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs<TRes>
   static const _undefined = {};
 
   TRes call({
+    Object? realTime = _undefined,
     Object? startTime = _undefined,
     Object? endTime = _undefined,
     Object? mode = _undefined,
+    Object? transitLeg = _undefined,
     Object? duration = _undefined,
     Object? distance = _undefined,
+    Object? from = _undefined,
+    Object? to = _undefined,
+    Object? trip = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Query$Itinerary$plan$itineraries$legs(
+        realTime:
+            realTime == _undefined ? _instance.realTime : (realTime as bool?),
         startTime:
             startTime == _undefined ? _instance.startTime : (startTime as int?),
         endTime: endTime == _undefined ? _instance.endTime : (endTime as int?),
         mode: mode == _undefined ? _instance.mode : (mode as Enum$Mode?),
+        transitLeg: transitLeg == _undefined
+            ? _instance.transitLeg
+            : (transitLeg as bool?),
         duration:
             duration == _undefined ? _instance.duration : (duration as double?),
         distance:
             distance == _undefined ? _instance.distance : (distance as double?),
+        from: from == _undefined || from == null
+            ? _instance.from
+            : (from as Query$Itinerary$plan$itineraries$legs$from),
+        to: to == _undefined || to == null
+            ? _instance.to
+            : (to as Query$Itinerary$plan$itineraries$legs$to),
+        trip: trip == _undefined
+            ? _instance.trip
+            : (trip as Query$Itinerary$plan$itineraries$legs$trip?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
       ));
+  CopyWith$Query$Itinerary$plan$itineraries$legs$from<TRes> get from {
+    final local$from = _instance.from;
+    return CopyWith$Query$Itinerary$plan$itineraries$legs$from(
+        local$from, (e) => call(from: e));
+  }
+
+  CopyWith$Query$Itinerary$plan$itineraries$legs$to<TRes> get to {
+    final local$to = _instance.to;
+    return CopyWith$Query$Itinerary$plan$itineraries$legs$to(
+        local$to, (e) => call(to: e));
+  }
+
+  CopyWith$Query$Itinerary$plan$itineraries$legs$trip<TRes> get trip {
+    final local$trip = _instance.trip;
+    return local$trip == null
+        ? CopyWith$Query$Itinerary$plan$itineraries$legs$trip.stub(
+            _then(_instance))
+        : CopyWith$Query$Itinerary$plan$itineraries$legs$trip(
+            local$trip, (e) => call(trip: e));
+  }
 }
 
 class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs<TRes>
@@ -1068,11 +1483,819 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs<TRes>
   TRes _res;
 
   call({
+    bool? realTime,
     int? startTime,
     int? endTime,
     Enum$Mode? mode,
+    bool? transitLeg,
     double? duration,
     double? distance,
+    Query$Itinerary$plan$itineraries$legs$from? from,
+    Query$Itinerary$plan$itineraries$legs$to? to,
+    Query$Itinerary$plan$itineraries$legs$trip? trip,
+    String? $__typename,
+  }) =>
+      _res;
+  CopyWith$Query$Itinerary$plan$itineraries$legs$from<TRes> get from =>
+      CopyWith$Query$Itinerary$plan$itineraries$legs$from.stub(_res);
+  CopyWith$Query$Itinerary$plan$itineraries$legs$to<TRes> get to =>
+      CopyWith$Query$Itinerary$plan$itineraries$legs$to.stub(_res);
+  CopyWith$Query$Itinerary$plan$itineraries$legs$trip<TRes> get trip =>
+      CopyWith$Query$Itinerary$plan$itineraries$legs$trip.stub(_res);
+}
+
+class Query$Itinerary$plan$itineraries$legs$from {
+  Query$Itinerary$plan$itineraries$legs$from({
+    this.name,
+    this.stop,
+    required this.$__typename,
+  });
+
+  factory Query$Itinerary$plan$itineraries$legs$from.fromJson(
+      Map<String, dynamic> json) {
+    final l$name = json['name'];
+    final l$stop = json['stop'];
+    final l$$__typename = json['__typename'];
+    return Query$Itinerary$plan$itineraries$legs$from(
+      name: (l$name as String?),
+      stop: l$stop == null
+          ? null
+          : Query$Itinerary$plan$itineraries$legs$from$stop.fromJson(
+              (l$stop as Map<String, dynamic>)),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? name;
+
+  final Query$Itinerary$plan$itineraries$legs$from$stop? stop;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$name = name;
+    _resultData['name'] = l$name;
+    final l$stop = stop;
+    _resultData['stop'] = l$stop?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$name = name;
+    final l$stop = stop;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$name,
+      l$stop,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Query$Itinerary$plan$itineraries$legs$from) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
+    final l$stop = stop;
+    final lOther$stop = other.stop;
+    if (l$stop != lOther$stop) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$Itinerary$plan$itineraries$legs$from
+    on Query$Itinerary$plan$itineraries$legs$from {
+  CopyWith$Query$Itinerary$plan$itineraries$legs$from<
+          Query$Itinerary$plan$itineraries$legs$from>
+      get copyWith => CopyWith$Query$Itinerary$plan$itineraries$legs$from(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$Itinerary$plan$itineraries$legs$from<TRes> {
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$from(
+    Query$Itinerary$plan$itineraries$legs$from instance,
+    TRes Function(Query$Itinerary$plan$itineraries$legs$from) then,
+  ) = _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$from;
+
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$from.stub(TRes res) =
+      _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$from;
+
+  TRes call({
+    String? name,
+    Query$Itinerary$plan$itineraries$legs$from$stop? stop,
+    String? $__typename,
+  });
+  CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop<TRes> get stop;
+}
+
+class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$from<TRes>
+    implements CopyWith$Query$Itinerary$plan$itineraries$legs$from<TRes> {
+  _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$from(
+    this._instance,
+    this._then,
+  );
+
+  final Query$Itinerary$plan$itineraries$legs$from _instance;
+
+  final TRes Function(Query$Itinerary$plan$itineraries$legs$from) _then;
+
+  static const _undefined = {};
+
+  TRes call({
+    Object? name = _undefined,
+    Object? stop = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$Itinerary$plan$itineraries$legs$from(
+        name: name == _undefined ? _instance.name : (name as String?),
+        stop: stop == _undefined
+            ? _instance.stop
+            : (stop as Query$Itinerary$plan$itineraries$legs$from$stop?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+  CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop<TRes> get stop {
+    final local$stop = _instance.stop;
+    return local$stop == null
+        ? CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop.stub(
+            _then(_instance))
+        : CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop(
+            local$stop, (e) => call(stop: e));
+  }
+}
+
+class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$from<TRes>
+    implements CopyWith$Query$Itinerary$plan$itineraries$legs$from<TRes> {
+  _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$from(this._res);
+
+  TRes _res;
+
+  call({
+    String? name,
+    Query$Itinerary$plan$itineraries$legs$from$stop? stop,
+    String? $__typename,
+  }) =>
+      _res;
+  CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop<TRes> get stop =>
+      CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop.stub(_res);
+}
+
+class Query$Itinerary$plan$itineraries$legs$from$stop {
+  Query$Itinerary$plan$itineraries$legs$from$stop({
+    this.code,
+    required this.name,
+    required this.gtfsId,
+    required this.$__typename,
+  });
+
+  factory Query$Itinerary$plan$itineraries$legs$from$stop.fromJson(
+      Map<String, dynamic> json) {
+    final l$code = json['code'];
+    final l$name = json['name'];
+    final l$gtfsId = json['gtfsId'];
+    final l$$__typename = json['__typename'];
+    return Query$Itinerary$plan$itineraries$legs$from$stop(
+      code: (l$code as String?),
+      name: (l$name as String),
+      gtfsId: (l$gtfsId as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? code;
+
+  final String name;
+
+  final String gtfsId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$code = code;
+    _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name;
+    final l$gtfsId = gtfsId;
+    _resultData['gtfsId'] = l$gtfsId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$code = code;
+    final l$name = name;
+    final l$gtfsId = gtfsId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$code,
+      l$name,
+      l$gtfsId,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Query$Itinerary$plan$itineraries$legs$from$stop) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$code = code;
+    final lOther$code = other.code;
+    if (l$code != lOther$code) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
+    final l$gtfsId = gtfsId;
+    final lOther$gtfsId = other.gtfsId;
+    if (l$gtfsId != lOther$gtfsId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$Itinerary$plan$itineraries$legs$from$stop
+    on Query$Itinerary$plan$itineraries$legs$from$stop {
+  CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop<
+          Query$Itinerary$plan$itineraries$legs$from$stop>
+      get copyWith => CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop<TRes> {
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop(
+    Query$Itinerary$plan$itineraries$legs$from$stop instance,
+    TRes Function(Query$Itinerary$plan$itineraries$legs$from$stop) then,
+  ) = _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$from$stop;
+
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop.stub(
+          TRes res) =
+      _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$from$stop;
+
+  TRes call({
+    String? code,
+    String? name,
+    String? gtfsId,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$from$stop<TRes>
+    implements CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop<TRes> {
+  _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$from$stop(
+    this._instance,
+    this._then,
+  );
+
+  final Query$Itinerary$plan$itineraries$legs$from$stop _instance;
+
+  final TRes Function(Query$Itinerary$plan$itineraries$legs$from$stop) _then;
+
+  static const _undefined = {};
+
+  TRes call({
+    Object? code = _undefined,
+    Object? name = _undefined,
+    Object? gtfsId = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$Itinerary$plan$itineraries$legs$from$stop(
+        code: code == _undefined ? _instance.code : (code as String?),
+        name: name == _undefined || name == null
+            ? _instance.name
+            : (name as String),
+        gtfsId: gtfsId == _undefined || gtfsId == null
+            ? _instance.gtfsId
+            : (gtfsId as String),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$from$stop<TRes>
+    implements CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop<TRes> {
+  _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$from$stop(this._res);
+
+  TRes _res;
+
+  call({
+    String? code,
+    String? name,
+    String? gtfsId,
+    String? $__typename,
+  }) =>
+      _res;
+}
+
+class Query$Itinerary$plan$itineraries$legs$to {
+  Query$Itinerary$plan$itineraries$legs$to({
+    this.name,
+    this.stop,
+    required this.$__typename,
+  });
+
+  factory Query$Itinerary$plan$itineraries$legs$to.fromJson(
+      Map<String, dynamic> json) {
+    final l$name = json['name'];
+    final l$stop = json['stop'];
+    final l$$__typename = json['__typename'];
+    return Query$Itinerary$plan$itineraries$legs$to(
+      name: (l$name as String?),
+      stop: l$stop == null
+          ? null
+          : Query$Itinerary$plan$itineraries$legs$to$stop.fromJson(
+              (l$stop as Map<String, dynamic>)),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? name;
+
+  final Query$Itinerary$plan$itineraries$legs$to$stop? stop;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$name = name;
+    _resultData['name'] = l$name;
+    final l$stop = stop;
+    _resultData['stop'] = l$stop?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$name = name;
+    final l$stop = stop;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$name,
+      l$stop,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Query$Itinerary$plan$itineraries$legs$to) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
+    final l$stop = stop;
+    final lOther$stop = other.stop;
+    if (l$stop != lOther$stop) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$Itinerary$plan$itineraries$legs$to
+    on Query$Itinerary$plan$itineraries$legs$to {
+  CopyWith$Query$Itinerary$plan$itineraries$legs$to<
+          Query$Itinerary$plan$itineraries$legs$to>
+      get copyWith => CopyWith$Query$Itinerary$plan$itineraries$legs$to(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$Itinerary$plan$itineraries$legs$to<TRes> {
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$to(
+    Query$Itinerary$plan$itineraries$legs$to instance,
+    TRes Function(Query$Itinerary$plan$itineraries$legs$to) then,
+  ) = _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$to;
+
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$to.stub(TRes res) =
+      _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$to;
+
+  TRes call({
+    String? name,
+    Query$Itinerary$plan$itineraries$legs$to$stop? stop,
+    String? $__typename,
+  });
+  CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop<TRes> get stop;
+}
+
+class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$to<TRes>
+    implements CopyWith$Query$Itinerary$plan$itineraries$legs$to<TRes> {
+  _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$to(
+    this._instance,
+    this._then,
+  );
+
+  final Query$Itinerary$plan$itineraries$legs$to _instance;
+
+  final TRes Function(Query$Itinerary$plan$itineraries$legs$to) _then;
+
+  static const _undefined = {};
+
+  TRes call({
+    Object? name = _undefined,
+    Object? stop = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$Itinerary$plan$itineraries$legs$to(
+        name: name == _undefined ? _instance.name : (name as String?),
+        stop: stop == _undefined
+            ? _instance.stop
+            : (stop as Query$Itinerary$plan$itineraries$legs$to$stop?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+  CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop<TRes> get stop {
+    final local$stop = _instance.stop;
+    return local$stop == null
+        ? CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop.stub(
+            _then(_instance))
+        : CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop(
+            local$stop, (e) => call(stop: e));
+  }
+}
+
+class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$to<TRes>
+    implements CopyWith$Query$Itinerary$plan$itineraries$legs$to<TRes> {
+  _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$to(this._res);
+
+  TRes _res;
+
+  call({
+    String? name,
+    Query$Itinerary$plan$itineraries$legs$to$stop? stop,
+    String? $__typename,
+  }) =>
+      _res;
+  CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop<TRes> get stop =>
+      CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop.stub(_res);
+}
+
+class Query$Itinerary$plan$itineraries$legs$to$stop {
+  Query$Itinerary$plan$itineraries$legs$to$stop({
+    this.code,
+    required this.name,
+    required this.gtfsId,
+    required this.$__typename,
+  });
+
+  factory Query$Itinerary$plan$itineraries$legs$to$stop.fromJson(
+      Map<String, dynamic> json) {
+    final l$code = json['code'];
+    final l$name = json['name'];
+    final l$gtfsId = json['gtfsId'];
+    final l$$__typename = json['__typename'];
+    return Query$Itinerary$plan$itineraries$legs$to$stop(
+      code: (l$code as String?),
+      name: (l$name as String),
+      gtfsId: (l$gtfsId as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? code;
+
+  final String name;
+
+  final String gtfsId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$code = code;
+    _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name;
+    final l$gtfsId = gtfsId;
+    _resultData['gtfsId'] = l$gtfsId;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$code = code;
+    final l$name = name;
+    final l$gtfsId = gtfsId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$code,
+      l$name,
+      l$gtfsId,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Query$Itinerary$plan$itineraries$legs$to$stop) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$code = code;
+    final lOther$code = other.code;
+    if (l$code != lOther$code) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
+    final l$gtfsId = gtfsId;
+    final lOther$gtfsId = other.gtfsId;
+    if (l$gtfsId != lOther$gtfsId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$Itinerary$plan$itineraries$legs$to$stop
+    on Query$Itinerary$plan$itineraries$legs$to$stop {
+  CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop<
+          Query$Itinerary$plan$itineraries$legs$to$stop>
+      get copyWith => CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop<TRes> {
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop(
+    Query$Itinerary$plan$itineraries$legs$to$stop instance,
+    TRes Function(Query$Itinerary$plan$itineraries$legs$to$stop) then,
+  ) = _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$to$stop;
+
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop.stub(
+          TRes res) =
+      _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$to$stop;
+
+  TRes call({
+    String? code,
+    String? name,
+    String? gtfsId,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$to$stop<TRes>
+    implements CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop<TRes> {
+  _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$to$stop(
+    this._instance,
+    this._then,
+  );
+
+  final Query$Itinerary$plan$itineraries$legs$to$stop _instance;
+
+  final TRes Function(Query$Itinerary$plan$itineraries$legs$to$stop) _then;
+
+  static const _undefined = {};
+
+  TRes call({
+    Object? code = _undefined,
+    Object? name = _undefined,
+    Object? gtfsId = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$Itinerary$plan$itineraries$legs$to$stop(
+        code: code == _undefined ? _instance.code : (code as String?),
+        name: name == _undefined || name == null
+            ? _instance.name
+            : (name as String),
+        gtfsId: gtfsId == _undefined || gtfsId == null
+            ? _instance.gtfsId
+            : (gtfsId as String),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$to$stop<TRes>
+    implements CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop<TRes> {
+  _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$to$stop(this._res);
+
+  TRes _res;
+
+  call({
+    String? code,
+    String? name,
+    String? gtfsId,
+    String? $__typename,
+  }) =>
+      _res;
+}
+
+class Query$Itinerary$plan$itineraries$legs$trip {
+  Query$Itinerary$plan$itineraries$legs$trip({
+    this.tripHeadsign,
+    this.routeShortName,
+    required this.$__typename,
+  });
+
+  factory Query$Itinerary$plan$itineraries$legs$trip.fromJson(
+      Map<String, dynamic> json) {
+    final l$tripHeadsign = json['tripHeadsign'];
+    final l$routeShortName = json['routeShortName'];
+    final l$$__typename = json['__typename'];
+    return Query$Itinerary$plan$itineraries$legs$trip(
+      tripHeadsign: (l$tripHeadsign as String?),
+      routeShortName: (l$routeShortName as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? tripHeadsign;
+
+  final String? routeShortName;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$tripHeadsign = tripHeadsign;
+    _resultData['tripHeadsign'] = l$tripHeadsign;
+    final l$routeShortName = routeShortName;
+    _resultData['routeShortName'] = l$routeShortName;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$tripHeadsign = tripHeadsign;
+    final l$routeShortName = routeShortName;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$tripHeadsign,
+      l$routeShortName,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Query$Itinerary$plan$itineraries$legs$trip) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$tripHeadsign = tripHeadsign;
+    final lOther$tripHeadsign = other.tripHeadsign;
+    if (l$tripHeadsign != lOther$tripHeadsign) {
+      return false;
+    }
+    final l$routeShortName = routeShortName;
+    final lOther$routeShortName = other.routeShortName;
+    if (l$routeShortName != lOther$routeShortName) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$Itinerary$plan$itineraries$legs$trip
+    on Query$Itinerary$plan$itineraries$legs$trip {
+  CopyWith$Query$Itinerary$plan$itineraries$legs$trip<
+          Query$Itinerary$plan$itineraries$legs$trip>
+      get copyWith => CopyWith$Query$Itinerary$plan$itineraries$legs$trip(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$Itinerary$plan$itineraries$legs$trip<TRes> {
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$trip(
+    Query$Itinerary$plan$itineraries$legs$trip instance,
+    TRes Function(Query$Itinerary$plan$itineraries$legs$trip) then,
+  ) = _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$trip;
+
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$trip.stub(TRes res) =
+      _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$trip;
+
+  TRes call({
+    String? tripHeadsign,
+    String? routeShortName,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$trip<TRes>
+    implements CopyWith$Query$Itinerary$plan$itineraries$legs$trip<TRes> {
+  _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$trip(
+    this._instance,
+    this._then,
+  );
+
+  final Query$Itinerary$plan$itineraries$legs$trip _instance;
+
+  final TRes Function(Query$Itinerary$plan$itineraries$legs$trip) _then;
+
+  static const _undefined = {};
+
+  TRes call({
+    Object? tripHeadsign = _undefined,
+    Object? routeShortName = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$Itinerary$plan$itineraries$legs$trip(
+        tripHeadsign: tripHeadsign == _undefined
+            ? _instance.tripHeadsign
+            : (tripHeadsign as String?),
+        routeShortName: routeShortName == _undefined
+            ? _instance.routeShortName
+            : (routeShortName as String?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$trip<TRes>
+    implements CopyWith$Query$Itinerary$plan$itineraries$legs$trip<TRes> {
+  _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$trip(this._res);
+
+  TRes _res;
+
+  call({
+    String? tripHeadsign,
+    String? routeShortName,
     String? $__typename,
   }) =>
       _res;

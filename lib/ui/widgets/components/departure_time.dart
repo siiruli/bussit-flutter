@@ -2,37 +2,48 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DepartureTimeWidget extends StatelessWidget {
-  const DepartureTimeWidget(this.serviceDay, this.depTime, 
+  const DepartureTimeWidget( 
     {
-      this.isRealTime, Key? key
+      this.milliseconds,
+      this.seconds,
+      this.isRealTime, 
+      Key? key
     }) : super(key: key);
-  final int? serviceDay;
-  final int? depTime;
+
+
+  final int? milliseconds;
+  final int? seconds;
   final bool? isRealTime;
 
   @override
   Widget build(BuildContext context){
-    if(serviceDay == null || depTime == null){
+    if(milliseconds == null && seconds == null){
       return const Text("--:--");
     }
-    
     DateTime time = DateTime.fromMillisecondsSinceEpoch(
-      (serviceDay!+depTime!)*1000
-    );
+      seconds == null ? milliseconds! : seconds!*1000
+    );  
     DateTime now = DateTime.now().add(const Duration(seconds: 5));
 
-    Locale locale = Localizations.localeOf(context);
-    final timeStr = Text(DateFormat.Hm(locale.toLanguageTag()).format(time));
-    final timeLeft = formatDuration(time.difference(now), isRealTime);
+    final timeStr = Text(formatTime(time, context: context)!);
+    final timeLeft = formatDuration(time.difference(now), isRealTime: isRealTime);
     return Column(
       children: [timeStr, timeLeft],
       mainAxisAlignment: MainAxisAlignment.center,
     );
   }
-
 }
 
-Widget formatDuration(Duration duration, bool? isRealTime){
+String? formatTime(DateTime? time, {required BuildContext context}){
+  if(time == null){
+    return null;
+  }
+
+  Locale locale = Localizations.localeOf(context);
+  return DateFormat.Hm(locale.toLanguageTag()).format(time);
+}
+
+Widget formatDuration(Duration duration, {bool? isRealTime, int secondsCutOff = 5}){
   int minutes = duration.inMinutes;
   int seconds = duration.inSeconds.remainder(60);
   String text;
@@ -41,8 +52,8 @@ Widget formatDuration(Duration duration, bool? isRealTime){
     text = '${seconds.toString()}s';
   }
   else{
-    text = '${minutes.toString()}min';
-    if(minutes.abs() < 5) {
+    text = '${minutes.toString()}m';
+    if(minutes.abs() < secondsCutOff) {
       text += ' ${seconds.abs().toString()}s';
     }
   }

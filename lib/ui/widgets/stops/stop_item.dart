@@ -86,8 +86,7 @@ class StopTimeWidget extends StatelessWidget {
     String busName = stoptime?.trip?.route.shortName ?? "unnamed";
     busName += ' ' + (stoptime?.headsign ?? "-");
     Widget? depTime = DepartureTimeWidget(
-      stoptime?.serviceDay,
-      stoptime?.realtimeDeparture, 
+      seconds: stoptime?.serviceDay + stoptime?.realtimeDeparture, 
       isRealTime: stoptime?.realtime,
     );
     final platFormCode = stoptime?.stop?.platformCode;

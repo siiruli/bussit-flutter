@@ -2,10 +2,8 @@ import 'dart:async';
 
 import 'package:bussit/api/location_api.dart';
 import 'package:bussit/model/address.dart';
-import 'package:bussit/ui/widgets/routes/itinerary_item.dart';
 import 'package:bussit/ui/widgets/routes/itinerary_list.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as developer;
 
 class RouteView extends StatelessWidget {
   const RouteView({Key? key}) : super(key: key);
@@ -61,13 +59,13 @@ class _RouteFormState extends State<RouteForm> {
       ),
     );
     final result = (_locationFrom == null || _locationTo == null) 
-      ? Text("No search") : ItineraryListWidget(
+      ? const Text("No search") : ItineraryListWidget(
         from: _locationFrom!,
         to: _locationTo!,
         nResults: 8,
     );
 
-    return Column(children: [form, Card(child: result)],);
+    return ListView(children: [form, Card(child: result)],);
 
 
   }
@@ -103,6 +101,7 @@ class LocationField extends StatelessWidget {
           optionsBuilder: autocompleteBuilder,
           onSelected: (Address feature){
             field.didChange(feature);
+            FocusManager.instance.primaryFocus?.unfocus();
           },
           fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted){
             return TextFormField(
