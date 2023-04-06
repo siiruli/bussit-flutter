@@ -1,6 +1,6 @@
 import 'package:bussit/graphql/itinerary_query.graphql.dart';
 import 'package:bussit/model/address.dart';
-import 'package:bussit/ui/widgets/routes/itinerary_item.dart';
+import 'package:bussit/ui/widgets/itineraries/itinerary_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';

@@ -2,26 +2,26 @@ import 'dart:async';
 
 import 'package:bussit/api/location_api.dart';
 import 'package:bussit/model/address.dart';
-import 'package:bussit/ui/widgets/routes/itinerary_list.dart';
+import 'package:bussit/ui/widgets/itineraries/itinerary_list.dart';
 import 'package:flutter/material.dart';
 
-class RouteView extends StatelessWidget {
-  const RouteView({Key? key}) : super(key: key);
+class ItineraryView extends StatelessWidget {
+  const ItineraryView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context){
-    return const RouteForm();
+    return const ItineraryForm();
   }
 }
-class RouteForm extends StatefulWidget {
-  const RouteForm({Key? key}) : super(key: key);
+class ItineraryForm extends StatefulWidget {
+  const ItineraryForm({Key? key}) : super(key: key);
 
   @override
-  State<RouteForm> createState() => _RouteFormState();
+  State<ItineraryForm> createState() => _ItineraryFormState();
 
 }
 
-class _RouteFormState extends State<RouteForm> {
+class _ItineraryFormState extends State<ItineraryForm> {
 
   final _formKey = GlobalKey<FormState>();  
   Address? _locationFrom, _locationTo;

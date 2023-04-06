@@ -1,6 +1,6 @@
 import 'package:bussit/api/hsl_api.dart';
 import 'package:bussit/model/saved_stops.dart';
-import 'package:bussit/ui/route_view.dart';
+import 'package:bussit/ui/itinerary_view.dart';
 import 'package:bussit/ui/saved_stops_view.dart';
 import 'package:bussit/ui/stop_search_view.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       // body: StopsView(),
       body: TabBarView(
         controller: _tabController,
-        children: const [StopsView(), RouteView()],
+        children: const [StopsView(), ItineraryView()],
       ),
       floatingActionButton: (_tabController.index != 0) ? 
         null : FloatingActionButton(
