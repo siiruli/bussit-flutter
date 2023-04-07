@@ -14,22 +14,24 @@ class ItineraryView extends StatelessWidget {
   }
 }
 class ItineraryForm extends StatefulWidget {
-  const ItineraryForm({Key? key}) : super(key: key);
+  const ItineraryForm({super.key});
 
   @override
   State<ItineraryForm> createState() => _ItineraryFormState();
 
 }
 
-class _ItineraryFormState extends State<ItineraryForm> {
+class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveClientMixin {
 
   final _formKey = GlobalKey<FormState>();  
   Address? _locationFrom, _locationTo;
-
+  
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
-  
+    super.build(context);
     // List stops that is rebuilt when the id-list changes
     final form = Padding(
       padding: const EdgeInsets.all(8), 
@@ -38,11 +40,13 @@ class _ItineraryFormState extends State<ItineraryForm> {
         child: Column(children: [
           LocationField(
             hint: "From...",
+            initialValue: _locationFrom,
             onSaved: (Address? value){_locationFrom = value;},
           ),
           LocationField(
             hint: "To...",
             onSaved: (Address? value){_locationTo = value;},
+            initialValue: _locationTo,
           ),
           TextButton(onPressed: (){
             if(_formKey.currentState!.validate()){
@@ -64,9 +68,8 @@ class _ItineraryFormState extends State<ItineraryForm> {
         to: _locationTo!,
         nResults: 8,
     );
-
-    return ListView(children: [form, Card(child: result)],);
-
+    // return form;
+    return ListView(children: [form, result],);
 
   }
 
@@ -84,16 +87,17 @@ String autocompleteOptionString(Address feature){
 class LocationField extends StatelessWidget {
   const LocationField({
     this.hint, this.onSaved, Key? key,
+    this.initialValue,
   }) : super(key: key);
 
   final String? hint;
   final Function(Address?)? onSaved;
-
+  final Address? initialValue;
   @override
   Widget build(BuildContext context) {
     return FormField<Address?>(
       onSaved: onSaved,
-      initialValue: null,
+      initialValue: initialValue,
       validator: (value){return value == null ? "Missing location" : null;},
       builder: (FormFieldState<Address?> field){
         return Autocomplete<Address>(
