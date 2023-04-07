@@ -6,6 +6,8 @@ import 'package:bussit/ui/widgets/itineraries/itinerary_list.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 
+import 'package:intl/intl.dart';
+
 
 class ItineraryView extends StatelessWidget {
   const ItineraryView({Key? key}) : super(key: key);
@@ -30,7 +32,14 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
   bool _arriveBy = false;
   Widget? _result;
   DateTime? _date;
-  DateTime? _time;
+  String? get _dateString {
+    final locale = Localizations.localeOf(context);
+    return DateFormat('dd.MM.').format(_date ?? DateTime.now());
+  }
+  String? get _timeString {
+    return _time == null ? "Now" : _time?.format(context);
+  }
+  TimeOfDay? _time;
 
   Key _keyFrom = GlobalKey();
   Key _keyTo = GlobalKey();
@@ -53,6 +62,33 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
           nResults: 8,
           time: DateTime.now(),
         );
+      });
+    }
+  }
+  Future displayDatePicker(BuildContext context) async {
+    var date = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(const Duration(days:365)),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+    );
+
+    if (date != null) {
+      setState(() {
+        _date = date;
+      });
+    }
+  }
+
+  Future displayTimePicker(BuildContext context) async {
+    var time = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (time != null) {
+      setState(() {
+        _time = time;
       });
     }
   }
@@ -90,9 +126,26 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
       ],)),
       swapButton,
     ],);
+
     // time
-    const dateChooser = Text('Date');
-    const timeChooser = Text('Time');
+    final dateChooser = TextButton.icon(
+      icon: const Icon(Icons.calendar_month),
+      onPressed: () {
+        displayDatePicker(context);
+      },
+      label: Text(_dateString ?? ''),
+    );
+    
+    final timeChooser = TextButton.icon(
+      icon: const Icon(Icons.schedule),
+      label: Text(_timeString ?? ''),
+      onPressed: () {
+        displayTimePicker(context);
+      },
+    );
+
+    
+    
     final nowButton = TextButton(
       onPressed: () => setState(() {
         _date = null;
@@ -119,21 +172,22 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
       child: Form(
         key: _formKey,
         child: Column(
-          children: [places, 
-          Row(
-            children: [
-              arrivalOrDeparture,
-              dateChooser,
-              timeChooser,
-              nowButton, 
-              TextButton(
-                onPressed: saveResult,
-                child: const Text("Search routes"),
-              ),
-            ],
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-          ),          
-        ]),
+          children: [
+            places, 
+            Wrap(
+              children: [
+                arrivalOrDeparture,
+                dateChooser,
+                timeChooser,
+                nowButton, 
+                TextButton(
+                  onPressed: saveResult,
+                  child: const Text("Search routes"),
+                ),
+              ],
+            ),          
+          ],
+        ),
       ),
     );
     
