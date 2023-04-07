@@ -27,6 +27,9 @@ class MyApp extends StatelessWidget {
         listTileTheme: const ListTileThemeData(
           minLeadingWidth: 0,
         ),
+        expansionTileTheme: const ExpansionTileThemeData(
+          tilePadding: EdgeInsets.zero,
+        )
       ),
       home: const MyHomePage(title: "Bussit",),
     );

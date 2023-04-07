@@ -38,15 +38,16 @@ class ExpansionStopItem extends StatelessWidget {
 
     return Card(child: ExpansionTile(
       childrenPadding: EdgeInsets.zero,
-      title: StopItemWidget(stopMaybe),
+      title: StopItemWidget(stopMaybe, padding: EdgeInsets.zero,),
       children: stopTimes,
       controlAffinity: ListTileControlAffinity.leading,
     ));
   }
 }
 class StopItemWidget extends StatelessWidget {
-  const StopItemWidget(this.stopMaybe, {Key? key}) : super(key: key);
+  const StopItemWidget(this.stopMaybe, {this.padding, super.key});
   final dynamic stopMaybe;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context){
@@ -83,6 +84,7 @@ class StopItemWidget extends StatelessWidget {
         ],
         mainAxisSize: MainAxisSize.min,
       ),
+      contentPadding: padding,
     );
   }
 }

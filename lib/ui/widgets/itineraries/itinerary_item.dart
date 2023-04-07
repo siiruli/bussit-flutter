@@ -47,6 +47,7 @@ class _ItineraryState extends State<ItineraryWidget> {
     )!;
 
     return Card(child: ExpansionTile(
+      childrenPadding: EdgeInsets.zero,
       subtitle: _expanded ? null : legWidgets,
       title: Row(
         children: [
@@ -75,9 +76,10 @@ List<Widget> legList(List<Query$Itinerary$plan$itineraries$legs?>? legs){
   List<Widget> items = [];
   items.add(PlaceItem(legs[0]?.from));
   for(Query$Itinerary$plan$itineraries$legs? leg in legs){
-    items.add(const Divider());
+    const dividerHeight = 0.0;
+    items.add(const Divider(height: dividerHeight,));
     items.add(LegItem(leg));
-    items.add(const Divider());
+    items.add(const Divider(height: dividerHeight,));
     items.add(PlaceItem(leg?.to));
   }
   return items;
@@ -98,7 +100,13 @@ class PlaceItem extends StatelessWidget {
         title: Text(place.name),
       );
     } 
-    return res;
+    return ListTileTheme(
+      child: res,
+      data: const ListTileThemeData(
+        minVerticalPadding: 0,
+        visualDensity: VisualDensity.compact,
+      ),
+    );
   }
 }
 
