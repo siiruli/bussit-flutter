@@ -24,12 +24,14 @@ class ItineraryListWidget extends HookWidget {
     required this.to, 
     this.nResults, 
     this.time,
+    this.arriveBy,
     super.key,
   });
   final Address from;
   final Address to;
   final int? nResults;
   final DateTime? time;
+  final bool? arriveBy;
   @override 
   Widget build(BuildContext context) {
     if(time != null){
@@ -45,6 +47,7 @@ class ItineraryListWidget extends HookWidget {
           nResults: nResults,
           date: time == null ? null : DateFormat('y-MM-dd').format(time!),
           time: time == null ? null : DateFormat('HH:mm:ss').format(time!),
+          arriveBy: arriveBy
         ),
       ),
     );

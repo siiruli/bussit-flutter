@@ -55,12 +55,21 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
           content: Text(_locationFrom.toString() + ' -> ' + _locationTo.toString()),
         ),
       );
+      DateTime now= DateTime.now();
+      DateTime datetime = DateTime(
+        (_date ?? now).year, 
+        (_date ?? now).month, 
+        (_date ?? now).day, 
+        _time?.hour ?? now.hour,
+        _time?.minute ?? now.minute,
+      );
       setState(() {
         _result = ItineraryListWidget(
           from: _locationFrom!, 
           to: _locationTo!,
           nResults: 8,
-          time: DateTime.now(),
+          time: datetime,
+          arriveBy: _arriveBy,
         );
       });
     }
@@ -68,8 +77,8 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
   Future displayDatePicker(BuildContext context) async {
     var date = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now().subtract(const Duration(days:365)),
+      initialDate: _date ?? DateTime.now(),
+      firstDate: DateTime.now().subtract(const Duration(days:2)),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
 
@@ -83,7 +92,7 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
   Future displayTimePicker(BuildContext context) async {
     var time = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay.now(),
+      initialTime: _time ?? TimeOfDay.now(),
     );
 
     if (time != null) {

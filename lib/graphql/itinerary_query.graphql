@@ -5,6 +5,7 @@ query Itinerary(
   $nResults: Int,
   $time: String,
   $date: String,
+  $arriveBy: Boolean,
 ){
   plan(
     fromPlace: $fromPlace,
@@ -12,6 +13,7 @@ query Itinerary(
     numItineraries: $nResults,
     time: $time,
     date: $date,
+    arriveBy: $arriveBy,
   ) {
     itineraries {
       walkDistance
