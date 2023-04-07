@@ -18,6 +18,7 @@ class Address {
   Properties properties;
   factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
 
+  @override
   String toString() {
     return properties.label;
   }

@@ -27,6 +27,6 @@ Future<Iterable<Address>> fetchAutocomplete(String text) async {
   if(response.statusCode == 200){
     final AutoComplete data = AutoComplete.fromJson(jsonDecode(response.body));
     return data.features;
-  };
+  }
   return List<Address>.empty();
 }

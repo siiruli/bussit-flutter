@@ -4,15 +4,8 @@ import 'package:bussit/ui/widgets/stops/stop_list.dart';
 import 'package:provider/provider.dart';
 import 'dart:developer' as developer;
 
-class StopsView extends StatefulWidget {
+class StopsView extends StatelessWidget {
   const StopsView({Key? key}) : super(key: key);
-
-  @override
-  State<StopsView> createState() => _StopsViewState();
-
-}
-
-class _StopsViewState extends State<StopsView> {
 
   @override
   Widget build(BuildContext context) {
