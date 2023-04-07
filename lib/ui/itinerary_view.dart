@@ -26,8 +26,28 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
   final _formKey = GlobalKey<FormState>();  
   Address? _locationFrom, _locationTo;
   
+  Widget? _result;
+  
   @override
   bool get wantKeepAlive => true;
+
+  void saveResult(){
+    if(_formKey.currentState!.validate()){
+      _formKey.currentState!.save();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(_locationFrom.toString() + ' -> ' + _locationTo.toString()),
+        ),
+      );
+      setState(() {
+        _result = ItineraryListWidget(
+          from: _locationFrom!, 
+          to: _locationTo!,
+          nResults: 8,
+        );
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,28 +68,16 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
             onSaved: (Address? value){_locationTo = value;},
             initialValue: _locationTo,
           ),
-          TextButton(onPressed: (){
-            if(_formKey.currentState!.validate()){
-              _formKey.currentState!.save();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(_locationFrom.toString() + ' -> ' + _locationTo.toString()),
-                ),
-              );
-              setState(() {});
-            }
-          }, child: const Text("Search routes"))
-        ])
+          TextButton(
+            onPressed: saveResult,
+            child: const Text("Search routes"),
+          ),
+        ]),
       ),
     );
-    final result = (_locationFrom == null || _locationTo == null) 
-      ? const Text("No search") : ItineraryListWidget(
-        from: _locationFrom!,
-        to: _locationTo!,
-        nResults: 8,
-    );
+    
     // return form;
-    return ListView(children: [form, result],);
+    return ListView(children: [form, _result ?? const Text("No search")],);
 
   }
 
