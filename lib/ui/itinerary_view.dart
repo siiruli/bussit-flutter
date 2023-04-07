@@ -44,6 +44,7 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
           from: _locationFrom!, 
           to: _locationTo!,
           nResults: 8,
+          time: DateTime.now(),
         );
       });
     }

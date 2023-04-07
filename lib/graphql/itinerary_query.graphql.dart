@@ -10,11 +10,15 @@ class Variables$Query$Itinerary {
     String? fromPlace,
     String? toPlace,
     int? nResults,
+    String? time,
+    String? date,
   }) =>
       Variables$Query$Itinerary._({
         if (fromPlace != null) r'fromPlace': fromPlace,
         if (toPlace != null) r'toPlace': toPlace,
         if (nResults != null) r'nResults': nResults,
+        if (time != null) r'time': time,
+        if (date != null) r'date': date,
       });
 
   Variables$Query$Itinerary._(this._$data);
@@ -33,6 +37,14 @@ class Variables$Query$Itinerary {
       final l$nResults = data['nResults'];
       result$data['nResults'] = (l$nResults as int?);
     }
+    if (data.containsKey('time')) {
+      final l$time = data['time'];
+      result$data['time'] = (l$time as String?);
+    }
+    if (data.containsKey('date')) {
+      final l$date = data['date'];
+      result$data['date'] = (l$date as String?);
+    }
     return Variables$Query$Itinerary._(result$data);
   }
 
@@ -41,6 +53,8 @@ class Variables$Query$Itinerary {
   String? get fromPlace => (_$data['fromPlace'] as String?);
   String? get toPlace => (_$data['toPlace'] as String?);
   int? get nResults => (_$data['nResults'] as int?);
+  String? get time => (_$data['time'] as String?);
+  String? get date => (_$data['date'] as String?);
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     if (_$data.containsKey('fromPlace')) {
@@ -54,6 +68,14 @@ class Variables$Query$Itinerary {
     if (_$data.containsKey('nResults')) {
       final l$nResults = nResults;
       result$data['nResults'] = l$nResults;
+    }
+    if (_$data.containsKey('time')) {
+      final l$time = time;
+      result$data['time'] = l$time;
+    }
+    if (_$data.containsKey('date')) {
+      final l$date = date;
+      result$data['date'] = l$date;
     }
     return result$data;
   }
@@ -98,6 +120,22 @@ class Variables$Query$Itinerary {
     if (l$nResults != lOther$nResults) {
       return false;
     }
+    final l$time = time;
+    final lOther$time = other.time;
+    if (_$data.containsKey('time') != other._$data.containsKey('time')) {
+      return false;
+    }
+    if (l$time != lOther$time) {
+      return false;
+    }
+    final l$date = date;
+    final lOther$date = other.date;
+    if (_$data.containsKey('date') != other._$data.containsKey('date')) {
+      return false;
+    }
+    if (l$date != lOther$date) {
+      return false;
+    }
     return true;
   }
 
@@ -106,10 +144,14 @@ class Variables$Query$Itinerary {
     final l$fromPlace = fromPlace;
     final l$toPlace = toPlace;
     final l$nResults = nResults;
+    final l$time = time;
+    final l$date = date;
     return Object.hashAll([
       _$data.containsKey('fromPlace') ? l$fromPlace : const {},
       _$data.containsKey('toPlace') ? l$toPlace : const {},
       _$data.containsKey('nResults') ? l$nResults : const {},
+      _$data.containsKey('time') ? l$time : const {},
+      _$data.containsKey('date') ? l$date : const {},
     ]);
   }
 }
@@ -127,6 +169,8 @@ abstract class CopyWith$Variables$Query$Itinerary<TRes> {
     String? fromPlace,
     String? toPlace,
     int? nResults,
+    String? time,
+    String? date,
   });
 }
 
@@ -147,12 +191,16 @@ class _CopyWithImpl$Variables$Query$Itinerary<TRes>
     Object? fromPlace = _undefined,
     Object? toPlace = _undefined,
     Object? nResults = _undefined,
+    Object? time = _undefined,
+    Object? date = _undefined,
   }) =>
       _then(Variables$Query$Itinerary._({
         ..._instance._$data,
         if (fromPlace != _undefined) 'fromPlace': (fromPlace as String?),
         if (toPlace != _undefined) 'toPlace': (toPlace as String?),
         if (nResults != _undefined) 'nResults': (nResults as int?),
+        if (time != _undefined) 'time': (time as String?),
+        if (date != _undefined) 'date': (date as String?),
       }));
 }
 
@@ -166,6 +214,8 @@ class _CopyWithStubImpl$Variables$Query$Itinerary<TRes>
     String? fromPlace,
     String? toPlace,
     int? nResults,
+    String? time,
+    String? date,
   }) =>
       _res;
 }
@@ -336,6 +386,24 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
         defaultValue: DefaultValueNode(value: null),
         directives: [],
       ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'time')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'date')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
     ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
@@ -354,6 +422,14 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
           ArgumentNode(
             name: NameNode(value: 'numItineraries'),
             value: VariableNode(name: NameNode(value: 'nResults')),
+          ),
+          ArgumentNode(
+            name: NameNode(value: 'time'),
+            value: VariableNode(name: NameNode(value: 'time')),
+          ),
+          ArgumentNode(
+            name: NameNode(value: 'date'),
+            value: VariableNode(name: NameNode(value: 'date')),
           ),
         ],
         directives: [],

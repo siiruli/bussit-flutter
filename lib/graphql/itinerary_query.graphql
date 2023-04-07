@@ -3,11 +3,15 @@ query Itinerary(
   $fromPlace: String,
   $toPlace: String,
   $nResults: Int,
+  $time: String,
+  $date: String,
 ){
   plan(
     fromPlace: $fromPlace,
     toPlace: $toPlace,
     numItineraries: $nResults,
+    time: $time,
+    date: $date,
   ) {
     itineraries {
       walkDistance
