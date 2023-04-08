@@ -12,6 +12,7 @@ class TimeField extends StatelessWidget {
     var time = await showTimePicker(
       context: context,
       initialTime: current ?? TimeOfDay.now(),
+      initialEntryMode: TimePickerEntryMode.input,
     );
     return time;
   }
