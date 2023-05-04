@@ -47,6 +47,7 @@ dependencies:
   flutter_map: ^3.1.0
   latlong2: ^0.8.1
   vector_map_tiles: ^3.3.3
+  google_polyline_algorithm: ^3.1.0
 
 dev_dependencies:
   flutter_test:

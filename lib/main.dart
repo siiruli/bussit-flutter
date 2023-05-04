@@ -83,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     super.dispose();
   }
 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       // body: StopsView(),
       body: TabBarView(
         controller: _tabController,
-        children: [StopsView(), ItineraryView(), MapView()],
+        children: const [StopsView(), ItineraryView(), MapView()],
       ),
       floatingActionButton: (_tabController.index != 0) ? 
         null : FloatingActionButton(
