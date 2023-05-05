@@ -32,6 +32,11 @@ query Itinerary(
         legGeometry {
           points
         }
+        intermediateStops {
+          lat
+          lon 
+          vehicleMode
+        }
         from {
           name 
           stop {

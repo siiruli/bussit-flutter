@@ -592,6 +592,42 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
                     ]),
                   ),
                   FieldNode(
+                    name: NameNode(value: 'intermediateStops'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                        name: NameNode(value: 'lat'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'lon'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'vehicleMode'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                    ]),
+                  ),
+                  FieldNode(
                     name: NameNode(value: 'from'),
                     alias: null,
                     arguments: [],
@@ -1387,6 +1423,7 @@ class Query$Itinerary$plan$itineraries$legs {
     this.duration,
     this.distance,
     this.legGeometry,
+    this.intermediateStops,
     required this.from,
     required this.to,
     this.trip,
@@ -1403,6 +1440,7 @@ class Query$Itinerary$plan$itineraries$legs {
     final l$duration = json['duration'];
     final l$distance = json['distance'];
     final l$legGeometry = json['legGeometry'];
+    final l$intermediateStops = json['intermediateStops'];
     final l$from = json['from'];
     final l$to = json['to'];
     final l$trip = json['trip'];
@@ -1419,6 +1457,12 @@ class Query$Itinerary$plan$itineraries$legs {
           ? null
           : Query$Itinerary$plan$itineraries$legs$legGeometry.fromJson(
               (l$legGeometry as Map<String, dynamic>)),
+      intermediateStops: (l$intermediateStops as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : Query$Itinerary$plan$itineraries$legs$intermediateStops
+                  .fromJson((e as Map<String, dynamic>)))
+          .toList(),
       from: Query$Itinerary$plan$itineraries$legs$from.fromJson(
           (l$from as Map<String, dynamic>)),
       to: Query$Itinerary$plan$itineraries$legs$to.fromJson(
@@ -1447,6 +1491,9 @@ class Query$Itinerary$plan$itineraries$legs {
 
   final Query$Itinerary$plan$itineraries$legs$legGeometry? legGeometry;
 
+  final List<Query$Itinerary$plan$itineraries$legs$intermediateStops?>?
+      intermediateStops;
+
   final Query$Itinerary$plan$itineraries$legs$from from;
 
   final Query$Itinerary$plan$itineraries$legs$to to;
@@ -1474,6 +1521,9 @@ class Query$Itinerary$plan$itineraries$legs {
     _resultData['distance'] = l$distance;
     final l$legGeometry = legGeometry;
     _resultData['legGeometry'] = l$legGeometry?.toJson();
+    final l$intermediateStops = intermediateStops;
+    _resultData['intermediateStops'] =
+        l$intermediateStops?.map((e) => e?.toJson()).toList();
     final l$from = from;
     _resultData['from'] = l$from.toJson();
     final l$to = to;
@@ -1495,6 +1545,7 @@ class Query$Itinerary$plan$itineraries$legs {
     final l$duration = duration;
     final l$distance = distance;
     final l$legGeometry = legGeometry;
+    final l$intermediateStops = intermediateStops;
     final l$from = from;
     final l$to = to;
     final l$trip = trip;
@@ -1508,6 +1559,9 @@ class Query$Itinerary$plan$itineraries$legs {
       l$duration,
       l$distance,
       l$legGeometry,
+      l$intermediateStops == null
+          ? null
+          : Object.hashAll(l$intermediateStops.map((v) => v)),
       l$from,
       l$to,
       l$trip,
@@ -1564,6 +1618,22 @@ class Query$Itinerary$plan$itineraries$legs {
     if (l$legGeometry != lOther$legGeometry) {
       return false;
     }
+    final l$intermediateStops = intermediateStops;
+    final lOther$intermediateStops = other.intermediateStops;
+    if (l$intermediateStops != null && lOther$intermediateStops != null) {
+      if (l$intermediateStops.length != lOther$intermediateStops.length) {
+        return false;
+      }
+      for (int i = 0; i < l$intermediateStops.length; i++) {
+        final l$intermediateStops$entry = l$intermediateStops[i];
+        final lOther$intermediateStops$entry = lOther$intermediateStops[i];
+        if (l$intermediateStops$entry != lOther$intermediateStops$entry) {
+          return false;
+        }
+      }
+    } else if (l$intermediateStops != lOther$intermediateStops) {
+      return false;
+    }
     final l$from = from;
     final lOther$from = other.from;
     if (l$from != lOther$from) {
@@ -1616,6 +1686,8 @@ abstract class CopyWith$Query$Itinerary$plan$itineraries$legs<TRes> {
     double? duration,
     double? distance,
     Query$Itinerary$plan$itineraries$legs$legGeometry? legGeometry,
+    List<Query$Itinerary$plan$itineraries$legs$intermediateStops?>?
+        intermediateStops,
     Query$Itinerary$plan$itineraries$legs$from? from,
     Query$Itinerary$plan$itineraries$legs$to? to,
     Query$Itinerary$plan$itineraries$legs$trip? trip,
@@ -1623,6 +1695,12 @@ abstract class CopyWith$Query$Itinerary$plan$itineraries$legs<TRes> {
   });
   CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry<TRes>
       get legGeometry;
+  TRes intermediateStops(
+      Iterable<Query$Itinerary$plan$itineraries$legs$intermediateStops?>? Function(
+              Iterable<
+                  CopyWith$Query$Itinerary$plan$itineraries$legs$intermediateStops<
+                      Query$Itinerary$plan$itineraries$legs$intermediateStops>?>?)
+          _fn);
   CopyWith$Query$Itinerary$plan$itineraries$legs$from<TRes> get from;
   CopyWith$Query$Itinerary$plan$itineraries$legs$to<TRes> get to;
   CopyWith$Query$Itinerary$plan$itineraries$legs$trip<TRes> get trip;
@@ -1650,6 +1728,7 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs<TRes>
     Object? duration = _undefined,
     Object? distance = _undefined,
     Object? legGeometry = _undefined,
+    Object? intermediateStops = _undefined,
     Object? from = _undefined,
     Object? to = _undefined,
     Object? trip = _undefined,
@@ -1673,6 +1752,10 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs<TRes>
             ? _instance.legGeometry
             : (legGeometry
                 as Query$Itinerary$plan$itineraries$legs$legGeometry?),
+        intermediateStops: intermediateStops == _undefined
+            ? _instance.intermediateStops
+            : (intermediateStops as List<
+                Query$Itinerary$plan$itineraries$legs$intermediateStops?>?),
         from: from == _undefined || from == null
             ? _instance.from
             : (from as Query$Itinerary$plan$itineraries$legs$from),
@@ -1696,6 +1779,20 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs<TRes>
             local$legGeometry, (e) => call(legGeometry: e));
   }
 
+  TRes intermediateStops(
+          Iterable<Query$Itinerary$plan$itineraries$legs$intermediateStops?>? Function(
+                  Iterable<
+                      CopyWith$Query$Itinerary$plan$itineraries$legs$intermediateStops<
+                          Query$Itinerary$plan$itineraries$legs$intermediateStops>?>?)
+              _fn) =>
+      call(
+          intermediateStops: _fn(_instance.intermediateStops?.map((e) => e ==
+                  null
+              ? null
+              : CopyWith$Query$Itinerary$plan$itineraries$legs$intermediateStops(
+                  e,
+                  (i) => i,
+                )))?.toList());
   CopyWith$Query$Itinerary$plan$itineraries$legs$from<TRes> get from {
     final local$from = _instance.from;
     return CopyWith$Query$Itinerary$plan$itineraries$legs$from(
@@ -1733,6 +1830,8 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs<TRes>
     double? duration,
     double? distance,
     Query$Itinerary$plan$itineraries$legs$legGeometry? legGeometry,
+    List<Query$Itinerary$plan$itineraries$legs$intermediateStops?>?
+        intermediateStops,
     Query$Itinerary$plan$itineraries$legs$from? from,
     Query$Itinerary$plan$itineraries$legs$to? to,
     Query$Itinerary$plan$itineraries$legs$trip? trip,
@@ -1742,6 +1841,7 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs<TRes>
   CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry<TRes>
       get legGeometry =>
           CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry.stub(_res);
+  intermediateStops(_fn) => _res;
   CopyWith$Query$Itinerary$plan$itineraries$legs$from<TRes> get from =>
       CopyWith$Query$Itinerary$plan$itineraries$legs$from.stub(_res);
   CopyWith$Query$Itinerary$plan$itineraries$legs$to<TRes> get to =>
@@ -1876,6 +1976,181 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$legGeometry<TRes>
 
   call({
     String? points,
+    String? $__typename,
+  }) =>
+      _res;
+}
+
+class Query$Itinerary$plan$itineraries$legs$intermediateStops {
+  Query$Itinerary$plan$itineraries$legs$intermediateStops({
+    this.lat,
+    this.lon,
+    this.vehicleMode,
+    required this.$__typename,
+  });
+
+  factory Query$Itinerary$plan$itineraries$legs$intermediateStops.fromJson(
+      Map<String, dynamic> json) {
+    final l$lat = json['lat'];
+    final l$lon = json['lon'];
+    final l$vehicleMode = json['vehicleMode'];
+    final l$$__typename = json['__typename'];
+    return Query$Itinerary$plan$itineraries$legs$intermediateStops(
+      lat: (l$lat as num?)?.toDouble(),
+      lon: (l$lon as num?)?.toDouble(),
+      vehicleMode: l$vehicleMode == null
+          ? null
+          : fromJson$Enum$Mode((l$vehicleMode as String)),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final double? lat;
+
+  final double? lon;
+
+  final Enum$Mode? vehicleMode;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$lat = lat;
+    _resultData['lat'] = l$lat;
+    final l$lon = lon;
+    _resultData['lon'] = l$lon;
+    final l$vehicleMode = vehicleMode;
+    _resultData['vehicleMode'] =
+        l$vehicleMode == null ? null : toJson$Enum$Mode(l$vehicleMode);
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$lat = lat;
+    final l$lon = lon;
+    final l$vehicleMode = vehicleMode;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$lat,
+      l$lon,
+      l$vehicleMode,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Query$Itinerary$plan$itineraries$legs$intermediateStops) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$lat = lat;
+    final lOther$lat = other.lat;
+    if (l$lat != lOther$lat) {
+      return false;
+    }
+    final l$lon = lon;
+    final lOther$lon = other.lon;
+    if (l$lon != lOther$lon) {
+      return false;
+    }
+    final l$vehicleMode = vehicleMode;
+    final lOther$vehicleMode = other.vehicleMode;
+    if (l$vehicleMode != lOther$vehicleMode) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$Itinerary$plan$itineraries$legs$intermediateStops
+    on Query$Itinerary$plan$itineraries$legs$intermediateStops {
+  CopyWith$Query$Itinerary$plan$itineraries$legs$intermediateStops<
+          Query$Itinerary$plan$itineraries$legs$intermediateStops>
+      get copyWith =>
+          CopyWith$Query$Itinerary$plan$itineraries$legs$intermediateStops(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$Itinerary$plan$itineraries$legs$intermediateStops<
+    TRes> {
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$intermediateStops(
+    Query$Itinerary$plan$itineraries$legs$intermediateStops instance,
+    TRes Function(Query$Itinerary$plan$itineraries$legs$intermediateStops) then,
+  ) = _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$intermediateStops;
+
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$intermediateStops.stub(
+          TRes res) =
+      _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$intermediateStops;
+
+  TRes call({
+    double? lat,
+    double? lon,
+    Enum$Mode? vehicleMode,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$intermediateStops<
+        TRes>
+    implements
+        CopyWith$Query$Itinerary$plan$itineraries$legs$intermediateStops<TRes> {
+  _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$intermediateStops(
+    this._instance,
+    this._then,
+  );
+
+  final Query$Itinerary$plan$itineraries$legs$intermediateStops _instance;
+
+  final TRes Function(Query$Itinerary$plan$itineraries$legs$intermediateStops)
+      _then;
+
+  static const _undefined = {};
+
+  TRes call({
+    Object? lat = _undefined,
+    Object? lon = _undefined,
+    Object? vehicleMode = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$Itinerary$plan$itineraries$legs$intermediateStops(
+        lat: lat == _undefined ? _instance.lat : (lat as double?),
+        lon: lon == _undefined ? _instance.lon : (lon as double?),
+        vehicleMode: vehicleMode == _undefined
+            ? _instance.vehicleMode
+            : (vehicleMode as Enum$Mode?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$intermediateStops<
+        TRes>
+    implements
+        CopyWith$Query$Itinerary$plan$itineraries$legs$intermediateStops<TRes> {
+  _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$intermediateStops(
+      this._res);
+
+  TRes _res;
+
+  call({
+    double? lat,
+    double? lon,
+    Enum$Mode? vehicleMode,
     String? $__typename,
   }) =>
       _res;

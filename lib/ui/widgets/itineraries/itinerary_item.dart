@@ -1,6 +1,7 @@
 import 'package:bussit/graphql/itinerary_query.graphql.dart';
 import 'package:bussit/graphql/schema.graphql.dart';
-import 'package:bussit/model/map_line.dart';
+import 'package:bussit/model/map_elements.dart';
+import 'package:bussit/ui/itinerary_details.dart';
 import 'package:bussit/ui/map_view.dart';
 import 'package:bussit/ui/widgets/components/app_icons.dart';
 import 'package:bussit/ui/widgets/components/departure_time.dart';
@@ -62,15 +63,8 @@ class _ItineraryState extends State<ItineraryWidget> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                    appBar: AppBar(
-                      title: const Text("Route"),
-                    ),
-                    body: MapView(
-                      lines: itinerary.legs.map((leg) => MapLine(leg)).toList(),
-                    ),
-                  ),
-                )
+                  builder: (context) => ItineraryDetails(itinerary),
+                ),
               );
             }, 
             icon: const Icon(Icons.map),
