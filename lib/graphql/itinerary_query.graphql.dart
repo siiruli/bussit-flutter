@@ -570,6 +570,28 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
                     selectionSet: null,
                   ),
                   FieldNode(
+                    name: NameNode(value: 'legGeometry'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                        name: NameNode(value: 'points'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                    ]),
+                  ),
+                  FieldNode(
                     name: NameNode(value: 'from'),
                     alias: null,
                     arguments: [],
@@ -1364,6 +1386,7 @@ class Query$Itinerary$plan$itineraries$legs {
     this.transitLeg,
     this.duration,
     this.distance,
+    this.legGeometry,
     required this.from,
     required this.to,
     this.trip,
@@ -1379,6 +1402,7 @@ class Query$Itinerary$plan$itineraries$legs {
     final l$transitLeg = json['transitLeg'];
     final l$duration = json['duration'];
     final l$distance = json['distance'];
+    final l$legGeometry = json['legGeometry'];
     final l$from = json['from'];
     final l$to = json['to'];
     final l$trip = json['trip'];
@@ -1391,6 +1415,10 @@ class Query$Itinerary$plan$itineraries$legs {
       transitLeg: (l$transitLeg as bool?),
       duration: (l$duration as num?)?.toDouble(),
       distance: (l$distance as num?)?.toDouble(),
+      legGeometry: l$legGeometry == null
+          ? null
+          : Query$Itinerary$plan$itineraries$legs$legGeometry.fromJson(
+              (l$legGeometry as Map<String, dynamic>)),
       from: Query$Itinerary$plan$itineraries$legs$from.fromJson(
           (l$from as Map<String, dynamic>)),
       to: Query$Itinerary$plan$itineraries$legs$to.fromJson(
@@ -1417,6 +1445,8 @@ class Query$Itinerary$plan$itineraries$legs {
 
   final double? distance;
 
+  final Query$Itinerary$plan$itineraries$legs$legGeometry? legGeometry;
+
   final Query$Itinerary$plan$itineraries$legs$from from;
 
   final Query$Itinerary$plan$itineraries$legs$to to;
@@ -1442,6 +1472,8 @@ class Query$Itinerary$plan$itineraries$legs {
     _resultData['duration'] = l$duration;
     final l$distance = distance;
     _resultData['distance'] = l$distance;
+    final l$legGeometry = legGeometry;
+    _resultData['legGeometry'] = l$legGeometry?.toJson();
     final l$from = from;
     _resultData['from'] = l$from.toJson();
     final l$to = to;
@@ -1462,6 +1494,7 @@ class Query$Itinerary$plan$itineraries$legs {
     final l$transitLeg = transitLeg;
     final l$duration = duration;
     final l$distance = distance;
+    final l$legGeometry = legGeometry;
     final l$from = from;
     final l$to = to;
     final l$trip = trip;
@@ -1474,6 +1507,7 @@ class Query$Itinerary$plan$itineraries$legs {
       l$transitLeg,
       l$duration,
       l$distance,
+      l$legGeometry,
       l$from,
       l$to,
       l$trip,
@@ -1523,6 +1557,11 @@ class Query$Itinerary$plan$itineraries$legs {
     final l$distance = distance;
     final lOther$distance = other.distance;
     if (l$distance != lOther$distance) {
+      return false;
+    }
+    final l$legGeometry = legGeometry;
+    final lOther$legGeometry = other.legGeometry;
+    if (l$legGeometry != lOther$legGeometry) {
       return false;
     }
     final l$from = from;
@@ -1576,11 +1615,14 @@ abstract class CopyWith$Query$Itinerary$plan$itineraries$legs<TRes> {
     bool? transitLeg,
     double? duration,
     double? distance,
+    Query$Itinerary$plan$itineraries$legs$legGeometry? legGeometry,
     Query$Itinerary$plan$itineraries$legs$from? from,
     Query$Itinerary$plan$itineraries$legs$to? to,
     Query$Itinerary$plan$itineraries$legs$trip? trip,
     String? $__typename,
   });
+  CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry<TRes>
+      get legGeometry;
   CopyWith$Query$Itinerary$plan$itineraries$legs$from<TRes> get from;
   CopyWith$Query$Itinerary$plan$itineraries$legs$to<TRes> get to;
   CopyWith$Query$Itinerary$plan$itineraries$legs$trip<TRes> get trip;
@@ -1607,6 +1649,7 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs<TRes>
     Object? transitLeg = _undefined,
     Object? duration = _undefined,
     Object? distance = _undefined,
+    Object? legGeometry = _undefined,
     Object? from = _undefined,
     Object? to = _undefined,
     Object? trip = _undefined,
@@ -1626,6 +1669,10 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs<TRes>
             duration == _undefined ? _instance.duration : (duration as double?),
         distance:
             distance == _undefined ? _instance.distance : (distance as double?),
+        legGeometry: legGeometry == _undefined
+            ? _instance.legGeometry
+            : (legGeometry
+                as Query$Itinerary$plan$itineraries$legs$legGeometry?),
         from: from == _undefined || from == null
             ? _instance.from
             : (from as Query$Itinerary$plan$itineraries$legs$from),
@@ -1639,6 +1686,16 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs<TRes>
             ? _instance.$__typename
             : ($__typename as String),
       ));
+  CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry<TRes>
+      get legGeometry {
+    final local$legGeometry = _instance.legGeometry;
+    return local$legGeometry == null
+        ? CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry.stub(
+            _then(_instance))
+        : CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry(
+            local$legGeometry, (e) => call(legGeometry: e));
+  }
+
   CopyWith$Query$Itinerary$plan$itineraries$legs$from<TRes> get from {
     final local$from = _instance.from;
     return CopyWith$Query$Itinerary$plan$itineraries$legs$from(
@@ -1675,18 +1732,153 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs<TRes>
     bool? transitLeg,
     double? duration,
     double? distance,
+    Query$Itinerary$plan$itineraries$legs$legGeometry? legGeometry,
     Query$Itinerary$plan$itineraries$legs$from? from,
     Query$Itinerary$plan$itineraries$legs$to? to,
     Query$Itinerary$plan$itineraries$legs$trip? trip,
     String? $__typename,
   }) =>
       _res;
+  CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry<TRes>
+      get legGeometry =>
+          CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry.stub(_res);
   CopyWith$Query$Itinerary$plan$itineraries$legs$from<TRes> get from =>
       CopyWith$Query$Itinerary$plan$itineraries$legs$from.stub(_res);
   CopyWith$Query$Itinerary$plan$itineraries$legs$to<TRes> get to =>
       CopyWith$Query$Itinerary$plan$itineraries$legs$to.stub(_res);
   CopyWith$Query$Itinerary$plan$itineraries$legs$trip<TRes> get trip =>
       CopyWith$Query$Itinerary$plan$itineraries$legs$trip.stub(_res);
+}
+
+class Query$Itinerary$plan$itineraries$legs$legGeometry {
+  Query$Itinerary$plan$itineraries$legs$legGeometry({
+    this.points,
+    required this.$__typename,
+  });
+
+  factory Query$Itinerary$plan$itineraries$legs$legGeometry.fromJson(
+      Map<String, dynamic> json) {
+    final l$points = json['points'];
+    final l$$__typename = json['__typename'];
+    return Query$Itinerary$plan$itineraries$legs$legGeometry(
+      points: (l$points as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? points;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$points = points;
+    _resultData['points'] = l$points;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$points = points;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$points,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Query$Itinerary$plan$itineraries$legs$legGeometry) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$points = points;
+    final lOther$points = other.points;
+    if (l$points != lOther$points) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$Itinerary$plan$itineraries$legs$legGeometry
+    on Query$Itinerary$plan$itineraries$legs$legGeometry {
+  CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry<
+          Query$Itinerary$plan$itineraries$legs$legGeometry>
+      get copyWith =>
+          CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry<
+    TRes> {
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry(
+    Query$Itinerary$plan$itineraries$legs$legGeometry instance,
+    TRes Function(Query$Itinerary$plan$itineraries$legs$legGeometry) then,
+  ) = _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$legGeometry;
+
+  factory CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry.stub(
+          TRes res) =
+      _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$legGeometry;
+
+  TRes call({
+    String? points,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$legGeometry<TRes>
+    implements
+        CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry<TRes> {
+  _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$legGeometry(
+    this._instance,
+    this._then,
+  );
+
+  final Query$Itinerary$plan$itineraries$legs$legGeometry _instance;
+
+  final TRes Function(Query$Itinerary$plan$itineraries$legs$legGeometry) _then;
+
+  static const _undefined = {};
+
+  TRes call({
+    Object? points = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$Itinerary$plan$itineraries$legs$legGeometry(
+        points: points == _undefined ? _instance.points : (points as String?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$legGeometry<TRes>
+    implements
+        CopyWith$Query$Itinerary$plan$itineraries$legs$legGeometry<TRes> {
+  _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$legGeometry(
+      this._res);
+
+  TRes _res;
+
+  call({
+    String? points,
+    String? $__typename,
+  }) =>
+      _res;
 }
 
 class Query$Itinerary$plan$itineraries$legs$from {

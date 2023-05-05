@@ -21,7 +21,6 @@ query Itinerary(
       startTime
       endTime
       waitingTime
-
       legs {
         realTime
         startTime
@@ -30,6 +29,9 @@ query Itinerary(
         transitLeg
         duration
         distance
+        legGeometry {
+          points
+        }
         from {
           name 
           stop {

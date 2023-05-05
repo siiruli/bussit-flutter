@@ -1,5 +1,7 @@
 import 'package:bussit/graphql/itinerary_query.graphql.dart';
 import 'package:bussit/graphql/schema.graphql.dart';
+import 'package:bussit/model/map_line.dart';
+import 'package:bussit/ui/map_view.dart';
 import 'package:bussit/ui/widgets/components/app_icons.dart';
 import 'package:bussit/ui/widgets/components/departure_time.dart';
 import 'package:bussit/ui/widgets/stops/stop_item.dart';
@@ -56,6 +58,23 @@ class _ItineraryState extends State<ItineraryWidget> {
             child: Text(duration.toString() + ' min'),
           )),
           Text(distString),
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => Scaffold(
+                    appBar: AppBar(
+                      title: const Text("Route"),
+                    ),
+                    body: MapView(
+                      lines: itinerary.legs.map((leg) => MapLine(leg)).toList(),
+                    ),
+                  ),
+                )
+              );
+            }, 
+            icon: const Icon(Icons.map),
+          ),
         ],
       ),
       onExpansionChanged: (expanded){setState(() {
