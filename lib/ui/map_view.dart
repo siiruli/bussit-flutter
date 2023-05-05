@@ -35,8 +35,9 @@ class _MapViewState extends State<MapView> {
     ];
 
     final map = FlutterMap(
-        mapController: null,
         options: MapOptions(
+          minZoom: 5,
+          maxZoom: 20,
           center: LatLng(60.16, 24.93),
         ),
         children: layers,
