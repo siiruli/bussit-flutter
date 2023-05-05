@@ -21,7 +21,7 @@ class TransitModeIcon extends StatelessWidget {
   final Enum$Mode? mode;
   @override
   Widget build(BuildContext context){
-    final modeData = TransitModeData.transitModeIcon(mode);
+    final modeData = TransitMode(mode);
     return Icon(
       modeData.icon,
       color: modeData.color,
@@ -31,24 +31,31 @@ class TransitModeIcon extends StatelessWidget {
 
 
 class TransitMode {
-  final Color color;
-  final IconData icon;
-  TransitMode(this.color, this.icon);
-}
-
-class TransitModeData {
-  static final _transitModeData = {
-    Enum$Mode.BUS:TransitMode(Colors.blue, Icons.directions_bus_filled),
-    Enum$Mode.RAIL:TransitMode(Colors.purple, Icons.directions_railway_filled),
-    Enum$Mode.SUBWAY:TransitMode(Colors.orange, Icons.directions_subway_filled),
-    Enum$Mode.WALK:TransitMode(Colors.black, Icons.directions_walk),
-    Enum$Mode.FERRY:TransitMode(Colors.cyan, Icons.directions_ferry),
-    Enum$Mode.TRAM:TransitMode(Colors.green, Icons.tram),
-    Enum$Mode.BICYCLE:TransitMode(Colors.blueGrey, Icons.directions_bike),
-  };
-
-  static TransitMode transitModeIcon(Enum$Mode? mode){
-    return _transitModeData[mode] ?? 
-        TransitMode(Colors.black54, Icons.square);
+  late Color color;
+  late IconData icon;
+  
+  TransitMode(Enum$Mode? mode) {
+    color = transitModeColor[mode] ?? Colors.black;
+    icon = transitModeIcon[mode] ?? Icons.question_mark;
   }
 }
+
+
+const transitModeColor = {
+  Enum$Mode.BUS:Colors.blue,
+  Enum$Mode.RAIL:Colors.purple,
+  Enum$Mode.SUBWAY:Colors.orange,
+  Enum$Mode.WALK:Colors.black,
+  Enum$Mode.FERRY:Colors.cyan,
+  Enum$Mode.TRAM:Colors.green,
+  Enum$Mode.BICYCLE:Colors.blueGrey,
+};
+const transitModeIcon = {
+    Enum$Mode.BUS:Icons.directions_bus_filled,
+    Enum$Mode.RAIL:Icons.directions_railway_filled,
+    Enum$Mode.SUBWAY:Icons.directions_subway_filled,
+    Enum$Mode.WALK:Icons.directions_walk,
+    Enum$Mode.FERRY:Icons.directions_ferry,
+    Enum$Mode.TRAM:Icons.tram,
+    Enum$Mode.BICYCLE:Icons.directions_bike,
+};
