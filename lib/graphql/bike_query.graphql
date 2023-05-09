@@ -1,0 +1,11 @@
+
+query CityBikes(){
+  bikeRentalStations {
+    name
+    bikesAvailable
+    capacity
+    realtime
+    lat 
+    lon 
+  }
+}

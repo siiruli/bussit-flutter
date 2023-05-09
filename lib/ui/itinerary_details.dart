@@ -3,6 +3,7 @@
 import 'package:bussit/graphql/itinerary_query.graphql.dart';
 import 'package:bussit/model/map_elements.dart';
 import 'package:bussit/ui/map_view.dart';
+import 'package:bussit/ui/widgets/map/layers.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 class ItineraryDetails extends StatelessWidget {
@@ -21,8 +22,7 @@ class ItineraryDetails extends StatelessWidget {
         title: const Text("Route"),
       ),
       body: MapView(
-        lines: lines,
-        points: stops,
+        layers: [polylineLayer(lines), pointLayer(stops)],
       ),
     );
   }

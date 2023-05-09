@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       // body: StopsView(),
       body: TabBarView(
         controller: _tabController,
-        children: const [StopsView(), ItineraryView(), MapView()],
+        children: const [StopsView(), ItineraryView(), MapView(showBikeRental: true,)],
       ),
       floatingActionButton: (_tabController.index != 0) ? 
         null : FloatingActionButton(
