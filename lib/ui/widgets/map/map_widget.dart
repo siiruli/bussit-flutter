@@ -1,10 +1,8 @@
 import 'package:bussit/api/map_api.dart';
-import 'package:bussit/model/map_elements.dart';
 import 'package:bussit/ui/widgets/map/layers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart'; 
 import 'package:latlong2/latlong.dart';
-import 'package:google_polyline_algorithm/google_polyline_algorithm.dart';
 import 'package:collection/collection.dart';
 
 

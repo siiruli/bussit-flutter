@@ -1,5 +1,4 @@
 import 'package:bussit/api/hsl_api.dart';
-import 'package:bussit/api/map_api.dart';
 import 'package:bussit/model/saved_stops.dart';
 import 'package:bussit/ui/itinerary_view.dart';
 import 'package:bussit/ui/widgets/map/map_widget.dart';
@@ -8,7 +7,6 @@ import 'package:bussit/ui/stop_search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:vector_map_tiles/vector_map_tiles.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
