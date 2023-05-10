@@ -8,16 +8,16 @@ import 'package:google_polyline_algorithm/google_polyline_algorithm.dart';
 import 'package:collection/collection.dart';
 
 
-class MapView extends StatefulWidget {
-  const MapView({this.layers, this.showBikeRental, super.key});
+class MapWidget extends StatefulWidget {
+  const MapWidget({this.layers, this.showBikeRental, super.key});
   final List<Widget>? layers;
   final bool? showBikeRental;
   // final mapController = MapController();
   @override
-  State<MapView> createState() => _MapViewState();
+  State<MapWidget> createState() => _MapWidgetState();
 }
 
-class _MapViewState extends State<MapView> {
+class _MapWidgetState extends State<MapWidget> {
 
 
 

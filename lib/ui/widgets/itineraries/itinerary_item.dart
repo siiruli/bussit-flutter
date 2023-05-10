@@ -2,7 +2,7 @@ import 'package:bussit/graphql/itinerary_query.graphql.dart';
 import 'package:bussit/graphql/schema.graphql.dart';
 import 'package:bussit/model/map_elements.dart';
 import 'package:bussit/ui/itinerary_details.dart';
-import 'package:bussit/ui/map_view.dart';
+import 'package:bussit/ui/widgets/map/map_widget.dart';
 import 'package:bussit/ui/widgets/components/app_icons.dart';
 import 'package:bussit/ui/widgets/components/departure_time.dart';
 import 'package:bussit/ui/widgets/stops/stop_item.dart';
