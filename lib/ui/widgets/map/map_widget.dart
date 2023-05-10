@@ -38,10 +38,13 @@ class _MapWidgetState extends State<MapWidget> {
           minZoom: 5,
           maxZoom: 20,
           center: LatLng(60.16, 24.93),
+          // better zoom and rotation:
+          enableMultiFingerGestureRace: true,
+          rotationWinGestures: MultiFingerGesture.all,
+          rotationThreshold: 10,
         ),
         children: layers.whereNotNull().toList(),
         nonRotatedChildren: const [],
-
     );
     return map;
   }
