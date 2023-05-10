@@ -55,9 +55,9 @@ class BikeRentalLayer extends HookWidget {
       null : Query$CityBikes.fromJson(result.result.data!);
 
     developer.log('bike rental stations: ' + data.toString(), name: 'bussit.map');
-    if(data?.bikeRentalStations != null){
-      developer.log('bike rental stations: ' + data!.bikeRentalStations!.map((e) => e?.name ?? 'null',).toList().toString(), name: 'bussit.map');
-    }
+    // if(data?.bikeRentalStations != null){
+    //   developer.log('bike rental stations: ' + data!.bikeRentalStations!.map((e) => e?.name ?? 'null',).toList().toString(), name: 'bussit.map');
+    // }
 
     return MarkerLayer(
       markers: data?.bikeRentalStations?.map((e) =>
@@ -68,6 +68,7 @@ class BikeRentalLayer extends HookWidget {
             backgroundColor: e.realtime == true ? Colors.amber : Colors.grey[300],
             child: Text((e.bikesAvailable ==null ? '?' : e.bikesAvailable!.toString())),
           ),
+          rotate: true,
         ) : null,
       ).whereNotNull().toList() ?? [],
     );
