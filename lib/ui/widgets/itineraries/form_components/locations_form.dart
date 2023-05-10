@@ -119,13 +119,23 @@ class LocationField extends StatelessWidget {
               },
             );
 
-            final field = TextFormField(
-              validator: (value){
-                return (fieldState.value == null) ? "required" : null;
+            final field = GestureDetector(
+              
+              onDoubleTap: () {
+                focusNode.requestFocus();
+                textEditingController.selection = TextSelection(
+                  baseOffset: 0, 
+                  extentOffset: textEditingController.text.length,
+                );
               },
-              focusNode: focusNode,
-              controller: textEditingController,
-              decoration: InputDecoration(hintText: hint),
+              child: TextFormField(
+                validator: (value){
+                  return (fieldState.value == null) ? "required" : null;
+                },
+                focusNode: focusNode,
+                controller: textEditingController,
+                decoration: InputDecoration(hintText: hint),
+              ),
             );
             return Row(
               children: [
