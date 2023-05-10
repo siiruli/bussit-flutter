@@ -5,6 +5,8 @@ import 'package:bussit/ui/widgets/components/app_icons.dart';
 import 'package:bussit/ui/widgets/components/departure_time.dart';
 import 'package:bussit/ui/widgets/stops/stop_item.dart';
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
+
 
 class ItineraryWidget extends StatefulWidget{
   const ItineraryWidget({this.itinerary, Key? key}) : super(key: key);
@@ -85,15 +87,77 @@ List<Widget> legList(List<Query$Itinerary$plan$itineraries$legs?>? legs){
     return [];
   }
   List<Widget> items = [];
-  items.add(PlaceItem(legs[0]?.from));
+  
+  items.add(LegListItem(
+    PlaceItem(legs[0]?.from),
+    time: fromTimeStamp(milliseconds: legs[0]?.startTime),
+  ));
   for(Query$Itinerary$plan$itineraries$legs? leg in legs){
-    const dividerHeight = 0.0;
-    items.add(const Divider(height: dividerHeight,));
-    items.add(LegItem(leg));
-    items.add(const Divider(height: dividerHeight,));
-    items.add(PlaceItem(leg?.to));
+    items.add(LegListItem(
+      LegItem(leg), 
+      leg: leg,
+      time: fromTimeStamp(milliseconds: leg?.startTime),
+    ));
+    items.add(LegListItem(
+      PlaceItem(leg?.to),
+      time: fromTimeStamp(milliseconds: leg?.endTime),
+    ));
   }
   return items;
+}
+
+class LegListItem extends StatelessWidget {
+  const LegListItem(this.child, {
+    super.key,
+    this.leg,
+    this.time,
+  });
+  final Widget child;
+  final Query$Itinerary$plan$itineraries$legs? leg;
+  final DateTime? time;
+  @override
+  Widget build(BuildContext context){
+    String? timeStr = formatTime(time, context: context);
+    Color? color = transitModeColor[leg?.mode];
+    final modeIcon = leg?.mode == null ? null : TransitModeIcon(leg!.mode!);
+    final duration = leg?.duration == null ? null : (leg!.duration! / 60).round().toString() + 'min';
+    color = Color.lerp(color, Colors.grey[100], 0.6);
+    return Container(
+      decoration: BoxDecoration(
+        border: leg == null ? null : Border.symmetric(
+          horizontal: BorderSide(
+            color: color ?? Colors.grey,
+            width: 1,
+          ),
+        ),
+        color: leg == null ? null : Colors.grey[100],
+      ),
+      child: IntrinsicHeight(child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          timeStr == null ? null : Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0), 
+            child: Text(timeStr), alignment: Alignment.center,
+          ),
+          leg == null ? null : Container(
+            width: 2,
+            color: color,
+          ),
+          modeIcon == null ? null : Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: Column(
+              children: [
+                modeIcon,
+                Text(duration ?? ""),
+              ],
+            ),
+          ),
+          Expanded(child: child),
+        ].whereNotNull()
+        .toList(),
+      ))
+    );
+  }
 }
 
 class PlaceItem extends StatelessWidget {
@@ -143,19 +207,8 @@ class LegItem extends StatelessWidget {
       }
     }
 
-    if(leg!.duration != null){
-      int mins = (leg!.duration! / 60).round();
-      info = Text(mins.toString() + 'min');
-    }
     List<Widget> list = [
-      TransitModeIcon(leg?.mode),
-      DepartureTimeWidget(
-        milliseconds: leg?.startTime, 
-        isRealTime: leg?.realTime,
-      ),
       desc,
-      const Spacer(),
-      info,
     ];
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),

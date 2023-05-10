@@ -37,6 +37,16 @@ class DepartureTimeWidget extends StatelessWidget {
   }
 }
 
+
+DateTime? fromTimeStamp({int? seconds, int? milliseconds}){
+  if(seconds != null){
+    return DateTime.fromMillisecondsSinceEpoch(seconds*1000);
+  }
+  if(milliseconds != null){
+    return DateTime.fromMillisecondsSinceEpoch(milliseconds);
+  }
+  return null;
+}
 String? formatTime(DateTime? time, {required BuildContext context}){
   if(time == null){
     return null;
