@@ -13,6 +13,8 @@ class Variables$Query$Itinerary {
     String? time,
     String? date,
     bool? arriveBy,
+    bool? allowBikeRental,
+    List<Input$TransportMode?>? modes,
   }) =>
       Variables$Query$Itinerary._({
         if (fromPlace != null) r'fromPlace': fromPlace,
@@ -21,6 +23,8 @@ class Variables$Query$Itinerary {
         if (time != null) r'time': time,
         if (date != null) r'date': date,
         if (arriveBy != null) r'arriveBy': arriveBy,
+        if (allowBikeRental != null) r'allowBikeRental': allowBikeRental,
+        if (modes != null) r'modes': modes,
       });
 
   Variables$Query$Itinerary._(this._$data);
@@ -51,6 +55,18 @@ class Variables$Query$Itinerary {
       final l$arriveBy = data['arriveBy'];
       result$data['arriveBy'] = (l$arriveBy as bool?);
     }
+    if (data.containsKey('allowBikeRental')) {
+      final l$allowBikeRental = data['allowBikeRental'];
+      result$data['allowBikeRental'] = (l$allowBikeRental as bool?);
+    }
+    if (data.containsKey('modes')) {
+      final l$modes = data['modes'];
+      result$data['modes'] = (l$modes as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : Input$TransportMode.fromJson((e as Map<String, dynamic>)))
+          .toList();
+    }
     return Variables$Query$Itinerary._(result$data);
   }
 
@@ -62,6 +78,9 @@ class Variables$Query$Itinerary {
   String? get time => (_$data['time'] as String?);
   String? get date => (_$data['date'] as String?);
   bool? get arriveBy => (_$data['arriveBy'] as bool?);
+  bool? get allowBikeRental => (_$data['allowBikeRental'] as bool?);
+  List<Input$TransportMode?>? get modes =>
+      (_$data['modes'] as List<Input$TransportMode?>?);
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     if (_$data.containsKey('fromPlace')) {
@@ -87,6 +106,14 @@ class Variables$Query$Itinerary {
     if (_$data.containsKey('arriveBy')) {
       final l$arriveBy = arriveBy;
       result$data['arriveBy'] = l$arriveBy;
+    }
+    if (_$data.containsKey('allowBikeRental')) {
+      final l$allowBikeRental = allowBikeRental;
+      result$data['allowBikeRental'] = l$allowBikeRental;
+    }
+    if (_$data.containsKey('modes')) {
+      final l$modes = modes;
+      result$data['modes'] = l$modes?.map((e) => e?.toJson()).toList();
     }
     return result$data;
   }
@@ -156,6 +183,34 @@ class Variables$Query$Itinerary {
     if (l$arriveBy != lOther$arriveBy) {
       return false;
     }
+    final l$allowBikeRental = allowBikeRental;
+    final lOther$allowBikeRental = other.allowBikeRental;
+    if (_$data.containsKey('allowBikeRental') !=
+        other._$data.containsKey('allowBikeRental')) {
+      return false;
+    }
+    if (l$allowBikeRental != lOther$allowBikeRental) {
+      return false;
+    }
+    final l$modes = modes;
+    final lOther$modes = other.modes;
+    if (_$data.containsKey('modes') != other._$data.containsKey('modes')) {
+      return false;
+    }
+    if (l$modes != null && lOther$modes != null) {
+      if (l$modes.length != lOther$modes.length) {
+        return false;
+      }
+      for (int i = 0; i < l$modes.length; i++) {
+        final l$modes$entry = l$modes[i];
+        final lOther$modes$entry = lOther$modes[i];
+        if (l$modes$entry != lOther$modes$entry) {
+          return false;
+        }
+      }
+    } else if (l$modes != lOther$modes) {
+      return false;
+    }
     return true;
   }
 
@@ -167,6 +222,8 @@ class Variables$Query$Itinerary {
     final l$time = time;
     final l$date = date;
     final l$arriveBy = arriveBy;
+    final l$allowBikeRental = allowBikeRental;
+    final l$modes = modes;
     return Object.hashAll([
       _$data.containsKey('fromPlace') ? l$fromPlace : const {},
       _$data.containsKey('toPlace') ? l$toPlace : const {},
@@ -174,6 +231,12 @@ class Variables$Query$Itinerary {
       _$data.containsKey('time') ? l$time : const {},
       _$data.containsKey('date') ? l$date : const {},
       _$data.containsKey('arriveBy') ? l$arriveBy : const {},
+      _$data.containsKey('allowBikeRental') ? l$allowBikeRental : const {},
+      _$data.containsKey('modes')
+          ? l$modes == null
+              ? null
+              : Object.hashAll(l$modes.map((v) => v))
+          : const {},
     ]);
   }
 }
@@ -194,6 +257,8 @@ abstract class CopyWith$Variables$Query$Itinerary<TRes> {
     String? time,
     String? date,
     bool? arriveBy,
+    bool? allowBikeRental,
+    List<Input$TransportMode?>? modes,
   });
 }
 
@@ -217,6 +282,8 @@ class _CopyWithImpl$Variables$Query$Itinerary<TRes>
     Object? time = _undefined,
     Object? date = _undefined,
     Object? arriveBy = _undefined,
+    Object? allowBikeRental = _undefined,
+    Object? modes = _undefined,
   }) =>
       _then(Variables$Query$Itinerary._({
         ..._instance._$data,
@@ -226,6 +293,10 @@ class _CopyWithImpl$Variables$Query$Itinerary<TRes>
         if (time != _undefined) 'time': (time as String?),
         if (date != _undefined) 'date': (date as String?),
         if (arriveBy != _undefined) 'arriveBy': (arriveBy as bool?),
+        if (allowBikeRental != _undefined)
+          'allowBikeRental': (allowBikeRental as bool?),
+        if (modes != _undefined)
+          'modes': (modes as List<Input$TransportMode?>?),
       }));
 }
 
@@ -242,6 +313,8 @@ class _CopyWithStubImpl$Variables$Query$Itinerary<TRes>
     String? time,
     String? date,
     bool? arriveBy,
+    bool? allowBikeRental,
+    List<Input$TransportMode?>? modes,
   }) =>
       _res;
 }
@@ -439,6 +512,27 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
         defaultValue: DefaultValueNode(value: null),
         directives: [],
       ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'allowBikeRental')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'Boolean'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'modes')),
+        type: ListTypeNode(
+          type: NamedTypeNode(
+            name: NameNode(value: 'TransportMode'),
+            isNonNull: false,
+          ),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
     ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
@@ -469,6 +563,14 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
           ArgumentNode(
             name: NameNode(value: 'arriveBy'),
             value: VariableNode(name: NameNode(value: 'arriveBy')),
+          ),
+          ArgumentNode(
+            name: NameNode(value: 'allowBikeRental'),
+            value: VariableNode(name: NameNode(value: 'allowBikeRental')),
+          ),
+          ArgumentNode(
+            name: NameNode(value: 'transportModes'),
+            value: VariableNode(name: NameNode(value: 'modes')),
           ),
         ],
         directives: [],

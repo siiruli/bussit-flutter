@@ -6,6 +6,8 @@ query Itinerary(
   $time: String,
   $date: String,
   $arriveBy: Boolean,
+  $allowBikeRental: Boolean,
+  $modes: [TransportMode],
 ){
   plan(
     fromPlace: $fromPlace,
@@ -14,6 +16,8 @@ query Itinerary(
     time: $time,
     date: $date,
     arriveBy: $arriveBy,
+    allowBikeRental: $allowBikeRental,
+    transportModes: $modes,
   ) {
     itineraries {
       walkDistance

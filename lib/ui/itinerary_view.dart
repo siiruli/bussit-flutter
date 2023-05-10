@@ -30,7 +30,7 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
 
   final _formKey = GlobalKey<FormState>();  
   Widget? _result;
-
+  final List<bool> _allowBikeRental = [false];
   @override
   bool get wantKeepAlive => true;
 
@@ -57,6 +57,7 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
           nResults: 8,
           time: datetime,
           arriveBy: formData.arriveBy,
+          allowBikeRental: _allowBikeRental[0],
         );
       });
     }
@@ -92,7 +93,16 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
             });
           }
         );
-        
+        final bikeButton = ToggleButtons(
+          children: const [Icon(Icons.pedal_bike, color: Colors.yellow,)],
+          isSelected: _allowBikeRental,
+          onPressed: (int index) {
+            setState(() {
+              _allowBikeRental[index] = !_allowBikeRental[index];
+            });
+          },
+        );
+          
         final form = Padding(
           padding: const EdgeInsets.all(8), 
           child: Form(
@@ -106,6 +116,7 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
                     dateChooser,
                     timeChooser,
                     nowButton, 
+                    bikeButton,
                     TextButton(
                       onPressed: () => saveResult(formData),
                       child: const Text("Search routes"),

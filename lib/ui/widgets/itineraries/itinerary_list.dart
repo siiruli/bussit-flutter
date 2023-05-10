@@ -1,4 +1,5 @@
 import 'package:bussit/graphql/itinerary_query.graphql.dart';
+import 'package:bussit/graphql/schema.graphql.dart';
 import 'package:bussit/model/address.dart';
 import 'package:bussit/ui/widgets/itineraries/itinerary_item.dart';
 import 'package:flutter/material.dart';
@@ -25,17 +26,26 @@ class ItineraryListWidget extends HookWidget {
     this.time,
     this.arriveBy,
     super.key,
+    this.allowBikeRental,
   });
   final Address from;
   final Address to;
   final int? nResults;
   final DateTime? time;
   final bool? arriveBy;
+  final bool? allowBikeRental;
   @override 
   Widget build(BuildContext context) {
     if(time != null){
       developer.log(DateFormat('y-MM-dd').format(time!));
       developer.log(DateFormat('HH:mm:ss').format(time!));
+    }
+    List<Input$TransportMode> modes = [
+      Input$TransportMode(mode: Enum$Mode.WALK),
+      Input$TransportMode(mode: Enum$Mode.TRANSIT),
+    ];
+    if(allowBikeRental == true){
+      modes.add(Input$TransportMode(mode: Enum$Mode.BICYCLE, qualifier: Enum$Qualifier.RENT));
     }
     final result = useQuery$Itinerary(
       Options$Query$Itinerary(
@@ -46,7 +56,9 @@ class ItineraryListWidget extends HookWidget {
           nResults: nResults,
           date: time == null ? null : DateFormat('y-MM-dd').format(time!),
           time: time == null ? null : DateFormat('HH:mm:ss').format(time!),
-          arriveBy: arriveBy
+          arriveBy: arriveBy,
+          allowBikeRental: allowBikeRental,
+          modes: modes,
         ),
       ),
     );
