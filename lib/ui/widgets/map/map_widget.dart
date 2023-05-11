@@ -1,8 +1,10 @@
 import 'package:bussit/api/map_api.dart';
 import 'package:bussit/ui/widgets/map/layers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_location_marker/flutter_map_location_marker.dart'; 
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:collection/collection.dart';
 
@@ -18,7 +20,19 @@ class MapWidget extends StatefulWidget {
 
 class _MapWidgetState extends State<MapWidget> {
 
+  Widget? _locationLayer = null;
 
+  @override
+  void initState() {
+    super.initState();
+    Geolocator.isLocationServiceEnabled().then((value){
+      if(value == true) {
+        setState(() {
+        _locationLayer = CurrentLocationLayer();
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context){
@@ -31,8 +45,9 @@ class _MapWidgetState extends State<MapWidget> {
     List<Widget?> layers = [
       background, 
       (widget.showBikeRental == true ? const BikeRentalLayer() : null),
-      CurrentLocationLayer()
+      _locationLayer,
     ];
+
     layers.addAll(widget.layers ?? []);
 
     final map = FlutterMap(
