@@ -17,10 +17,10 @@ class ItineraryFormData extends ChangeNotifier {
   TimeOfDay? get time => _time;
 
 
-  set locationFrom(val) => _locationFrom = val; 
-  set locationTo(val) => _locationTo = val;
-  set arriveBy(val) => _arriveBy = val;
-  set date(val) => _date = val;
-  set time(val) => _time = val;
+  set locationFrom(val) {_locationFrom = val; notifyListeners();}
+  set locationTo(val) {_locationTo = val; notifyListeners();}
+  set arriveBy(val) {_arriveBy = val; notifyListeners();}
+  set date(val) {_date = val; notifyListeners();}
+  set time(val) {_time = val; notifyListeners();}
 
 }

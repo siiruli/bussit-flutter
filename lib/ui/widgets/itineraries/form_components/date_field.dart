@@ -1,12 +1,13 @@
 
 
 
+import 'package:bussit/model/itinerary_form_data.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class DateField extends StatelessWidget {
-  const DateField({this.onSaved, super.key});
-  final Function(DateTime?)? onSaved;
+  const DateField({super.key});
   
   String? dateString(DateTime? date) {
     return DateFormat('dd.MM.').format(date ?? DateTime.now());
@@ -24,16 +25,15 @@ class DateField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    return FormField<DateTime>( 
-      onSaved: onSaved,
-      builder:(field) => TextButton.icon(
+    return Consumer<ItineraryFormData>( 
+      builder: (context, formData, child) => TextButton.icon(
         icon: const Icon(Icons.calendar_month),
         onPressed: () {
-          Future<DateTime?> future = displayDatePicker(context, field.value);
-          future.then((value) => value == null ? null : field.didChange(value));
+          Future<DateTime?> future = displayDatePicker(context, formData.date);
+          future.then((value) => value == null ? null : formData.date = value);
         },
-        label: Text(dateString(field.value) ?? ''),
-      )
+        label: Text(dateString(formData.date) ?? ''),
+      ),
     );
   }
 }

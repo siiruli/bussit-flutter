@@ -71,8 +71,8 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
       builder: (context, formData, child) {
         const places = LocationsForm();
         // time
-        final dateChooser = DateField(onSaved: (date) => formData.date = date);
-        final timeChooser = TimeField(onSaved: (time) => formData.time = time,);
+        const dateChooser = DateField();
+        const timeChooser = TimeField();
         
         final nowButton = TextButton(
           onPressed: () => setState(() {

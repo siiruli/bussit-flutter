@@ -1,8 +1,9 @@
+import 'package:bussit/model/itinerary_form_data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TimeField extends StatelessWidget {
-  const TimeField({this.onSaved, super.key});
-  final Function(TimeOfDay?)? onSaved;
+  const TimeField({super.key});
 
   String timeString(BuildContext context, TimeOfDay? time) {
     return time == null ? "Now" : time.format(context);
@@ -13,6 +14,12 @@ class TimeField extends StatelessWidget {
       context: context,
       initialTime: current ?? TimeOfDay.now(),
       initialEntryMode: TimePickerEntryMode.input,
+      builder: (context, childWidget) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+          child: childWidget!,
+        );
+      },
     );
     return time;
   }
@@ -20,16 +27,21 @@ class TimeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    return FormField<TimeOfDay>( 
-      onSaved: onSaved,
-      builder: (field) => TextButton.icon(
-        icon: const Icon(Icons.schedule),
-        label: Text(timeString(context, field.value)),
-        onPressed: () {
-          Future<TimeOfDay?> future = displayTimePicker(context, field.value);
-          future.then((value) => value == null ? null : field.didChange(value));
-        },
-      ),
+    return Consumer<ItineraryFormData>(
+      builder:(context, formData, child) {
+        return TextButton.icon(
+          icon: const Icon(Icons.schedule),
+          label: Text(timeString(context, formData.time)),
+          onPressed: () {
+            Future<TimeOfDay?> future = displayTimePicker(context, formData.time);
+            future.then((value) {
+              if(value != null){
+                formData.time = value;
+              }
+            });
+          },
+        );
+      },
     );
   }
 }
