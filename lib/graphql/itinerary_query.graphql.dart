@@ -572,6 +572,10 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
             name: NameNode(value: 'transportModes'),
             value: VariableNode(name: NameNode(value: 'modes')),
           ),
+          ArgumentNode(
+            name: NameNode(value: 'maxWalkDistance'),
+            value: IntValueNode(value: '15000'),
+          ),
         ],
         directives: [],
         selectionSet: SelectionSetNode(selections: [

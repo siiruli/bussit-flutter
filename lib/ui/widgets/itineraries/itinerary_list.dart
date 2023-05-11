@@ -26,14 +26,14 @@ class ItineraryListWidget extends HookWidget {
     this.time,
     this.arriveBy,
     super.key,
-    this.allowBikeRental,
+    this.allowBike,
   });
   final Address from;
   final Address to;
   final int? nResults;
   final DateTime? time;
   final bool? arriveBy;
-  final bool? allowBikeRental;
+  final List<bool>? allowBike;
   @override 
   Widget build(BuildContext context) {
     if(time != null){
@@ -44,8 +44,17 @@ class ItineraryListWidget extends HookWidget {
       Input$TransportMode(mode: Enum$Mode.WALK),
       Input$TransportMode(mode: Enum$Mode.TRANSIT),
     ];
-    if(allowBikeRental == true){
+    if(allowBike?[0] == true){
       modes.add(Input$TransportMode(mode: Enum$Mode.BICYCLE, qualifier: Enum$Qualifier.RENT));
+    }
+    if(allowBike?[1] == true){
+      // modes.add(Input$TransportMode(mode: Enum$Mode.BICYCLE));
+      modes = [
+        Input$TransportMode(mode: Enum$Mode.BICYCLE),
+        Input$TransportMode(mode: Enum$Mode.RAIL),
+        Input$TransportMode(mode: Enum$Mode.SUBWAY),
+        Input$TransportMode(mode: Enum$Mode.FERRY),
+      ];
     }
     final result = useQuery$Itinerary(
       Options$Query$Itinerary(
@@ -57,7 +66,7 @@ class ItineraryListWidget extends HookWidget {
           date: time == null ? null : DateFormat('y-MM-dd').format(time!),
           time: time == null ? null : DateFormat('HH:mm:ss').format(time!),
           arriveBy: arriveBy,
-          allowBikeRental: allowBikeRental,
+          allowBikeRental: allowBike?[0],
           modes: modes,
         ),
       ),

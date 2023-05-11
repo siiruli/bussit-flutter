@@ -1,4 +1,6 @@
+import 'package:bussit/graphql/schema.graphql.dart';
 import 'package:bussit/model/itinerary_form_data.dart';
+import 'package:bussit/ui/widgets/components/app_icons.dart';
 import 'package:bussit/ui/widgets/itineraries/form_components/date_field.dart';
 import 'package:bussit/ui/widgets/itineraries/form_components/locations_form.dart';
 import 'package:bussit/ui/widgets/itineraries/form_components/time_field.dart';
@@ -30,7 +32,11 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
 
   final _formKey = GlobalKey<FormState>();  
   Widget? _result;
-  final List<bool> _allowBikeRental = [false];
+  final List<bool> _allowBike = [false, false];
+  final List<Widget> _bikeIcons = const [
+    Icon(Icons.pedal_bike, color: Colors.amber,),
+    TransitModeIcon(Enum$Mode.BICYCLE),
+  ];
   @override
   bool get wantKeepAlive => true;
 
@@ -57,7 +63,7 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
           nResults: 8,
           time: datetime,
           arriveBy: formData.arriveBy,
-          allowBikeRental: _allowBikeRental[0],
+          allowBike: _allowBike,
         );
       });
     }
@@ -94,11 +100,11 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
           }
         );
         final bikeButton = ToggleButtons(
-          children: const [Icon(Icons.pedal_bike, color: Colors.yellow,)],
-          isSelected: _allowBikeRental,
+          children: _bikeIcons,
+          isSelected: _allowBike,
           onPressed: (int index) {
             setState(() {
-              _allowBikeRental[index] = !_allowBikeRental[index];
+              _allowBike[index] = !_allowBike[index];
             });
           },
         );

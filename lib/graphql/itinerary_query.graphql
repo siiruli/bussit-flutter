@@ -18,6 +18,7 @@ query Itinerary(
     arriveBy: $arriveBy,
     allowBikeRental: $allowBikeRental,
     transportModes: $modes,
+    maxWalkDistance: 15000,
   ) {
     itineraries {
       walkDistance
