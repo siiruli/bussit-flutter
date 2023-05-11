@@ -49,6 +49,7 @@ dependencies:
   vector_map_tiles: ^3.3.3
   google_polyline_algorithm: ^3.1.0
   geolocator: ^9.0.2
+  flutter_map_location_marker: ^5.3.0
 
 dev_dependencies:
   flutter_test:
