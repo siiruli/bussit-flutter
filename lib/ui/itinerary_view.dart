@@ -108,9 +108,11 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
           child: Form(
             key: _formKey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 places, 
                 Wrap(
+                  alignment: WrapAlignment.spaceBetween,
                   children: [
                     arrivalOrDeparture,
                     dateChooser,
