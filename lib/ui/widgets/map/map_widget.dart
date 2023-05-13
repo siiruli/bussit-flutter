@@ -1,7 +1,7 @@
 import 'package:bussit/api/map_api.dart';
+import 'package:bussit/ui/widgets/components/geo_location.dart';
 import 'package:bussit/ui/widgets/map/layers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:geolocator/geolocator.dart';
@@ -25,7 +25,8 @@ class MapWidget extends StatefulWidget {
 class _MapWidgetState extends State<MapWidget> {
 
   Widget? _locationLayer;
-
+  final mapController = MapController();
+  
   @override
   void initState() {
     super.initState();
@@ -46,30 +47,66 @@ class _MapWidgetState extends State<MapWidget> {
       maxNativeZoom: 16,
     );
 
+    const double? buttonSize = 32;
+    final locationButton = IconButton(
+      icon: const Icon(Icons.location_searching),
+      onPressed: () {
+        determinePosition().then((Position pos) {
+          mapController.move(LatLng(pos.latitude, pos.longitude), mapController.zoom);
+        });
+      },
+      iconSize: buttonSize,
+    );
+    final compassButton = IconButton(
+      icon: const Icon(Icons.explore),
+      onPressed: () {
+        mapController.rotate(0);
+      },
+      iconSize: buttonSize,
+    );
+    
+
     List<Widget?> layers = [
       background, 
       (widget.showBikeRental == true ? const BikeRentalLayer() : null),
       _locationLayer,
+      
     ];
 
     layers.addAll(widget.layers ?? []);
-
+    
     final map = FlutterMap(
-        options: MapOptions(
-          minZoom: 5,
-          maxZoom: 20,
-          bounds: widget.bounds,
-          boundsOptions: const FitBoundsOptions(
-            padding: EdgeInsets.all(32),
-          ),
-          center: LatLng(60.16, 24.93),
-          // better zoom and rotation:
-          enableMultiFingerGestureRace: true,
-          rotationWinGestures: MultiFingerGesture.all,
-          rotationThreshold: 10,
+      mapController: mapController,
+      options: MapOptions(
+        minZoom: 5,
+        maxZoom: 20,
+        bounds: widget.bounds,
+        boundsOptions: const FitBoundsOptions(
+          padding: EdgeInsets.all(32),
         ),
-        children: layers.whereNotNull().toList(),
-        nonRotatedChildren: const [],
+        center: LatLng(60.16, 24.93),
+        // better zoom and rotation:
+        enableMultiFingerGestureRace: true,
+        rotationWinGestures: MultiFingerGesture.all,
+        rotationThreshold: 10,
+      ),
+      children: layers.whereNotNull().toList(),
+      nonRotatedChildren: [
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 16, right: 8),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                locationButton,
+                SizedBox.fromSize(size: const Size(0, 8),),
+                compassButton,
+              ],
+            ),
+          ),
+        ),
+      ],
     );
     return map;
   }
