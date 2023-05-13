@@ -24,6 +24,11 @@ PolylineLayer polylineLayer(List<MapLine>? lines){
     return layer;
 }
 
+LatLngBounds? boundsFromLines(List<MapLine>? lines){
+  List<LatLng>? points = lines?.expand((MapLine element) => element.polyline).toList();
+  return points == null ? null : LatLngBounds.fromPoints(points);
+}
+
 MarkerLayer pointLayer(List<MapPoint>? points){
   return MarkerLayer(
     markers: points?.map((e) => 

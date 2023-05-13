@@ -22,6 +22,7 @@ class ItineraryDetails extends StatelessWidget {
         title: const Text("Route"),
       ),
       body: MapWidget(
+        bounds: boundsFromLines(lines),
         layers: [polylineLayer(lines), pointLayer(stops)],
       ),
     );

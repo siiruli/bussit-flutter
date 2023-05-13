@@ -10,9 +10,13 @@ import 'package:collection/collection.dart';
 
 
 class MapWidget extends StatefulWidget {
-  const MapWidget({this.layers, this.showBikeRental, super.key});
+  const MapWidget({
+    this.layers, this.showBikeRental, this.bounds,
+    super.key
+  });
   final List<Widget>? layers;
   final bool? showBikeRental;
+  final LatLngBounds? bounds;
   // final mapController = MapController();
   @override
   State<MapWidget> createState() => _MapWidgetState();
@@ -20,7 +24,7 @@ class MapWidget extends StatefulWidget {
 
 class _MapWidgetState extends State<MapWidget> {
 
-  Widget? _locationLayer = null;
+  Widget? _locationLayer;
 
   @override
   void initState() {
@@ -54,6 +58,10 @@ class _MapWidgetState extends State<MapWidget> {
         options: MapOptions(
           minZoom: 5,
           maxZoom: 20,
+          bounds: widget.bounds,
+          boundsOptions: const FitBoundsOptions(
+            padding: EdgeInsets.all(32),
+          ),
           center: LatLng(60.16, 24.93),
           // better zoom and rotation:
           enableMultiFingerGestureRace: true,
