@@ -1,9 +1,8 @@
 import 'package:bussit/graphql/schema.graphql.dart';
 import 'package:bussit/model/itinerary_form_data.dart';
 import 'package:bussit/ui/widgets/components/app_icons.dart';
-import 'package:bussit/ui/widgets/itineraries/form_components/date_field.dart';
+import 'package:bussit/ui/widgets/itineraries/form_components/date_time_fields.dart';
 import 'package:bussit/ui/widgets/itineraries/form_components/locations_form.dart';
-import 'package:bussit/ui/widgets/itineraries/form_components/time_field.dart';
 import 'package:bussit/ui/widgets/itineraries/itinerary_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,11 +31,10 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
 
   final _formKey = GlobalKey<FormState>();  
   Widget? _result;
-  final List<bool> _allowBike = [false, false];
-  final List<Widget> _bikeIcons = const [
-    Icon(Icons.pedal_bike, color: Colors.amber,),
-    TransitModeIcon(Enum$Mode.BICYCLE),
-  ];
+  bool _allowBikeRental = false;
+
+  Set<dynamic> _allowedModes = {Enum$Mode.BUS, Enum$Mode.TRAM, Enum$Mode.RAIL, Enum$Mode.SUBWAY};
+
   @override
   bool get wantKeepAlive => true;
 
@@ -48,27 +46,19 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
           content: Text(formData.locationFrom.toString() + ' -> ' + formData.locationTo.toString()),
         ),
       );
-      DateTime now= DateTime.now();
-      DateTime datetime = DateTime(
-        (formData.date ?? now).year, 
-        (formData.date ?? now).month, 
-        (formData.date ?? now).day, 
-        formData.time?.hour ?? now.hour,
-        formData.time?.minute ?? now.minute,
-      );
       setState(() {
         _result = ItineraryListWidget(
           from: formData.locationFrom!, 
           to: formData.locationTo!,
-          nResults: 8,
-          time: datetime,
+          nResults: 12,
+          time: formData.datetime,
           arriveBy: formData.arriveBy,
-          allowBike: _allowBike,
+          allowBikeRental: _allowBikeRental,
+          transportModes: _allowedModes.toList(),
         );
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,17 +66,7 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
     return Consumer<ItineraryFormData>(
       builder: (context, formData, child) {
         const places = LocationsForm();
-        // time
-        const dateChooser = DateField();
-        const timeChooser = TimeField();
         
-        final nowButton = TextButton(
-          onPressed: () => setState(() {
-            formData.date = null;
-            formData.time = null;
-          }), 
-          child: const Text('Now'),
-        );
         final arrivalOrDeparture = DropdownButton<bool>(
           value: formData.arriveBy,
           items: const [
@@ -99,12 +79,59 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
             });
           }
         );
-        final bikeButton = ToggleButtons(
-          children: _bikeIcons,
-          isSelected: _allowBike,
-          onPressed: (int index) {
+        const rentedBike = [Enum$Mode.BICYCLE, Enum$Qualifier.RENT];
+        final bikeButton = SegmentedButton(
+          segments: const [
+            ButtonSegment(
+              value: rentedBike,
+              label: Icon(Icons.pedal_bike, color: Colors.amber,),
+            ),
+            ButtonSegment(
+              value: Enum$Mode.BICYCLE,
+              label: TransitModeIcon(Enum$Mode.BICYCLE),
+            ),
+            ButtonSegment(
+              value: Enum$Mode.BUS,
+              label: TransitModeIcon(Enum$Mode.BUS),
+            ),
+            ButtonSegment(
+              value: Enum$Mode.TRAM,
+              label: TransitModeIcon(Enum$Mode.TRAM),
+            ),
+            ButtonSegment(
+              value: Enum$Mode.RAIL,
+              label: TransitModeIcon(Enum$Mode.RAIL),
+            ),
+            ButtonSegment(
+              value: Enum$Mode.SUBWAY,
+              label: TransitModeIcon(Enum$Mode.SUBWAY),
+            ),
+          ],
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.selected)){
+                    return Colors.grey[300];
+                  }
+                  return null;
+                },
+            ),
+            visualDensity: VisualDensity.compact,
+          ),
+          showSelectedIcon: true,
+          emptySelectionAllowed: true,
+          multiSelectionEnabled: true,
+          selected: _allowedModes,
+          onSelectionChanged: (Set<dynamic> modes) {
+            if(modes.contains(Enum$Mode.BICYCLE) && !_allowedModes.contains(Enum$Mode.BICYCLE)){
+              modes.removeAll([Enum$Mode.BUS, Enum$Mode.TRAM]);
+            }
+            if(!modes.contains(Enum$Mode.BICYCLE) && _allowedModes.contains(Enum$Mode.BICYCLE)){
+              modes.addAll([Enum$Mode.BUS, Enum$Mode.TRAM, Enum$Mode.RAIL, Enum$Mode.SUBWAY]);
+            }
             setState(() {
-              _allowBike[index] = !_allowBike[index];
+              _allowedModes = modes;
+              _allowBikeRental = modes.contains(rentedBike);
             });
           },
         );
@@ -118,19 +145,20 @@ class _ItineraryFormState extends State<ItineraryForm>  with AutomaticKeepAliveC
               children: [
                 places, 
                 Wrap(
-                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  alignment: WrapAlignment.spaceEvenly,
                   children: [
                     arrivalOrDeparture,
-                    dateChooser,
-                    timeChooser,
-                    nowButton, 
+                    const DateField(),
+                    const TimeField(),
+                    TimeControls(formData),
                     bikeButton,
                     TextButton(
                       onPressed: () => saveResult(formData),
                       child: const Text("Search routes"),
                     ),
                   ],
-                ),          
+                ),
               ],
             ),
           ),

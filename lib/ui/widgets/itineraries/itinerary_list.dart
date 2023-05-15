@@ -26,36 +26,43 @@ class ItineraryListWidget extends HookWidget {
     this.time,
     this.arriveBy,
     super.key,
-    this.allowBike,
+    this.transportModes,
+    this.allowBikeRental,
   });
   final Address from;
   final Address to;
   final int? nResults;
   final DateTime? time;
   final bool? arriveBy;
-  final List<bool>? allowBike;
+  final List<dynamic>? transportModes;
+  final bool? allowBikeRental;
   @override 
   Widget build(BuildContext context) {
     if(time != null){
       developer.log(DateFormat('y-MM-dd').format(time!));
       developer.log(DateFormat('HH:mm:ss').format(time!));
     }
-    List<Input$TransportMode> modes = [
-      Input$TransportMode(mode: Enum$Mode.WALK),
-      Input$TransportMode(mode: Enum$Mode.TRANSIT),
-    ];
-    if(allowBike?[0] == true){
-      modes.add(Input$TransportMode(mode: Enum$Mode.BICYCLE, qualifier: Enum$Qualifier.RENT));
+    List<Input$TransportMode>? modes = transportModes?.map((e) {
+      if(e is List<dynamic>){
+        return Input$TransportMode(mode: e[0], qualifier: e[1]);
+      }
+      else{
+        return Input$TransportMode(mode: e);
+      }
+    }).toList();
+    
+    // add ferry
+    modes?.add(
+      Input$TransportMode(mode: Enum$Mode.FERRY),
+    );
+    bool usebike = transportModes?.contains(Enum$Mode.BICYCLE) == true;
+    // For some reason, walking has to be off to get bicycle routes
+    if(!usebike){
+      modes?.add(Input$TransportMode(mode: Enum$Mode.WALK));
     }
-    if(allowBike?[1] == true){
-      // modes.add(Input$TransportMode(mode: Enum$Mode.BICYCLE));
-      modes = [
-        Input$TransportMode(mode: Enum$Mode.BICYCLE),
-        Input$TransportMode(mode: Enum$Mode.RAIL),
-        Input$TransportMode(mode: Enum$Mode.SUBWAY),
-        Input$TransportMode(mode: Enum$Mode.FERRY),
-      ];
-    }
+
+
+
     final result = useQuery$Itinerary(
       Options$Query$Itinerary(
         fetchPolicy: FetchPolicy.cacheAndNetwork,
@@ -66,8 +73,9 @@ class ItineraryListWidget extends HookWidget {
           date: time == null ? null : DateFormat('y-MM-dd').format(time!),
           time: time == null ? null : DateFormat('HH:mm:ss').format(time!),
           arriveBy: arriveBy,
-          allowBikeRental: allowBike?[0],
+          allowBikeRental: allowBikeRental,
           modes: modes,
+          maxWalkDistance: (usebike == true || allowBikeRental == true) ? 15000 : 2000,
         ),
       ),
     );

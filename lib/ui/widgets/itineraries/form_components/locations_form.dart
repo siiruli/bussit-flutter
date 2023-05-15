@@ -121,7 +121,9 @@ class LocationField extends StatelessWidget {
             );
 
             final field = GestureDetector(
-              
+              onTap: () {
+                focusNode.requestFocus();
+              },
               onDoubleTap: () {
                 focusNode.requestFocus();
                 textEditingController.selection = TextSelection(

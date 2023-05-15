@@ -8,6 +8,7 @@ query Itinerary(
   $arriveBy: Boolean,
   $allowBikeRental: Boolean,
   $modes: [TransportMode],
+  $maxWalkDistance: Float,
 ){
   plan(
     fromPlace: $fromPlace,
@@ -18,7 +19,7 @@ query Itinerary(
     arriveBy: $arriveBy,
     allowBikeRental: $allowBikeRental,
     transportModes: $modes,
-    maxWalkDistance: 15000,
+    maxWalkDistance: $maxWalkDistance,
   ) {
     itineraries {
       walkDistance

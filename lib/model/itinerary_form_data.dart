@@ -13,8 +13,20 @@ class ItineraryFormData extends ChangeNotifier {
   Address? get locationFrom => _locationFrom; 
   Address? get locationTo => _locationTo;
   bool get arriveBy => _arriveBy;
+
   DateTime? get date => _date;
   TimeOfDay? get time => _time;
+  DateTime get datetime {
+    DateTime now= DateTime.now();
+    DateTime datetime = DateTime(
+      (date ?? now).year, 
+      (date ?? now).month, 
+      (date ?? now).day, 
+      time?.hour ?? now.hour,
+      time?.minute ?? now.minute,
+    );
+    return datetime;
+  }
 
 
   set locationFrom(val) {_locationFrom = val; notifyListeners();}
@@ -22,5 +34,11 @@ class ItineraryFormData extends ChangeNotifier {
   set arriveBy(val) {_arriveBy = val; notifyListeners();}
   set date(val) {_date = val; notifyListeners();}
   set time(val) {_time = val; notifyListeners();}
+
+  set datetime(DateTime val) {
+    _date = val;
+    _time = TimeOfDay.fromDateTime(val); 
+    notifyListeners();
+  }
 
 }

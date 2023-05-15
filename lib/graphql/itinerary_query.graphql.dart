@@ -15,6 +15,7 @@ class Variables$Query$Itinerary {
     bool? arriveBy,
     bool? allowBikeRental,
     List<Input$TransportMode?>? modes,
+    double? maxWalkDistance,
   }) =>
       Variables$Query$Itinerary._({
         if (fromPlace != null) r'fromPlace': fromPlace,
@@ -25,6 +26,7 @@ class Variables$Query$Itinerary {
         if (arriveBy != null) r'arriveBy': arriveBy,
         if (allowBikeRental != null) r'allowBikeRental': allowBikeRental,
         if (modes != null) r'modes': modes,
+        if (maxWalkDistance != null) r'maxWalkDistance': maxWalkDistance,
       });
 
   Variables$Query$Itinerary._(this._$data);
@@ -67,6 +69,10 @@ class Variables$Query$Itinerary {
               : Input$TransportMode.fromJson((e as Map<String, dynamic>)))
           .toList();
     }
+    if (data.containsKey('maxWalkDistance')) {
+      final l$maxWalkDistance = data['maxWalkDistance'];
+      result$data['maxWalkDistance'] = (l$maxWalkDistance as num?)?.toDouble();
+    }
     return Variables$Query$Itinerary._(result$data);
   }
 
@@ -81,6 +87,7 @@ class Variables$Query$Itinerary {
   bool? get allowBikeRental => (_$data['allowBikeRental'] as bool?);
   List<Input$TransportMode?>? get modes =>
       (_$data['modes'] as List<Input$TransportMode?>?);
+  double? get maxWalkDistance => (_$data['maxWalkDistance'] as double?);
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     if (_$data.containsKey('fromPlace')) {
@@ -114,6 +121,10 @@ class Variables$Query$Itinerary {
     if (_$data.containsKey('modes')) {
       final l$modes = modes;
       result$data['modes'] = l$modes?.map((e) => e?.toJson()).toList();
+    }
+    if (_$data.containsKey('maxWalkDistance')) {
+      final l$maxWalkDistance = maxWalkDistance;
+      result$data['maxWalkDistance'] = l$maxWalkDistance;
     }
     return result$data;
   }
@@ -211,6 +222,15 @@ class Variables$Query$Itinerary {
     } else if (l$modes != lOther$modes) {
       return false;
     }
+    final l$maxWalkDistance = maxWalkDistance;
+    final lOther$maxWalkDistance = other.maxWalkDistance;
+    if (_$data.containsKey('maxWalkDistance') !=
+        other._$data.containsKey('maxWalkDistance')) {
+      return false;
+    }
+    if (l$maxWalkDistance != lOther$maxWalkDistance) {
+      return false;
+    }
     return true;
   }
 
@@ -224,6 +244,7 @@ class Variables$Query$Itinerary {
     final l$arriveBy = arriveBy;
     final l$allowBikeRental = allowBikeRental;
     final l$modes = modes;
+    final l$maxWalkDistance = maxWalkDistance;
     return Object.hashAll([
       _$data.containsKey('fromPlace') ? l$fromPlace : const {},
       _$data.containsKey('toPlace') ? l$toPlace : const {},
@@ -237,6 +258,7 @@ class Variables$Query$Itinerary {
               ? null
               : Object.hashAll(l$modes.map((v) => v))
           : const {},
+      _$data.containsKey('maxWalkDistance') ? l$maxWalkDistance : const {},
     ]);
   }
 }
@@ -259,6 +281,7 @@ abstract class CopyWith$Variables$Query$Itinerary<TRes> {
     bool? arriveBy,
     bool? allowBikeRental,
     List<Input$TransportMode?>? modes,
+    double? maxWalkDistance,
   });
 }
 
@@ -284,6 +307,7 @@ class _CopyWithImpl$Variables$Query$Itinerary<TRes>
     Object? arriveBy = _undefined,
     Object? allowBikeRental = _undefined,
     Object? modes = _undefined,
+    Object? maxWalkDistance = _undefined,
   }) =>
       _then(Variables$Query$Itinerary._({
         ..._instance._$data,
@@ -297,6 +321,8 @@ class _CopyWithImpl$Variables$Query$Itinerary<TRes>
           'allowBikeRental': (allowBikeRental as bool?),
         if (modes != _undefined)
           'modes': (modes as List<Input$TransportMode?>?),
+        if (maxWalkDistance != _undefined)
+          'maxWalkDistance': (maxWalkDistance as double?),
       }));
 }
 
@@ -315,6 +341,7 @@ class _CopyWithStubImpl$Variables$Query$Itinerary<TRes>
     bool? arriveBy,
     bool? allowBikeRental,
     List<Input$TransportMode?>? modes,
+    double? maxWalkDistance,
   }) =>
       _res;
 }
@@ -533,6 +560,15 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
         defaultValue: DefaultValueNode(value: null),
         directives: [],
       ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'maxWalkDistance')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'Float'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
     ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
@@ -574,7 +610,7 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
           ),
           ArgumentNode(
             name: NameNode(value: 'maxWalkDistance'),
-            value: IntValueNode(value: '15000'),
+            value: VariableNode(name: NameNode(value: 'maxWalkDistance')),
           ),
         ],
         directives: [],
