@@ -40,7 +40,7 @@ dependencies:
   graphql: ^5.1.1
   web_socket_channel: ^2.2.0
   flutter_hooks: ^0.18.3
-  intl: ^0.18.0
+  intl: ^0.17.0
   floor: ^1.4.1
   json_serializable: ^6.6.1
   json_annotation: ^4.8.0
@@ -50,6 +50,8 @@ dependencies:
   google_polyline_algorithm: ^3.1.0
   geolocator: ^9.0.2
   flutter_map_location_marker: ^5.3.0
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
