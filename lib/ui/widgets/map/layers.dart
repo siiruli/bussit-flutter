@@ -7,6 +7,7 @@ import 'package:bussit/graphql/bike_query.graphql.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:collection/collection.dart';
+import 'package:bussit/utils/graphql_hooks.dart';
 import 'dart:developer' as developer;
 
 
@@ -49,7 +50,7 @@ class BikeRentalLayer extends HookWidget {
 
   @override
   Widget build(BuildContext context){
-    final result = useQuery$CityBikes(
+    final result = useQueryLifecycleAware(
       Options$Query$CityBikes(
         fetchPolicy: FetchPolicy.cacheAndNetwork,
         pollInterval: const Duration(seconds: 15),

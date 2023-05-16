@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:bussit/api/hsl_api.dart';
+import 'package:bussit/utils/graphql_hooks.dart';
 import 'dart:developer' as developer;
 
 // Widget showin a list of stops
@@ -15,7 +16,7 @@ class StopListWidget extends HookWidget {
   @override 
   Widget build(BuildContext context) {
 
-    final result = useQuery$StopData(
+    final result = useQueryLifecycleAware(
       Options$Query$StopData(
         // fetchResults: true,
         fetchPolicy: FetchPolicy.cacheAndNetwork,
