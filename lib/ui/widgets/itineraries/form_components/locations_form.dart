@@ -140,24 +140,22 @@ class LocationField extends StatelessWidget {
               },
             );
 
-            final field = GestureDetector(
-              onTap: () {
-                focusNode.requestFocus();
+            final field = TextFormField(
+              validator: (value){
+                return (fieldState.value == null) ? "required" : null;
               },
-              onDoubleTap: () {
-                focusNode.requestFocus();
-                textEditingController.selection = TextSelection(
-                  baseOffset: 0, 
-                  extentOffset: textEditingController.text.length,
-                );
-              },
-              child: TextFormField(
-                validator: (value){
-                  return (fieldState.value == null) ? "required" : null;
-                },
-                focusNode: focusNode,
-                controller: textEditingController,
-                decoration: InputDecoration(hintText: hint),
+              focusNode: focusNode,
+              onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
+              controller: textEditingController,
+              decoration: InputDecoration(
+                hintText: hint,
+                suffix: GestureDetector(
+                  child: const Icon(Icons.clear),
+                  onTap: () {
+                    fieldState.didChange(null);
+                    textEditingController.text = "";
+                  } 
+                )
               ),
             );
             return Row(
