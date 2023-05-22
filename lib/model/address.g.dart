@@ -39,9 +39,11 @@ Map<String, dynamic> _$GeometryToJson(Geometry instance) => <String, dynamic>{
 
 Properties _$PropertiesFromJson(Map<String, dynamic> json) => Properties(
       label: json['label'] as String,
+      gid: json['gid'] as String,
     );
 
 Map<String, dynamic> _$PropertiesToJson(Properties instance) =>
     <String, dynamic>{
       'label': instance.label,
+      'gid': instance.gid,
     };

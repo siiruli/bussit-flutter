@@ -1,36 +1,24 @@
 import 'dart:collection';
-import 'package:bussit/database/database.dart';
 import 'package:flutter/foundation.dart';
-import 'package:bussit/database/stop_dao.dart';
-import 'dart:developer' as developer;
+import 'package:bussit/database/dao.dart';
 
 class SavedStopIds extends ChangeNotifier {
 
   final List<String> _list = [];
-  AppDatabase? _database;
+  final StopDao? _stopDao;
   
 
   UnmodifiableListView<String> get ids => UnmodifiableListView(_list);
   
-  SavedStopIds(){
-    _loadDatabase();
-  }
-  Future<void> _loadDatabase() async {
-    if(kIsWeb){
-      return;
-    }
-    developer.log('Building database', name: 'my.app.database');
-    _database = await $FloorAppDatabase
-        .databaseBuilder("bussit_database.db").build();
-    developer.log('Database built', name: 'my.app.database');
+  SavedStopIds(StopDao? dao) : _stopDao = dao {
     loadStops();
   }
 
   Future<void> loadStops() async {
-    if(_database == null) {
+    if(_stopDao == null) {
       return;
     }
-    List list = await _database!.stopDao.findAllStops();
+    List list = await _stopDao!.findAllStops();
     _list.clear();
     _list.addAll(list.map((e) => e.id));
     notifyListeners();
@@ -38,13 +26,13 @@ class SavedStopIds extends ChangeNotifier {
 
   void add(String id){
     _list.add(id);
-    _database?.stopDao.insertStop(Stop(id, 0));
+    _stopDao?.insertStop(Stop(id, 0));
     notifyListeners();
   }
 
   void remove(String id){
     _list.remove(id);
-    _database?.stopDao.deleteStop(Stop(id, 0));
+    _stopDao?.deleteStop(Stop(id, 0));
     notifyListeners();
   }
 

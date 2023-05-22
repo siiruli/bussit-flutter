@@ -1,9 +1,11 @@
 import 'package:bussit/api/hsl_api.dart';
+import 'package:bussit/database/database.dart';
 import 'package:bussit/model/saved_stops.dart';
 import 'package:bussit/ui/itinerary_view.dart';
 import 'package:bussit/ui/widgets/map/map_widget.dart';
 import 'package:bussit/ui/saved_stops_view.dart';
 import 'package:bussit/ui/stop_search_view.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
@@ -11,12 +13,15 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+
+  AppDatabase? database = await buildDatabase();
+
+  runApp(MyApp(database));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  const MyApp(this.database, {Key? key}) : super(key: key);
+  final AppDatabase? database;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -44,12 +49,19 @@ class MyApp extends StatelessWidget {
     );
 
     // Wrap the app with providers
-    return GraphQLProvider( 
-      client: getHslApiClient(),
-      child: ChangeNotifierProvider(
-        create: (context) => SavedStopIds(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => SavedStopIds(database?.stopDao)
+        ),
+        Provider(
+          create: (context) => database,
+        ),
+      ],
+      child: GraphQLProvider( 
+        client: getHslApiClient(),
         child: app,
-      ),
+      )
     );
   }
 }

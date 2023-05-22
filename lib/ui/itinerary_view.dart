@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 class ItineraryView extends StatelessWidget {
   const ItineraryView({Key? key}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context){
     return ChangeNotifierProvider(

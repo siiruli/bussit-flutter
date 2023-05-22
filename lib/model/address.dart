@@ -38,7 +38,8 @@ class Geometry {
 
 @JsonSerializable()
 class Properties {
-  Properties({required this.label});
+  Properties({required this.label, required this.gid});
   String label;
+  String gid;
   factory Properties.fromJson(Map<String, dynamic> json) => _$PropertiesFromJson(json);
 }

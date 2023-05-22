@@ -1,6 +1,8 @@
 
 import 'dart:async';
 import 'package:bussit/api/location_api.dart';
+import 'package:bussit/database/database.dart';
+import 'package:bussit/database/dao.dart';
 import 'package:bussit/model/address.dart';
 import 'package:bussit/ui/widgets/components/geo_location.dart';
 import 'package:flutter/material.dart';
@@ -69,8 +71,18 @@ class _LocationsFormState extends State<LocationsForm>  with AutomaticKeepAliveC
 
 
 
-FutureOr<Iterable<Address>> autocompleteBuilder(TextEditingValue value){
-  return fetchAutocomplete(value.text);
+FutureOr<Iterable<Address>> autocompleteBuilder(TextEditingValue value, AddressDao? dao){
+  if(value.text.isEmpty && dao != null){
+    return dao.findAllElements().then((list) => list.map((e) => e.toAddress()).toList());
+  }
+  return fetchAutocomplete(value.text).then((value) {
+    if(value.isEmpty && dao != null){
+      return dao.findAllElements().then((list) => list.map((e) => e.toAddress()).toList());
+    }
+    else{
+      return value;
+    }
+  });
 }
 
 String autocompleteOptionString(Address feature){
@@ -86,6 +98,7 @@ class LocationField extends StatelessWidget {
   final Function(Address?)? onSaved;
   @override
   Widget build(BuildContext context) {
+    AddressDao? addressDao = Provider.of<AppDatabase?>(context)?.addressDao;
 
     return FormField<Address?>(
       onSaved: onSaved,
@@ -93,8 +106,14 @@ class LocationField extends StatelessWidget {
       builder: (FormFieldState<Address?> fieldState){
         return Autocomplete<Address>(
           displayStringForOption: autocompleteOptionString,
-          optionsBuilder: autocompleteBuilder,
+          optionsBuilder: (value) => autocompleteBuilder(value, addressDao),
           onSelected: (Address feature){
+            // Save search
+            addressDao?.insertAndFilter(
+              AddressEntity.fromAddress(
+                feature, DateTime.now().millisecondsSinceEpoch
+              )
+            );
             fieldState.didChange(feature);
             FocusManager.instance.primaryFocus?.unfocus();
           },
@@ -102,6 +121,7 @@ class LocationField extends StatelessWidget {
             final gpsButton = IconButton(
               icon: const Icon(Icons.my_location),
               onPressed: () {
+                // Set address to current location
                 Future<Position?> pos = determinePosition();
                 pos.onError((error, stackTrace){
                   developer.log(error.toString());
@@ -111,7 +131,7 @@ class LocationField extends StatelessWidget {
                   if(value == null) return;
                   final address = Address(
                     geometry: Geometry(coordinates: [value.longitude, value.latitude]), 
-                    properties: Properties(label: value.toString())
+                    properties: Properties(label: value.toString(), gid: value.toString()),
                   );
                   developer.log(address.properties.label);
                   textEditingController.text = address.properties.label;
