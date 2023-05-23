@@ -8,12 +8,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:collection/collection.dart';
 
-
 class MapWidget extends StatefulWidget {
-  const MapWidget({
-    this.layers, this.showBikeRental, this.bounds,
-    super.key
-  });
+  const MapWidget({this.layers, this.showBikeRental, this.bounds, super.key});
   final List<Widget>? layers;
   final bool? showBikeRental;
   final LatLngBounds? bounds;
@@ -23,24 +19,24 @@ class MapWidget extends StatefulWidget {
 }
 
 class _MapWidgetState extends State<MapWidget> {
-
   Widget? _locationLayer;
   final mapController = MapController();
-  
+  bool _showBikeRental = false;
   @override
   void initState() {
     super.initState();
-    Geolocator.isLocationServiceEnabled().then((value){
-      if(value == true) {
+    _showBikeRental = widget.showBikeRental ?? false;
+    Geolocator.isLocationServiceEnabled().then((value) {
+      if (value == true) {
         setState(() {
-        _locationLayer = CurrentLocationLayer();
+          _locationLayer = CurrentLocationLayer();
         });
       }
     });
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     final background = TileLayer(
       urlTemplate: getBackgroundUrl(),
       userAgentPackageName: 'com.example.bussit',
@@ -52,7 +48,8 @@ class _MapWidgetState extends State<MapWidget> {
       icon: const Icon(Icons.location_searching),
       onPressed: () {
         determinePosition().then((Position pos) {
-          mapController.move(LatLng(pos.latitude, pos.longitude), mapController.zoom);
+          mapController.move(
+              LatLng(pos.latitude, pos.longitude), mapController.zoom);
         });
       },
       iconSize: buttonSize,
@@ -64,17 +61,25 @@ class _MapWidgetState extends State<MapWidget> {
       },
       iconSize: buttonSize,
     );
-    
+
+    final bikeButton = IconButton(
+      icon: const Icon(Icons.pedal_bike),
+      onPressed: () {
+        setState(() {
+          _showBikeRental = !_showBikeRental;
+        });
+      },
+      iconSize: buttonSize,
+    );
 
     List<Widget?> layers = [
-      background, 
-      (widget.showBikeRental == true ? const BikeRentalLayer() : null),
+      background,
+      (_showBikeRental == true ? const BikeRentalLayer() : null),
       _locationLayer,
-      
     ];
 
     layers.addAll(widget.layers ?? []);
-    
+
     final map = FlutterMap(
       mapController: mapController,
       options: MapOptions(
@@ -100,8 +105,14 @@ class _MapWidgetState extends State<MapWidget> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 locationButton,
-                SizedBox.fromSize(size: const Size(0, 8),),
+                SizedBox.fromSize(
+                  size: const Size(0, 8),
+                ),
                 compassButton,
+                SizedBox.fromSize(
+                  size: const Size(0, 8),
+                ),
+                bikeButton,
               ],
             ),
           ),

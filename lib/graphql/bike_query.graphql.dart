@@ -3,6 +3,125 @@ import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
+class Variables$Query$CityBikes {
+  factory Variables$Query$CityBikes({List<String?>? ids}) =>
+      Variables$Query$CityBikes._({
+        if (ids != null) r'ids': ids,
+      });
+
+  Variables$Query$CityBikes._(this._$data);
+
+  factory Variables$Query$CityBikes.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('ids')) {
+      final l$ids = data['ids'];
+      result$data['ids'] =
+          (l$ids as List<dynamic>?)?.map((e) => (e as String?)).toList();
+    }
+    return Variables$Query$CityBikes._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  List<String?>? get ids => (_$data['ids'] as List<String?>?);
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('ids')) {
+      final l$ids = ids;
+      result$data['ids'] = l$ids?.map((e) => e).toList();
+    }
+    return result$data;
+  }
+
+  CopyWith$Variables$Query$CityBikes<Variables$Query$CityBikes> get copyWith =>
+      CopyWith$Variables$Query$CityBikes(
+        this,
+        (i) => i,
+      );
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Variables$Query$CityBikes) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$ids = ids;
+    final lOther$ids = other.ids;
+    if (_$data.containsKey('ids') != other._$data.containsKey('ids')) {
+      return false;
+    }
+    if (l$ids != null && lOther$ids != null) {
+      if (l$ids.length != lOther$ids.length) {
+        return false;
+      }
+      for (int i = 0; i < l$ids.length; i++) {
+        final l$ids$entry = l$ids[i];
+        final lOther$ids$entry = lOther$ids[i];
+        if (l$ids$entry != lOther$ids$entry) {
+          return false;
+        }
+      }
+    } else if (l$ids != lOther$ids) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$ids = ids;
+    return Object.hashAll([
+      _$data.containsKey('ids')
+          ? l$ids == null
+              ? null
+              : Object.hashAll(l$ids.map((v) => v))
+          : const {}
+    ]);
+  }
+}
+
+abstract class CopyWith$Variables$Query$CityBikes<TRes> {
+  factory CopyWith$Variables$Query$CityBikes(
+    Variables$Query$CityBikes instance,
+    TRes Function(Variables$Query$CityBikes) then,
+  ) = _CopyWithImpl$Variables$Query$CityBikes;
+
+  factory CopyWith$Variables$Query$CityBikes.stub(TRes res) =
+      _CopyWithStubImpl$Variables$Query$CityBikes;
+
+  TRes call({List<String?>? ids});
+}
+
+class _CopyWithImpl$Variables$Query$CityBikes<TRes>
+    implements CopyWith$Variables$Query$CityBikes<TRes> {
+  _CopyWithImpl$Variables$Query$CityBikes(
+    this._instance,
+    this._then,
+  );
+
+  final Variables$Query$CityBikes _instance;
+
+  final TRes Function(Variables$Query$CityBikes) _then;
+
+  static const _undefined = {};
+
+  TRes call({Object? ids = _undefined}) => _then(Variables$Query$CityBikes._({
+        ..._instance._$data,
+        if (ids != _undefined) 'ids': (ids as List<String?>?),
+      }));
+}
+
+class _CopyWithStubImpl$Variables$Query$CityBikes<TRes>
+    implements CopyWith$Variables$Query$CityBikes<TRes> {
+  _CopyWithStubImpl$Variables$Query$CityBikes(this._res);
+
+  TRes _res;
+
+  call({List<String?>? ids}) => _res;
+}
+
 class Query$CityBikes {
   Query$CityBikes({
     this.bikeRentalStations,
@@ -171,13 +290,31 @@ const documentNodeQueryCityBikes = DocumentNode(definitions: [
   OperationDefinitionNode(
     type: OperationType.query,
     name: NameNode(value: 'CityBikes'),
-    variableDefinitions: [],
+    variableDefinitions: [
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'ids')),
+        type: ListTypeNode(
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      )
+    ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
       FieldNode(
         name: NameNode(value: 'bikeRentalStations'),
         alias: null,
-        arguments: [],
+        arguments: [
+          ArgumentNode(
+            name: NameNode(value: 'ids'),
+            value: VariableNode(name: NameNode(value: 'ids')),
+          )
+        ],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
           FieldNode(
@@ -203,6 +340,13 @@ const documentNodeQueryCityBikes = DocumentNode(definitions: [
           ),
           FieldNode(
             name: NameNode(value: 'realtime'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
+            name: NameNode(value: 'stationId'),
             alias: null,
             arguments: [],
             directives: [],
@@ -247,6 +391,7 @@ Query$CityBikes _parserFn$Query$CityBikes(Map<String, dynamic> data) =>
 class Options$Query$CityBikes extends graphql.QueryOptions<Query$CityBikes> {
   Options$Query$CityBikes({
     String? operationName,
+    Variables$Query$CityBikes? variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
@@ -254,6 +399,7 @@ class Options$Query$CityBikes extends graphql.QueryOptions<Query$CityBikes> {
     Duration? pollInterval,
     graphql.Context? context,
   }) : super(
+          variables: variables?.toJson() ?? {},
           operationName: operationName,
           fetchPolicy: fetchPolicy,
           errorPolicy: errorPolicy,
@@ -270,6 +416,7 @@ class WatchOptions$Query$CityBikes
     extends graphql.WatchQueryOptions<Query$CityBikes> {
   WatchOptions$Query$CityBikes({
     String? operationName,
+    Variables$Query$CityBikes? variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
@@ -280,6 +427,7 @@ class WatchOptions$Query$CityBikes
     bool carryForwardDataOnException = true,
     bool fetchResults = false,
   }) : super(
+          variables: variables?.toJson() ?? {},
           operationName: operationName,
           fetchPolicy: fetchPolicy,
           errorPolicy: errorPolicy,
@@ -296,9 +444,12 @@ class WatchOptions$Query$CityBikes
 }
 
 class FetchMoreOptions$Query$CityBikes extends graphql.FetchMoreOptions {
-  FetchMoreOptions$Query$CityBikes({required graphql.UpdateQuery updateQuery})
-      : super(
+  FetchMoreOptions$Query$CityBikes({
+    required graphql.UpdateQuery updateQuery,
+    Variables$Query$CityBikes? variables,
+  }) : super(
           updateQuery: updateQuery,
+          variables: variables?.toJson() ?? {},
           document: documentNodeQueryCityBikes,
         );
 }
@@ -312,18 +463,26 @@ extension ClientExtension$Query$CityBikes on graphql.GraphQLClient {
       this.watchQuery(options ?? WatchOptions$Query$CityBikes());
   void writeQuery$CityBikes({
     required Query$CityBikes data,
+    Variables$Query$CityBikes? variables,
     bool broadcast = true,
   }) =>
       this.writeQuery(
         graphql.Request(
-            operation: graphql.Operation(document: documentNodeQueryCityBikes)),
+          operation: graphql.Operation(document: documentNodeQueryCityBikes),
+          variables: variables?.toJson() ?? const {},
+        ),
         data: data.toJson(),
         broadcast: broadcast,
       );
-  Query$CityBikes? readQuery$CityBikes({bool optimistic = true}) {
+  Query$CityBikes? readQuery$CityBikes({
+    Variables$Query$CityBikes? variables,
+    bool optimistic = true,
+  }) {
     final result = this.readQuery(
       graphql.Request(
-          operation: graphql.Operation(document: documentNodeQueryCityBikes)),
+        operation: graphql.Operation(document: documentNodeQueryCityBikes),
+        variables: variables?.toJson() ?? const {},
+      ),
       optimistic: optimistic,
     );
     return result == null ? null : Query$CityBikes.fromJson(result);
@@ -355,6 +514,7 @@ class Query$CityBikes$bikeRentalStations {
     this.bikesAvailable,
     this.capacity,
     this.realtime,
+    this.stationId,
     this.lat,
     this.lon,
     required this.$__typename,
@@ -366,6 +526,7 @@ class Query$CityBikes$bikeRentalStations {
     final l$bikesAvailable = json['bikesAvailable'];
     final l$capacity = json['capacity'];
     final l$realtime = json['realtime'];
+    final l$stationId = json['stationId'];
     final l$lat = json['lat'];
     final l$lon = json['lon'];
     final l$$__typename = json['__typename'];
@@ -374,6 +535,7 @@ class Query$CityBikes$bikeRentalStations {
       bikesAvailable: (l$bikesAvailable as int?),
       capacity: (l$capacity as int?),
       realtime: (l$realtime as bool?),
+      stationId: (l$stationId as String?),
       lat: (l$lat as num?)?.toDouble(),
       lon: (l$lon as num?)?.toDouble(),
       $__typename: (l$$__typename as String),
@@ -387,6 +549,8 @@ class Query$CityBikes$bikeRentalStations {
   final int? capacity;
 
   final bool? realtime;
+
+  final String? stationId;
 
   final double? lat;
 
@@ -404,6 +568,8 @@ class Query$CityBikes$bikeRentalStations {
     _resultData['capacity'] = l$capacity;
     final l$realtime = realtime;
     _resultData['realtime'] = l$realtime;
+    final l$stationId = stationId;
+    _resultData['stationId'] = l$stationId;
     final l$lat = lat;
     _resultData['lat'] = l$lat;
     final l$lon = lon;
@@ -419,6 +585,7 @@ class Query$CityBikes$bikeRentalStations {
     final l$bikesAvailable = bikesAvailable;
     final l$capacity = capacity;
     final l$realtime = realtime;
+    final l$stationId = stationId;
     final l$lat = lat;
     final l$lon = lon;
     final l$$__typename = $__typename;
@@ -427,6 +594,7 @@ class Query$CityBikes$bikeRentalStations {
       l$bikesAvailable,
       l$capacity,
       l$realtime,
+      l$stationId,
       l$lat,
       l$lon,
       l$$__typename,
@@ -460,6 +628,11 @@ class Query$CityBikes$bikeRentalStations {
     final l$realtime = realtime;
     final lOther$realtime = other.realtime;
     if (l$realtime != lOther$realtime) {
+      return false;
+    }
+    final l$stationId = stationId;
+    final lOther$stationId = other.stationId;
+    if (l$stationId != lOther$stationId) {
       return false;
     }
     final l$lat = lat;
@@ -505,6 +678,7 @@ abstract class CopyWith$Query$CityBikes$bikeRentalStations<TRes> {
     int? bikesAvailable,
     int? capacity,
     bool? realtime,
+    String? stationId,
     double? lat,
     double? lon,
     String? $__typename,
@@ -529,6 +703,7 @@ class _CopyWithImpl$Query$CityBikes$bikeRentalStations<TRes>
     Object? bikesAvailable = _undefined,
     Object? capacity = _undefined,
     Object? realtime = _undefined,
+    Object? stationId = _undefined,
     Object? lat = _undefined,
     Object? lon = _undefined,
     Object? $__typename = _undefined,
@@ -544,6 +719,9 @@ class _CopyWithImpl$Query$CityBikes$bikeRentalStations<TRes>
             capacity == _undefined ? _instance.capacity : (capacity as int?),
         realtime:
             realtime == _undefined ? _instance.realtime : (realtime as bool?),
+        stationId: stationId == _undefined
+            ? _instance.stationId
+            : (stationId as String?),
         lat: lat == _undefined ? _instance.lat : (lat as double?),
         lon: lon == _undefined ? _instance.lon : (lon as double?),
         $__typename: $__typename == _undefined || $__typename == null
@@ -563,6 +741,7 @@ class _CopyWithStubImpl$Query$CityBikes$bikeRentalStations<TRes>
     int? bikesAvailable,
     int? capacity,
     bool? realtime,
+    String? stationId,
     double? lat,
     double? lon,
     String? $__typename,

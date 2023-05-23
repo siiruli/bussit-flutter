@@ -1,10 +1,11 @@
 
-query CityBikes(){
-  bikeRentalStations {
+query CityBikes($ids: [String]) {
+  bikeRentalStations(ids: $ids) {
     name
     bikesAvailable
     capacity
     realtime
+    stationId
     lat 
     lon 
   }
