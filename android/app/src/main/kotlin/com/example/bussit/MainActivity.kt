@@ -1,4 +1,4 @@
-package com.example.bussit
+package fi.siirikuoppala.bussit
 
 import io.flutter.embedding.android.FlutterActivity
 

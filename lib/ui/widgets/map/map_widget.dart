@@ -39,7 +39,7 @@ class _MapWidgetState extends State<MapWidget> {
   Widget build(BuildContext context) {
     final background = TileLayer(
       urlTemplate: getBackgroundUrl(),
-      userAgentPackageName: 'com.example.bussit',
+      userAgentPackageName: 'fi.siirikuoppala.bussit',
       maxNativeZoom: 16,
     );
 
