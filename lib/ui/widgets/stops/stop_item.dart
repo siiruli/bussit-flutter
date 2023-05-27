@@ -1,4 +1,5 @@
 import 'package:bussit/ui/widgets/components/app_icons.dart';
+import 'package:bussit/ui/widgets/components/gesture_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bussit/graphql/stops_query.graphql.dart';
@@ -106,11 +107,14 @@ class StopTimeWidget extends StatelessWidget {
     );
     final platFormCode = stoptime?.stop?.platformCode;
     final code = (platFormCode == null) ? null : Text(platFormCode);
-    return ListTile(
-      title: Text(busName),
-      leading: depTime,
-      trailing: code,
-      visualDensity: VisualDensity.compact,
+    return GestureMenu(
+      menu: tripMenu(stoptime?.trip),
+      child: ListTile(
+        title: Text(busName),
+        leading: depTime,
+        trailing: code,
+        visualDensity: VisualDensity.compact,
+      ),
     );
   }
 }
