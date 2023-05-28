@@ -37,16 +37,15 @@ class AddressEntity {
 
   AddressEntity(this.id, this.label, this.lat, this.lon, this.timeStamp);
 
-  AddressEntity.fromAddress(Address address, this.timeStamp)
-      : id = address.properties.gid,
-        label = address.properties.label,
-        lat = address.geometry.lat.toDouble(),
-        lon = address.geometry.lon.toDouble();
+  AddressEntity.fromAddress(Address address)
+      : id = address.id,
+        label = address.label,
+        lat = address.lat,
+        lon = address.lon,
+        timeStamp = DateTime.now().microsecondsSinceEpoch;
 
   Address toAddress() {
-    return Address(
-        geometry: Geometry(coordinates: [lon, lat]),
-        properties: Properties(label: label, gid: id));
+    return Address(lat, lon, label, id);
   }
 }
 
@@ -54,17 +53,22 @@ class AddressEntity {
 abstract class AddressDao {
   final int _maxSize = 10;
   @Query('SELECT * FROM AddressEntity ORDER BY timeStamp DESC')
-  Future<List<AddressEntity>> findAllElements();
+  Future<List<AddressEntity>> findAllEntities();
 
   @Insert(onConflict: OnConflictStrategy.replace)
-  Future<void> insertElement(AddressEntity element);
+  Future<void> insertEntity(AddressEntity element);
 
   @Query(
       'DELETE FROM AddressEntity WHERE id NOT IN (SELECT id FROM AddressEntity ORDER BY timeStamp DESC LIMIT :n)')
   Future<void> filterElements(int n);
 
-  Future<void> insertAndFilter(AddressEntity element) async {
-    await insertElement(element);
+  Future<void> insertAndFilter(Address element) async {
+    await insertEntity(AddressEntity.fromAddress(element));
     await filterElements(_maxSize);
+  }
+
+  Future<List<Address>> findAllElements() {
+    return findAllEntities()
+        .then((value) => value.map((e) => e.toAddress()).toList());
   }
 }

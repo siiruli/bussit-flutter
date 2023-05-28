@@ -10,10 +10,10 @@ import 'dart:developer' as developer;
 
 import 'package:intl/intl.dart';
 
+// Place parameter for the query
 String toPlaceString(Address address) {
-  final name = address.properties.label;
-  final coor = address.geometry;
-  final res = '$name::${coor.lat},${coor.lon}';
+  final name = address.label;
+  final res = '$name::${address.lat},${address.lon}';
   developer.log(res);
   return res;
 }

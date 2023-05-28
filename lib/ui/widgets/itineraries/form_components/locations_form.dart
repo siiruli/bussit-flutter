@@ -73,15 +73,11 @@ class _LocationsFormState extends State<LocationsForm>
 FutureOr<Iterable<Address>> autocompleteBuilder(
     TextEditingValue value, AddressDao? dao) {
   if (value.text.isEmpty && dao != null) {
-    return dao
-        .findAllElements()
-        .then((list) => list.map((e) => e.toAddress()).toList());
+    return dao.findAllElements();
   }
   return fetchAutocomplete(value.text).then((value) {
     if (value.isEmpty && dao != null) {
-      return dao
-          .findAllElements()
-          .then((list) => list.map((e) => e.toAddress()).toList());
+      return dao.findAllElements();
     } else {
       return value;
     }
@@ -89,7 +85,7 @@ FutureOr<Iterable<Address>> autocompleteBuilder(
 }
 
 String autocompleteOptionString(Address feature) {
-  return feature.properties.label;
+  return feature.label;
 }
 
 class LocationField extends StatefulWidget {
@@ -112,8 +108,9 @@ class LocationFieldState extends State<LocationField> {
   final GlobalKey<FormFieldState<Address?>> _fieldKey = GlobalKey();
 
   void setLocation(Address? value) {
+    developer.log("New address: " + (value?.label ?? "null"));
     _fieldKey.currentState?.didChange(value);
-    _textEditingController.text = value?.properties.label ?? "";
+    _textEditingController.text = value?.label ?? "";
   }
 
   Address? get value => _fieldKey.currentState?.value;
@@ -132,12 +129,8 @@ class LocationFieldState extends State<LocationField> {
         });
         pos.then((Position? value) {
           if (value == null) return;
-          final address = Address(
-            geometry: Geometry(coordinates: [value.longitude, value.latitude]),
-            properties:
-                Properties(label: value.toString(), gid: value.toString()),
-          );
-          developer.log(address.properties.label);
+          final address =
+              Address.fromCoordinates(value.latitude, value.longitude);
           setLocation(address);
         });
       },
@@ -157,8 +150,7 @@ class LocationFieldState extends State<LocationField> {
             optionsBuilder: (value) => autocompleteBuilder(value, addressDao),
             onSelected: (Address feature) {
               // Save search
-              addressDao?.insertAndFilter(AddressEntity.fromAddress(
-                  feature, DateTime.now().millisecondsSinceEpoch));
+              addressDao?.insertAndFilter(feature);
               fieldState.didChange(feature);
               FocusManager.instance.primaryFocus?.unfocus();
             },

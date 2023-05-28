@@ -190,7 +190,7 @@ class _$AddressDao extends AddressDao {
   final InsertionAdapter<AddressEntity> _addressEntityInsertionAdapter;
 
   @override
-  Future<List<AddressEntity>> findAllElements() async {
+  Future<List<AddressEntity>> findAllEntities() async {
     return _queryAdapter.queryList(
         'SELECT * FROM AddressEntity ORDER BY timeStamp DESC',
         mapper: (Map<String, Object?> row) => AddressEntity(
@@ -209,7 +209,7 @@ class _$AddressDao extends AddressDao {
   }
 
   @override
-  Future<void> insertElement(AddressEntity element) async {
+  Future<void> insertEntity(AddressEntity element) async {
     await _addressEntityInsertionAdapter.insert(
         element, OnConflictStrategy.replace);
   }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bussit/api/address_json.dart';
 import 'package:bussit/model/address.dart';
 import 'package:http/http.dart' as http;
 import 'endpoints.dart' as endpoints;
@@ -27,7 +28,7 @@ Future<Iterable<Address>> fetchAutocomplete(String text) async {
   });
   if (response.statusCode == 200) {
     final AutoComplete data = AutoComplete.fromJson(jsonDecode(response.body));
-    return data.features;
+    return data.features.map((e) => Address.fromAddressJson(e));
   }
   return List<Address>.empty();
 }

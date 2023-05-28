@@ -1,50 +1,18 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:bussit/api/address_json.dart';
 
-part 'address.g.dart';
-
-@JsonSerializable()
-class AutoComplete {
-  AutoComplete({required this.features});
-  List<Address> features;
-  factory AutoComplete.fromJson(Map<String, dynamic> json) =>
-      _$AutoCompleteFromJson(json);
-}
-
-@JsonSerializable()
 class Address {
-  Address({required this.geometry, required this.properties});
-  Geometry geometry;
-  Properties properties;
-  factory Address.fromJson(Map<String, dynamic> json) =>
-      _$AddressFromJson(json);
+  final double lat;
+  final double lon;
+  final String label;
+  final String id;
 
-  @override
-  String toString() {
-    return properties.label;
-  }
-}
+  Address(this.lat, this.lon, this.label, this.id);
 
-@JsonSerializable()
-class Geometry {
-  Geometry({required this.coordinates});
-  List<num> coordinates;
-  num get lat {
-    return coordinates[1];
-  }
+  Address.fromCoordinates(this.lat, this.lon)
+      : label = lat.toString() + ", " + lon.toString(),
+        id = lat.toString() + ", " + lon.toString();
 
-  num get lon {
-    return coordinates[0];
-  }
-
-  factory Geometry.fromJson(Map<String, dynamic> json) =>
-      _$GeometryFromJson(json);
-}
-
-@JsonSerializable()
-class Properties {
-  Properties({required this.label, required this.gid});
-  String label;
-  String gid;
-  factory Properties.fromJson(Map<String, dynamic> json) =>
-      _$PropertiesFromJson(json);
+  Address.fromAddressJson(AddressJson address)
+      : this(address.geometry.lat.toDouble(), address.geometry.lon.toDouble(),
+            address.properties.label, address.properties.gid);
 }

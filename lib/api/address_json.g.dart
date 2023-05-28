@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'address.dart';
+part of 'address_json.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -8,7 +8,7 @@ part of 'address.dart';
 
 AutoComplete _$AutoCompleteFromJson(Map<String, dynamic> json) => AutoComplete(
       features: (json['features'] as List<dynamic>)
-          .map((e) => Address.fromJson(e as Map<String, dynamic>))
+          .map((e) => AddressJson.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -17,13 +17,14 @@ Map<String, dynamic> _$AutoCompleteToJson(AutoComplete instance) =>
       'features': instance.features,
     };
 
-Address _$AddressFromJson(Map<String, dynamic> json) => Address(
+AddressJson _$AddressJsonFromJson(Map<String, dynamic> json) => AddressJson(
       geometry: Geometry.fromJson(json['geometry'] as Map<String, dynamic>),
       properties:
           Properties.fromJson(json['properties'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$AddressToJson(Address instance) => <String, dynamic>{
+Map<String, dynamic> _$AddressJsonToJson(AddressJson instance) =>
+    <String, dynamic>{
       'geometry': instance.geometry,
       'properties': instance.properties,
     };
