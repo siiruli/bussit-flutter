@@ -1,3 +1,1 @@
-
-
 const hslApiKey = "<api-key>";

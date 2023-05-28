@@ -9,31 +9,31 @@ import 'dart:developer' as developer;
 
 // Widget showin a list of stops
 class StopListWidget extends HookWidget {
-  const StopListWidget({this.ids, this.searchName, this.maxResults, Key? key}) : super(key: key);
+  const StopListWidget({this.ids, this.searchName, this.maxResults, Key? key})
+      : super(key: key);
   final List<String>? ids;
   final String? searchName;
   final int? maxResults;
-  @override 
+  @override
   Widget build(BuildContext context) {
-
-    final result = useQueryLifecycleAware(
-      Options$Query$StopData(
-        // fetchResults: true,
-        fetchPolicy: FetchPolicy.cacheAndNetwork,
-        variables: Variables$Query$StopData(
-          ids: ids?.toList(),
-          name: searchName,
-          maxResults: (searchName == '') ? 0 : maxResults,
-        ),
-        pollInterval: const Duration(seconds: 5),
-      )
-    );
+    final result = useQueryLifecycleAware(Options$Query$StopData(
+      // fetchResults: true,
+      fetchPolicy: FetchPolicy.cacheAndNetwork,
+      variables: Variables$Query$StopData(
+        ids: ids?.toList(),
+        name: searchName,
+        maxResults: (searchName == '') ? 0 : maxResults,
+      ),
+      pollInterval: const Duration(seconds: 5),
+    ));
     return stopListBuilder(result.result);
   }
 }
+
 // Build a stop list from a query result
-Widget stopListBuilder(QueryResult? result, { VoidCallback? refetch, FetchMore? fetchMore }){
-  if(result == null){
+Widget stopListBuilder(QueryResult? result,
+    {VoidCallback? refetch, FetchMore? fetchMore}) {
+  if (result == null) {
     return const Text("No result...");
   }
   if (result.hasException) {
@@ -44,13 +44,12 @@ Widget stopListBuilder(QueryResult? result, { VoidCallback? refetch, FetchMore? 
     return const Text('Loading...');
   }
   List<dynamic>? stops = convertStopQueryResult(result);
-  if(stops == null || stops.isEmpty){
+  if (stops == null || stops.isEmpty) {
     developer.log('zero stops: ' + stops.toString(), name: 'my.app.category');
-    
+
     return const Text('No stops');
   }
 
-  
   return ListView.builder(
     shrinkWrap: true,
     itemCount: stops.length,
@@ -58,6 +57,4 @@ Widget stopListBuilder(QueryResult? result, { VoidCallback? refetch, FetchMore? 
       return ExpansionStopItem(stops[index]);
     },
   );
-  
 }
-

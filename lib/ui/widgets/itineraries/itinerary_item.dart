@@ -7,55 +7,56 @@ import 'package:bussit/ui/widgets/stops/stop_item.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
-
-class ItineraryWidget extends StatefulWidget{
+class ItineraryWidget extends StatefulWidget {
   const ItineraryWidget({this.itinerary, Key? key}) : super(key: key);
 
   final Query$Itinerary$plan$itineraries? itinerary;
   @override
   State<ItineraryWidget> createState() => _ItineraryState();
 }
+
 class _ItineraryState extends State<ItineraryWidget> {
   bool _expanded = false;
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     final Query$Itinerary$plan$itineraries? itinerary = widget.itinerary;
-    if(itinerary == null) {
-      return const ListTile(title: Text("null itinerary"),);
+    if (itinerary == null) {
+      return const ListTile(
+        title: Text("null itinerary"),
+      );
     }
-    final legWidgets = Center(child: SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: itinerary.legs.map(
-          (leg) => SmallLegWidget(leg)
-        ).toList(),
-        // mainAxisAlignment: MainAxisAlignment.center,
-      )
-    ));
+    final legWidgets = Center(
+        child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children:
+                  itinerary.legs.map((leg) => SmallLegWidget(leg)).toList(),
+              // mainAxisAlignment: MainAxisAlignment.center,
+            )));
 
     int duration = (itinerary.duration! / 60).round();
     double distance = (itinerary.walkDistance!);
-    String distString = (distance < 1000) ? 
-      distance.round().toString() + ' m' : 
-      (distance/1000).toStringAsPrecision(3) + ' km';
-    
-    String? startTime = formatTime(
-      DateTime.fromMillisecondsSinceEpoch(itinerary.startTime!), 
-      context: context
-    )!;
-    String? endTime = formatTime(
-      DateTime.fromMillisecondsSinceEpoch(itinerary.endTime!), 
-      context: context
-    )!;
+    String distString = (distance < 1000)
+        ? distance.round().toString() + ' m'
+        : (distance / 1000).toStringAsPrecision(3) + ' km';
 
-    return Card(child: ExpansionTile(
+    String? startTime = formatTime(
+        DateTime.fromMillisecondsSinceEpoch(itinerary.startTime!),
+        context: context)!;
+    String? endTime = formatTime(
+        DateTime.fromMillisecondsSinceEpoch(itinerary.endTime!),
+        context: context)!;
+
+    return Card(
+        child: ExpansionTile(
       childrenPadding: EdgeInsets.zero,
       subtitle: _expanded ? null : legWidgets,
       title: Row(
         children: [
           Text(startTime + '-' + endTime),
-          Expanded(child: Center(
+          Expanded(
+              child: Center(
             child: Text(duration.toString() + ' min'),
           )),
           Text(distString),
@@ -66,35 +67,38 @@ class _ItineraryState extends State<ItineraryWidget> {
                   builder: (context) => ItineraryDetails(itinerary),
                 ),
               );
-            }, 
+            },
             icon: const Icon(Icons.map),
           ),
         ],
       ),
-      onExpansionChanged: (expanded){setState(() {
-        _expanded = expanded;
-      });},
+      onExpansionChanged: (expanded) {
+        setState(() {
+          _expanded = expanded;
+        });
+      },
       children: legList(itinerary.legs),
       controlAffinity: ListTileControlAffinity.leading,
     ));
   }
 }
-List<Widget> legList(List<Query$Itinerary$plan$itineraries$legs?>? legs){    
-  if(legs == null){
+
+List<Widget> legList(List<Query$Itinerary$plan$itineraries$legs?>? legs) {
+  if (legs == null) {
     return [];
   }
-  if(legs.isEmpty){
+  if (legs.isEmpty) {
     return [];
   }
   List<Widget> items = [];
-  
+
   items.add(LegListItem(
     PlaceItem(legs[0]?.from),
     time: fromTimeStamp(milliseconds: legs[0]?.startTime),
   ));
-  for(Query$Itinerary$plan$itineraries$legs? leg in legs){
+  for (Query$Itinerary$plan$itineraries$legs? leg in legs) {
     items.add(LegListItem(
-      LegItem(leg), 
+      LegItem(leg),
       leg: leg,
       time: fromTimeStamp(milliseconds: leg?.startTime),
     ));
@@ -107,7 +111,8 @@ List<Widget> legList(List<Query$Itinerary$plan$itineraries$legs?>? legs){
 }
 
 class LegListItem extends StatelessWidget {
-  const LegListItem(this.child, {
+  const LegListItem(
+    this.child, {
     super.key,
     this.leg,
     this.time,
@@ -116,47 +121,59 @@ class LegListItem extends StatelessWidget {
   final Query$Itinerary$plan$itineraries$legs? leg;
   final DateTime? time;
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     String? timeStr = formatTime(time, context: context);
     Color? color = transitModeColor[leg?.mode];
     final modeIcon = leg?.mode == null ? null : TransitModeIcon(leg!.mode!);
-    final duration = leg?.duration == null ? null : (leg!.duration! / 60).round().toString() + 'min';
+    final duration = leg?.duration == null
+        ? null
+        : (leg!.duration! / 60).round().toString() + 'min';
     color = Color.lerp(color, Colors.grey[100], 0.6);
     return Container(
-      decoration: BoxDecoration(
-        border: leg == null ? null : Border.symmetric(
-          horizontal: BorderSide(
-            color: color ?? Colors.grey,
-            width: 1,
-          ),
+        decoration: BoxDecoration(
+          border: leg == null
+              ? null
+              : Border.symmetric(
+                  horizontal: BorderSide(
+                    color: color ?? Colors.grey,
+                    width: 1,
+                  ),
+                ),
+          color: leg == null ? null : Colors.grey[100],
         ),
-        color: leg == null ? null : Colors.grey[100],
-      ),
-      child: IntrinsicHeight(child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          timeStr == null ? null : Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0), 
-            child: Text(timeStr), alignment: Alignment.center,
-          ),
-          leg == null ? null : Container(
-            width: 2,
-            color: color,
-          ),
-          modeIcon == null ? null : Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: Column(
-              children: [
-                modeIcon,
-                Text(duration ?? ""),
-              ],
-            ),
-          ),
-          Expanded(child: child),
-        ].whereNotNull()
-        .toList(),
-      ))
-    );
+        child: IntrinsicHeight(
+            child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            timeStr == null
+                ? null
+                : Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                    child: Text(timeStr),
+                    alignment: Alignment.center,
+                  ),
+            leg == null
+                ? null
+                : Container(
+                    width: 2,
+                    color: color,
+                  ),
+            modeIcon == null
+                ? null
+                : Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    child: Column(
+                      children: [
+                        modeIcon,
+                        Text(duration ?? ""),
+                      ],
+                    ),
+                  ),
+            Expanded(child: child),
+          ].whereNotNull().toList(),
+        )));
   }
 }
 
@@ -165,16 +182,15 @@ class PlaceItem extends StatelessWidget {
   final dynamic place;
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     Widget res = const Text('');
-    if(place.stop != null){
+    if (place.stop != null) {
       res = StopItemWidget(place.stop);
-    }
-    else{
+    } else {
       res = ListTile(
         title: Text(place.name),
       );
-    } 
+    }
     return ListTileTheme(
       child: res,
       data: const ListTileThemeData(
@@ -190,19 +206,19 @@ class LegItem extends StatelessWidget {
   final Query$Itinerary$plan$itineraries$legs? leg;
 
   @override
-  Widget build(BuildContext context){
-    if(leg == null) {
+  Widget build(BuildContext context) {
+    if (leg == null) {
       return const Text("null leg");
     }
     Widget desc = const Text('');
     Widget info = const Text("");
 
-    if(leg!.transitLeg == true){
-      desc = Text( 
-        (leg?.trip?.routeShortName ?? '') + ' ' + (leg?.trip?.tripHeadsign ?? 'no headsign')
-      );
-    }else{
-      if(leg?.mode == Enum$Mode.WALK) {
+    if (leg!.transitLeg == true) {
+      desc = Text((leg?.trip?.routeShortName ?? '') +
+          ' ' +
+          (leg?.trip?.tripHeadsign ?? 'no headsign'));
+    } else {
+      if (leg?.mode == Enum$Mode.WALK) {
         desc = const Text('Walk');
       }
     }
@@ -212,9 +228,7 @@ class LegItem extends StatelessWidget {
     ];
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-      child:  Row(
-        children: list
-      ),
+      child: Row(children: list),
     );
   }
 }
@@ -224,13 +238,13 @@ class SmallLegWidget extends StatelessWidget {
   final Query$Itinerary$plan$itineraries$legs? leg;
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     Widget info = const Text("");
-    if(leg?.duration != null){
+    if (leg?.duration != null) {
       int mins = (leg!.duration! / 60).round();
       info = Text(mins.toString() + 'min');
     }
-    if(leg?.trip?.routeShortName != null) {
+    if (leg?.trip?.routeShortName != null) {
       info = Text(leg!.trip!.routeShortName!);
     }
 

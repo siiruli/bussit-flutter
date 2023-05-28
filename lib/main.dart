@@ -25,19 +25,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     final app = MaterialApp(
       title: 'Bussit',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        listTileTheme: const ListTileThemeData(
-          minLeadingWidth: 0,
-        ),
-        expansionTileTheme: const ExpansionTileThemeData(
-          tilePadding: EdgeInsets.zero,
-        )
+          primarySwatch: Colors.blue,
+          listTileTheme: const ListTileThemeData(
+            minLeadingWidth: 0,
+          ),
+          expansionTileTheme: const ExpansionTileThemeData(
+            tilePadding: EdgeInsets.zero,
+          )),
+      home: const MyHomePage(
+        title: "Bussit",
       ),
-      home: const MyHomePage(title: "Bussit",),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -50,19 +50,17 @@ class MyApp extends StatelessWidget {
 
     // Wrap the app with providers
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => SavedStopIds(database?.stopDao)
-        ),
-        Provider(
-          create: (context) => database,
-        ),
-      ],
-      child: GraphQLProvider( 
-        client: getHslApiClient(),
-        child: app,
-      )
-    );
+        providers: [
+          ChangeNotifierProvider(
+              create: (context) => SavedStopIds(database?.stopDao)),
+          Provider(
+            create: (context) => database,
+          ),
+        ],
+        child: GraphQLProvider(
+          client: getHslApiClient(),
+          child: app,
+        ));
   }
 }
 
@@ -75,7 +73,8 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   final _tabTitle = [
     'Saved stops',
     'Find Route',
@@ -93,16 +92,16 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     super.initState();
     _tabController = TabController(vsync: this, length: _tabIcon.length);
     _tabController.addListener(() {
-      setState((){});
+      setState(() {});
     });
   }
+
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,20 +116,24 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       // body: StopsView(),
       body: TabBarView(
         controller: _tabController,
-        children: const [StopsView(), ItineraryView(), MapWidget(showBikeRental: true,)],
+        children: const [
+          StopsView(),
+          ItineraryView(),
+          MapWidget(
+            showBikeRental: true,
+          )
+        ],
       ),
-      floatingActionButton: (_tabController.index != 0) ? 
-        null : FloatingActionButton(
-        onPressed: (){
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const SearchStops()
-            )
-          );
-        },
-        tooltip: 'Find stops',
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: (_tabController.index != 0)
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SearchStops()));
+              },
+              tooltip: 'Find stops',
+              child: const Icon(Icons.add),
+            ),
     );
   }
 }

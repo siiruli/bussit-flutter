@@ -1,7 +1,6 @@
 import 'package:bussit/model/address.dart';
 import 'package:floor/floor.dart';
 
-
 @entity
 class Stop {
   @primaryKey
@@ -22,7 +21,7 @@ abstract class StopDao {
   @insert
   Future<void> insertStop(Stop stop);
 
-  @delete 
+  @delete
   Future<void> deleteStop(Stop stop);
 }
 
@@ -38,14 +37,16 @@ class AddressEntity {
 
   AddressEntity(this.id, this.label, this.lat, this.lon, this.timeStamp);
 
-  AddressEntity.fromAddress(Address address, this.timeStamp) : 
-    id = address.properties.gid,
-    label = address.properties.label,
-    lat = address.geometry.lat.toDouble(),
-    lon = address.geometry.lon.toDouble();
-  
-  Address toAddress(){
-    return Address(geometry: Geometry(coordinates: [lon, lat]), properties: Properties(label: label, gid: id));
+  AddressEntity.fromAddress(Address address, this.timeStamp)
+      : id = address.properties.gid,
+        label = address.properties.label,
+        lat = address.geometry.lat.toDouble(),
+        lon = address.geometry.lon.toDouble();
+
+  Address toAddress() {
+    return Address(
+        geometry: Geometry(coordinates: [lon, lat]),
+        properties: Properties(label: label, gid: id));
   }
 }
 
@@ -58,12 +59,12 @@ abstract class AddressDao {
   @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> insertElement(AddressEntity element);
 
-  @Query('DELETE FROM AddressEntity WHERE id NOT IN (SELECT id FROM AddressEntity ORDER BY timeStamp DESC LIMIT :n)')
+  @Query(
+      'DELETE FROM AddressEntity WHERE id NOT IN (SELECT id FROM AddressEntity ORDER BY timeStamp DESC LIMIT :n)')
   Future<void> filterElements(int n);
 
   Future<void> insertAndFilter(AddressEntity element) async {
     await insertElement(element);
     await filterElements(_maxSize);
   }
-
 }

@@ -12,7 +12,8 @@ class StopsView extends StatelessWidget {
     // List stops that is rebuilt when the id-list changes
     final stopList = Consumer<SavedStopIds>(
       builder: (context, savedIds, child) {
-        developer.log('Stop list: ' + savedIds.ids.toString(), name: 'my.app.category');
+        developer.log('Stop list: ' + savedIds.ids.toString(),
+            name: 'my.app.category');
 
         return StopListWidget(ids: savedIds.ids);
       },
@@ -20,5 +21,4 @@ class StopsView extends StatelessWidget {
 
     return stopList;
   }
-
 }

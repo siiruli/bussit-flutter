@@ -10,7 +10,7 @@ import 'dart:developer' as developer;
 
 import 'package:intl/intl.dart';
 
-String toPlaceString(Address address){
+String toPlaceString(Address address) {
   final name = address.properties.label;
   final coor = address.geometry;
   final res = '$name::${coor.lat},${coor.lon}';
@@ -21,9 +21,9 @@ String toPlaceString(Address address){
 // Widget showin a list of stops
 class ItineraryListWidget extends HookWidget {
   const ItineraryListWidget({
-    required this.from, 
-    required this.to, 
-    this.nResults, 
+    required this.from,
+    required this.to,
+    this.nResults,
     this.time,
     this.arriveBy,
     super.key,
@@ -37,32 +37,29 @@ class ItineraryListWidget extends HookWidget {
   final bool? arriveBy;
   final List<dynamic>? transportModes;
   final bool? allowBikeRental;
-  @override 
+  @override
   Widget build(BuildContext context) {
-    if(time != null){
+    if (time != null) {
       developer.log(DateFormat('y-MM-dd').format(time!));
       developer.log(DateFormat('HH:mm:ss').format(time!));
     }
     List<Input$TransportMode>? modes = transportModes?.map((e) {
-      if(e is List<dynamic>){
+      if (e is List<dynamic>) {
         return Input$TransportMode(mode: e[0], qualifier: e[1]);
-      }
-      else{
+      } else {
         return Input$TransportMode(mode: e);
       }
     }).toList();
-    
+
     // add ferry
     modes?.add(
       Input$TransportMode(mode: Enum$Mode.FERRY),
     );
     bool usebike = transportModes?.contains(Enum$Mode.BICYCLE) == true;
     // For some reason, walking has to be off to get bicycle routes
-    if(!usebike){
+    if (!usebike) {
       modes?.add(Input$TransportMode(mode: Enum$Mode.WALK));
     }
-
-
 
     final result = useQueryLifecycleAware(
       Options$Query$Itinerary(
@@ -76,7 +73,8 @@ class ItineraryListWidget extends HookWidget {
           arriveBy: arriveBy,
           allowBikeRental: allowBikeRental,
           modes: modes,
-          maxWalkDistance: (usebike == true || allowBikeRental == true) ? 15000 : 2000,
+          maxWalkDistance:
+              (usebike == true || allowBikeRental == true) ? 15000 : 2000,
         ),
       ),
     );
@@ -84,9 +82,11 @@ class ItineraryListWidget extends HookWidget {
     return itineraryListBuilder(result.result);
   }
 }
+
 // Build a stop list from a query result
-Widget itineraryListBuilder(QueryResult? result, { VoidCallback? refetch, FetchMore? fetchMore }){
-  if(result == null){
+Widget itineraryListBuilder(QueryResult? result,
+    {VoidCallback? refetch, FetchMore? fetchMore}) {
+  if (result == null) {
     return const Text("No result...");
   }
   if (result.hasException) {
@@ -98,16 +98,14 @@ Widget itineraryListBuilder(QueryResult? result, { VoidCallback? refetch, FetchM
   }
   List<Query$Itinerary$plan$itineraries?>? list;
 
-  if(result.data != null){
+  if (result.data != null) {
     list = Query$Itinerary.fromJson(result.data!).plan?.itineraries;
-  }
-  else{
+  } else {
     return const Text("List is null :(");
   }
   list ??= [];
-  
+
   return Column(
     children: list.map((e) => ItineraryWidget(itinerary: e)).toList(),
   );
-  
 }
