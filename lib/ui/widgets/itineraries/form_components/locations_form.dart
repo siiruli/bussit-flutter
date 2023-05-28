@@ -4,6 +4,7 @@ import 'package:bussit/database/database.dart';
 import 'package:bussit/database/dao.dart';
 import 'package:bussit/model/address.dart';
 import 'package:bussit/ui/widgets/components/geo_location.dart';
+import 'package:bussit/utils/custom_autocomplete.dart';
 import 'package:flutter/material.dart';
 import 'package:bussit/model/itinerary_form_data.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +20,8 @@ class LocationsForm extends StatefulWidget {
 
 class _LocationsFormState extends State<LocationsForm>
     with AutomaticKeepAliveClientMixin {
-  Key _keyFrom = GlobalKey();
-  Key _keyTo = GlobalKey();
+  final GlobalKey<LocationFieldState> _keyFrom = GlobalKey();
+  final GlobalKey<LocationFieldState> _keyTo = GlobalKey();
 
   @override
   bool get wantKeepAlive => true;
@@ -28,46 +29,44 @@ class _LocationsFormState extends State<LocationsForm>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Consumer<ItineraryFormData>(builder: (context, formData, child) {
-      // places
-      final fieldFrom = LocationField(
-        key: _keyFrom,
-        hint: "From...",
-        onSaved: (Address? value) {
-          formData.locationFrom = value;
-        },
-      );
-      final fieldTo = LocationField(
-        key: _keyTo,
-        hint: "To...",
-        onSaved: (Address? value) {
-          formData.locationTo = value;
-        },
-      );
-      final swapButton = IconButton(
-        icon: const Icon(Icons.swap_vert),
-        onPressed: () {
-          // Swap from and to
-          setState(() {
-            final tmp = _keyFrom;
-            _keyFrom = _keyTo;
-            _keyTo = tmp;
-          });
-        },
-      );
-      final places = Row(
-        children: [
-          Expanded(
-              child: Column(
-            children: [fieldFrom, fieldTo],
-          )),
-          swapButton,
-        ],
-      );
+    // places
+    final fieldFrom = LocationField(
+      key: _keyFrom,
+      hint: "From...",
+      onSaved: (Address? value) {
+        Provider.of<ItineraryFormData>(context, listen: false).locationFrom =
+            value;
+      },
+    );
+    final fieldTo = LocationField(
+      key: _keyTo,
+      hint: "To...",
+      onSaved: (Address? value) {
+        Provider.of<ItineraryFormData>(context, listen: false).locationTo =
+            value;
+      },
+    );
+    final swapButton = IconButton(
+      icon: const Icon(Icons.swap_vert),
+      onPressed: () {
+        final from = _keyFrom.currentState?.value;
+        final to = _keyTo.currentState?.value;
+        _keyFrom.currentState?.setLocation(to);
+        _keyTo.currentState?.setLocation(from);
+      },
+    );
+    final places = Row(
+      children: [
+        Expanded(
+            child: Column(
+          children: [fieldFrom, fieldTo],
+        )),
+        swapButton,
+      ],
+    );
 
-      // return form;
-      return places;
-    });
+    // return form;
+    return places;
   }
 }
 
@@ -93,7 +92,7 @@ String autocompleteOptionString(Address feature) {
   return feature.properties.label;
 }
 
-class LocationField extends StatelessWidget {
+class LocationField extends StatefulWidget {
   const LocationField({
     this.hint,
     this.onSaved,
@@ -102,17 +101,58 @@ class LocationField extends StatelessWidget {
 
   final String? hint;
   final Function(Address?)? onSaved;
+
+  @override
+  State<LocationField> createState() => LocationFieldState();
+}
+
+class LocationFieldState extends State<LocationField> {
+  final TextEditingController _textEditingController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+  final GlobalKey<FormFieldState<Address?>> _fieldKey = GlobalKey();
+
+  void setLocation(Address? value) {
+    _fieldKey.currentState?.didChange(value);
+    _textEditingController.text = value?.properties.label ?? "";
+  }
+
+  Address? get value => _fieldKey.currentState?.value;
+
   @override
   Widget build(BuildContext context) {
     AddressDao? addressDao = Provider.of<AppDatabase?>(context)?.addressDao;
+    final gpsButton = IconButton(
+      icon: const Icon(Icons.my_location),
+      onPressed: () {
+        // Set address to current location
+        Future<Position?> pos = determinePosition();
+        pos.onError((error, stackTrace) {
+          developer.log(error.toString());
+          return null;
+        });
+        pos.then((Position? value) {
+          if (value == null) return;
+          final address = Address(
+            geometry: Geometry(coordinates: [value.longitude, value.latitude]),
+            properties:
+                Properties(label: value.toString(), gid: value.toString()),
+          );
+          developer.log(address.properties.label);
+          setLocation(address);
+        });
+      },
+    );
 
     return FormField<Address?>(
-        onSaved: onSaved,
+        key: _fieldKey,
+        onSaved: widget.onSaved,
         validator: (value) {
           return value == null ? "Missing location" : null;
         },
         builder: (FormFieldState<Address?> fieldState) {
-          return Autocomplete<Address>(
+          return CustomAutocomplete<Address>(
+            textEditingController: _textEditingController,
+            focusNode: _focusNode,
             displayStringForOption: autocompleteOptionString,
             optionsBuilder: (value) => autocompleteBuilder(value, addressDao),
             onSelected: (Address feature) {
@@ -124,30 +164,6 @@ class LocationField extends StatelessWidget {
             },
             fieldViewBuilder:
                 (context, textEditingController, focusNode, onFieldSubmitted) {
-              final gpsButton = IconButton(
-                icon: const Icon(Icons.my_location),
-                onPressed: () {
-                  // Set address to current location
-                  Future<Position?> pos = determinePosition();
-                  pos.onError((error, stackTrace) {
-                    developer.log(error.toString());
-                    return null;
-                  });
-                  pos.then((Position? value) {
-                    if (value == null) return;
-                    final address = Address(
-                      geometry: Geometry(
-                          coordinates: [value.longitude, value.latitude]),
-                      properties: Properties(
-                          label: value.toString(), gid: value.toString()),
-                    );
-                    developer.log(address.properties.label);
-                    textEditingController.text = address.properties.label;
-                    fieldState.didChange(address);
-                  });
-                },
-              );
-
               final field = TextFormField(
                 validator: (value) {
                   return (fieldState.value == null) ? "required" : null;
@@ -157,7 +173,7 @@ class LocationField extends StatelessWidget {
                     FocusManager.instance.primaryFocus?.unfocus(),
                 controller: textEditingController,
                 decoration: InputDecoration(
-                    hintText: hint,
+                    hintText: widget.hint,
                     suffix: GestureDetector(
                         child: const Icon(Icons.clear),
                         onTap: () {
