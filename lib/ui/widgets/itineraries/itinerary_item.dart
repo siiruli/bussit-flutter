@@ -123,9 +123,12 @@ class LegListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? timeStr = formatTime(time, context: context);
-    TransitMode mode = TransitMode(leg?.mode, rentedBike: leg?.rentedBike);
-    Color? color = mode.color;
-    final modeIcon = TransitModeIcon.fromTransitMode(mode);
+    TransitMode? mode = leg?.mode == null
+        ? null
+        : TransitMode(leg?.mode, rentedBike: leg?.rentedBike);
+    Color? color = mode?.color;
+    final modeIcon =
+        mode == null ? null : TransitModeIcon.fromTransitMode(mode);
     final duration = leg?.duration == null
         ? null
         : (leg!.duration! / 60).round().toString() + 'min';
@@ -160,15 +163,18 @@ class LegListItem extends StatelessWidget {
                     width: 2,
                     color: color,
                   ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              child: Column(
-                children: [
-                  modeIcon,
-                  Text(duration ?? ""),
-                ],
-              ),
-            ),
+            modeIcon == null
+                ? null
+                : Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    child: Column(
+                      children: [
+                        modeIcon,
+                        Text(duration ?? ""),
+                      ],
+                    ),
+                  ),
             Expanded(child: child),
           ].whereNotNull().toList(),
         )));

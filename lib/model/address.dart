@@ -6,6 +6,9 @@ class Address {
   final String label;
   final String id;
 
+  @override
+  String toString() => label;
+
   Address(this.lat, this.lon, this.label, this.id);
 
   Address.fromCoordinates(this.lat, this.lon)
