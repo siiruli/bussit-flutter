@@ -33,18 +33,28 @@ query Itinerary(
         endTime
         mode 
         transitLeg
+        rentedBike
         duration
         distance
         legGeometry {
           points
         }
-        intermediateStops {
+        intermediatePlaces {
           lat
           lon 
-          vehicleMode
+          stop {
+            vehicleMode
+            gtfsId
+          }
+          bikeRentalStation {
+            bikesAvailable
+            stationId
+          }
         }
         from {
           name 
+          lat
+          lon
           stop {
             name
             gtfsId
@@ -55,9 +65,15 @@ query Itinerary(
             locationType
             platformCode
           }
+          bikeRentalStation {
+            bikesAvailable
+            stationId
+          }
         }
         to {
           name 
+          lat
+          lon
           stop {
             name
             gtfsId
@@ -67,6 +83,10 @@ query Itinerary(
             vehicleMode
             locationType
             platformCode
+          }
+          bikeRentalStation {
+            bikesAvailable
+            stationId
           }
         }
         trip {

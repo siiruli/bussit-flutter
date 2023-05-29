@@ -1,4 +1,5 @@
 import 'package:bussit/model/map_elements.dart';
+import 'package:bussit/ui/widgets/components/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -32,24 +33,6 @@ LatLngBounds? boundsFromLines(List<MapLine>? lines) {
   return points == null ? null : LatLngBounds.fromPoints(points);
 }
 
-MarkerLayer pointLayer(List<MapPoint>? points) {
-  return MarkerLayer(
-    markers: points
-            ?.map(
-              (e) => Marker(
-                point: e.point,
-                width: 10,
-                height: 10,
-                builder: (BuildContext context) => CircleAvatar(
-                  backgroundColor: e.color,
-                ),
-              ),
-            )
-            .toList() ??
-        [],
-  );
-}
-
 class BikeRentalLayer extends HookWidget {
   const BikeRentalLayer({super.key});
 
@@ -74,19 +57,8 @@ class BikeRentalLayer extends HookWidget {
               ?.whereNotNull()
               .map(
                 (e) => e.lat != null && e.lon != null
-                    ? Marker(
-                        key: ValueKey(e.stationId),
-                        point: LatLng(e.lat!, e.lon!),
-                        builder: (context) => CircleAvatar(
-                          backgroundColor: (e.bikesAvailable ?? 0) > 0
-                              ? Colors.amber
-                              : Colors.grey[300],
-                          child: Text((e.bikesAvailable == null
-                              ? '?'
-                              : e.bikesAvailable!.toString())),
-                        ),
-                        rotate: true,
-                      )
+                    ? bikeRentalMarker(
+                        e, LatLng(e.lat!.toDouble(), e.lon!.toDouble()))
                     : null,
               )
               .whereNotNull()
@@ -94,4 +66,48 @@ class BikeRentalLayer extends HookWidget {
           [],
     );
   }
+}
+
+Marker bikeRentalMarker(bikeRentalStation, LatLng point, {double? size}) {
+  return Marker(
+    key: ValueKey(bikeRentalStation.stationId),
+    point: point,
+    builder: (context) => CircleAvatar(
+      backgroundColor: (bikeRentalStation.bikesAvailable ?? 0) > 0
+          ? Colors.amber
+          : Colors.grey[300],
+      child: Text((bikeRentalStation.bikesAvailable == null
+          ? '?'
+          : bikeRentalStation.bikesAvailable!.toString())),
+    ),
+    rotate: true,
+  );
+}
+
+Marker stopMarker(stop, LatLng point, {double? size}) {
+  return Marker(
+    key: ValueKey(stop.gtfsId),
+    point: point,
+    width: size ?? 10,
+    height: size ?? 10,
+    builder: (context) => CircleAvatar(
+      backgroundColor: TransitMode(stop.vehicleMode).color,
+    ),
+    rotate: true,
+  );
+}
+
+Marker? placeMarker(place, {double? size}) {
+  if (place == null) {
+    return null;
+  }
+  final LatLng point = LatLng(place.lat, place.lon);
+
+  if (place.stop != null) {
+    return stopMarker(place.stop, point, size: size);
+  }
+  if (place.bikeRentalStation != null) {
+    return bikeRentalMarker(place.bikeRentalStation, point, size: size);
+  }
+  return null;
 }

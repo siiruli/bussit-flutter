@@ -87,12 +87,11 @@ class _ItineraryFormState extends State<ItineraryForm>
       final bikeButton = SegmentedButton(
         segments: const [
           ButtonSegment(
-            value: rentedBike,
-            label: Icon(
-              Icons.pedal_bike,
-              color: Colors.amber,
-            ),
-          ),
+              value: rentedBike,
+              label: TransitModeIcon(
+                Enum$Mode.BICYCLE,
+                rentedBike: true,
+              )),
           ButtonSegment(
             value: Enum$Mode.BICYCLE,
             label: TransitModeIcon(Enum$Mode.BICYCLE),

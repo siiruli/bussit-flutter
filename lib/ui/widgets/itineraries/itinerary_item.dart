@@ -123,8 +123,9 @@ class LegListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? timeStr = formatTime(time, context: context);
-    Color? color = transitModeColor[leg?.mode];
-    final modeIcon = leg?.mode == null ? null : TransitModeIcon(leg!.mode!);
+    TransitMode mode = TransitMode(leg?.mode, rentedBike: leg?.rentedBike);
+    Color? color = mode.color;
+    final modeIcon = TransitModeIcon.fromTransitMode(mode);
     final duration = leg?.duration == null
         ? null
         : (leg!.duration! / 60).round().toString() + 'min';
@@ -159,18 +160,15 @@ class LegListItem extends StatelessWidget {
                     width: 2,
                     color: color,
                   ),
-            modeIcon == null
-                ? null
-                : Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                    child: Column(
-                      children: [
-                        modeIcon,
-                        Text(duration ?? ""),
-                      ],
-                    ),
-                  ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              child: Column(
+                children: [
+                  modeIcon,
+                  Text(duration ?? ""),
+                ],
+              ),
+            ),
             Expanded(child: child),
           ].whereNotNull().toList(),
         )));
@@ -211,7 +209,6 @@ class LegItem extends StatelessWidget {
       return const Text("null leg");
     }
     Widget desc = const Text('');
-    Widget info = const Text("");
 
     if (leg!.transitLeg == true) {
       desc = Text((leg?.trip?.routeShortName ?? '') +
@@ -249,7 +246,7 @@ class SmallLegWidget extends StatelessWidget {
     }
 
     List<Widget> widgets = [
-      TransitModeIcon(leg?.mode),
+      TransitModeIcon(leg?.mode, rentedBike: leg?.rentedBike),
       info,
     ];
     return Container(

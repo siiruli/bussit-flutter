@@ -15,11 +15,18 @@ class ZoneIdIcon extends StatelessWidget {
 }
 
 class TransitModeIcon extends StatelessWidget {
-  const TransitModeIcon(this.mode, {Key? key}) : super(key: key);
-  final Enum$Mode? mode;
+  const TransitModeIcon(this.modeEnum, {super.key, this.rentedBike})
+      : mode = null;
+  const TransitModeIcon.fromTransitMode(this.mode, {super.key})
+      : modeEnum = null,
+        rentedBike = null;
+
+  final Enum$Mode? modeEnum;
+  final bool? rentedBike;
+  final TransitMode? mode;
   @override
   Widget build(BuildContext context) {
-    final modeData = TransitMode(mode);
+    final modeData = mode ?? TransitMode(modeEnum, rentedBike: rentedBike);
     return Icon(
       modeData.icon,
       color: modeData.color,
@@ -31,9 +38,13 @@ class TransitMode {
   late Color color;
   late IconData icon;
 
-  TransitMode(Enum$Mode? mode) {
+  TransitMode(Enum$Mode? mode, {bool? rentedBike}) {
     color = transitModeColor[mode] ?? Colors.black;
     icon = transitModeIcon[mode] ?? Icons.question_mark;
+    if (rentedBike == true) {
+      color = Colors.yellow[800] ?? Colors.grey;
+      icon = Icons.pedal_bike;
+    }
   }
 }
 

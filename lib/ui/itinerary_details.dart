@@ -3,7 +3,7 @@ import 'package:bussit/model/map_elements.dart';
 import 'package:bussit/ui/widgets/map/map_widget.dart';
 import 'package:bussit/ui/widgets/map/layers.dart';
 import 'package:flutter/material.dart';
-import 'package:collection/collection.dart';
+import 'package:flutter_map/flutter_map.dart';
 
 class ItineraryDetails extends StatelessWidget {
   const ItineraryDetails(this.itinerary, {super.key});
@@ -12,22 +12,14 @@ class ItineraryDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lines = itinerary.legs.map((leg) => MapLine(leg)).toList();
-    List<MapPoint> stops = itinerary.legs
-        .expand((Query$Itinerary$plan$itineraries$legs? leg) {
-          return leg?.intermediateStops
-                  ?.map((stop) => mapPointFromStop(stop)) ??
-              List<MapPoint>.empty();
-        })
-        .whereNotNull()
-        .toList();
-
+    final stops = markersFromLegs(itinerary.legs);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Route"),
       ),
       body: MapWidget(
         bounds: boundsFromLines(lines),
-        layers: [polylineLayer(lines), pointLayer(stops)],
+        layers: [polylineLayer(lines), MarkerLayer(markers: stops)],
       ),
     );
   }
