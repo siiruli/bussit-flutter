@@ -1,11 +1,11 @@
 import 'package:bussit/api/hsl_api.dart';
 import 'package:bussit/database/database.dart';
 import 'package:bussit/model/saved_stops.dart';
+import 'package:bussit/model/user_actions.dart';
 import 'package:bussit/ui/itinerary_view.dart';
 import 'package:bussit/ui/widgets/map/map_widget.dart';
 import 'package:bussit/ui/saved_stops_view.dart';
 import 'package:bussit/ui/stop_search_view.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
@@ -56,6 +56,7 @@ class MyApp extends StatelessWidget {
           Provider(
             create: (context) => database,
           ),
+          Provider(create: (context) => UserActions()),
         ],
         child: GraphQLProvider(
           client: getHslApiClient(),

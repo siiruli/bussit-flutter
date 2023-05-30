@@ -56,6 +56,8 @@ query Itinerary(
           lat
           lon
           stop {
+            lat
+            lon
             name
             gtfsId
             code
@@ -77,6 +79,8 @@ query Itinerary(
           stop {
             name
             gtfsId
+            lat
+            lon
             code
             desc
             zoneId

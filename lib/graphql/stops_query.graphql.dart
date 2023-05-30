@@ -508,6 +508,20 @@ const documentNodeQueryStopData = DocumentNode(definitions: [
             selectionSet: null,
           ),
           FieldNode(
+            name: NameNode(value: 'lat'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
+            name: NameNode(value: 'lon'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
             name: NameNode(value: 'stoptimesWithoutPatterns'),
             alias: null,
             arguments: [],
@@ -709,6 +723,20 @@ const documentNodeQueryStopData = DocumentNode(definitions: [
           ),
           FieldNode(
             name: NameNode(value: 'platformCode'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
+            name: NameNode(value: 'lat'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
+            name: NameNode(value: 'lon'),
             alias: null,
             arguments: [],
             directives: [],
@@ -989,6 +1017,8 @@ class Query$StopData$stations {
     this.vehicleMode,
     this.locationType,
     this.platformCode,
+    this.lat,
+    this.lon,
     this.stoptimesWithoutPatterns,
     required this.$__typename,
   });
@@ -1002,6 +1032,8 @@ class Query$StopData$stations {
     final l$vehicleMode = json['vehicleMode'];
     final l$locationType = json['locationType'];
     final l$platformCode = json['platformCode'];
+    final l$lat = json['lat'];
+    final l$lon = json['lon'];
     final l$stoptimesWithoutPatterns = json['stoptimesWithoutPatterns'];
     final l$$__typename = json['__typename'];
     return Query$StopData$stations(
@@ -1017,6 +1049,8 @@ class Query$StopData$stations {
           ? null
           : fromJson$Enum$LocationType((l$locationType as String)),
       platformCode: (l$platformCode as String?),
+      lat: (l$lat as num?)?.toDouble(),
+      lon: (l$lon as num?)?.toDouble(),
       stoptimesWithoutPatterns: (l$stoptimesWithoutPatterns as List<dynamic>?)
           ?.map((e) => e == null
               ? null
@@ -1042,6 +1076,10 @@ class Query$StopData$stations {
   final Enum$LocationType? locationType;
 
   final String? platformCode;
+
+  final double? lat;
+
+  final double? lon;
 
   final List<Query$StopData$stations$stoptimesWithoutPatterns?>?
       stoptimesWithoutPatterns;
@@ -1069,6 +1107,10 @@ class Query$StopData$stations {
         : toJson$Enum$LocationType(l$locationType);
     final l$platformCode = platformCode;
     _resultData['platformCode'] = l$platformCode;
+    final l$lat = lat;
+    _resultData['lat'] = l$lat;
+    final l$lon = lon;
+    _resultData['lon'] = l$lon;
     final l$stoptimesWithoutPatterns = stoptimesWithoutPatterns;
     _resultData['stoptimesWithoutPatterns'] =
         l$stoptimesWithoutPatterns?.map((e) => e?.toJson()).toList();
@@ -1087,6 +1129,8 @@ class Query$StopData$stations {
     final l$vehicleMode = vehicleMode;
     final l$locationType = locationType;
     final l$platformCode = platformCode;
+    final l$lat = lat;
+    final l$lon = lon;
     final l$stoptimesWithoutPatterns = stoptimesWithoutPatterns;
     final l$$__typename = $__typename;
     return Object.hashAll([
@@ -1098,6 +1142,8 @@ class Query$StopData$stations {
       l$vehicleMode,
       l$locationType,
       l$platformCode,
+      l$lat,
+      l$lon,
       l$stoptimesWithoutPatterns == null
           ? null
           : Object.hashAll(l$stoptimesWithoutPatterns.map((v) => v)),
@@ -1152,6 +1198,16 @@ class Query$StopData$stations {
     final l$platformCode = platformCode;
     final lOther$platformCode = other.platformCode;
     if (l$platformCode != lOther$platformCode) {
+      return false;
+    }
+    final l$lat = lat;
+    final lOther$lat = other.lat;
+    if (l$lat != lOther$lat) {
+      return false;
+    }
+    final l$lon = lon;
+    final lOther$lon = other.lon;
+    if (l$lon != lOther$lon) {
       return false;
     }
     final l$stoptimesWithoutPatterns = stoptimesWithoutPatterns;
@@ -1209,6 +1265,8 @@ abstract class CopyWith$Query$StopData$stations<TRes> {
     Enum$Mode? vehicleMode,
     Enum$LocationType? locationType,
     String? platformCode,
+    double? lat,
+    double? lon,
     List<Query$StopData$stations$stoptimesWithoutPatterns?>?
         stoptimesWithoutPatterns,
     String? $__typename,
@@ -1243,6 +1301,8 @@ class _CopyWithImpl$Query$StopData$stations<TRes>
     Object? vehicleMode = _undefined,
     Object? locationType = _undefined,
     Object? platformCode = _undefined,
+    Object? lat = _undefined,
+    Object? lon = _undefined,
     Object? stoptimesWithoutPatterns = _undefined,
     Object? $__typename = _undefined,
   }) =>
@@ -1265,6 +1325,8 @@ class _CopyWithImpl$Query$StopData$stations<TRes>
         platformCode: platformCode == _undefined
             ? _instance.platformCode
             : (platformCode as String?),
+        lat: lat == _undefined ? _instance.lat : (lat as double?),
+        lon: lon == _undefined ? _instance.lon : (lon as double?),
         stoptimesWithoutPatterns: stoptimesWithoutPatterns == _undefined
             ? _instance.stoptimesWithoutPatterns
             : (stoptimesWithoutPatterns
@@ -1304,6 +1366,8 @@ class _CopyWithStubImpl$Query$StopData$stations<TRes>
     Enum$Mode? vehicleMode,
     Enum$LocationType? locationType,
     String? platformCode,
+    double? lat,
+    double? lon,
     List<Query$StopData$stations$stoptimesWithoutPatterns?>?
         stoptimesWithoutPatterns,
     String? $__typename,
@@ -2073,6 +2137,8 @@ class Query$StopData$stops {
     this.vehicleMode,
     this.locationType,
     this.platformCode,
+    this.lat,
+    this.lon,
     this.stoptimesWithoutPatterns,
     required this.$__typename,
   });
@@ -2086,6 +2152,8 @@ class Query$StopData$stops {
     final l$vehicleMode = json['vehicleMode'];
     final l$locationType = json['locationType'];
     final l$platformCode = json['platformCode'];
+    final l$lat = json['lat'];
+    final l$lon = json['lon'];
     final l$stoptimesWithoutPatterns = json['stoptimesWithoutPatterns'];
     final l$$__typename = json['__typename'];
     return Query$StopData$stops(
@@ -2101,6 +2169,8 @@ class Query$StopData$stops {
           ? null
           : fromJson$Enum$LocationType((l$locationType as String)),
       platformCode: (l$platformCode as String?),
+      lat: (l$lat as num?)?.toDouble(),
+      lon: (l$lon as num?)?.toDouble(),
       stoptimesWithoutPatterns: (l$stoptimesWithoutPatterns as List<dynamic>?)
           ?.map((e) => e == null
               ? null
@@ -2126,6 +2196,10 @@ class Query$StopData$stops {
   final Enum$LocationType? locationType;
 
   final String? platformCode;
+
+  final double? lat;
+
+  final double? lon;
 
   final List<Query$StopData$stops$stoptimesWithoutPatterns?>?
       stoptimesWithoutPatterns;
@@ -2153,6 +2227,10 @@ class Query$StopData$stops {
         : toJson$Enum$LocationType(l$locationType);
     final l$platformCode = platformCode;
     _resultData['platformCode'] = l$platformCode;
+    final l$lat = lat;
+    _resultData['lat'] = l$lat;
+    final l$lon = lon;
+    _resultData['lon'] = l$lon;
     final l$stoptimesWithoutPatterns = stoptimesWithoutPatterns;
     _resultData['stoptimesWithoutPatterns'] =
         l$stoptimesWithoutPatterns?.map((e) => e?.toJson()).toList();
@@ -2171,6 +2249,8 @@ class Query$StopData$stops {
     final l$vehicleMode = vehicleMode;
     final l$locationType = locationType;
     final l$platformCode = platformCode;
+    final l$lat = lat;
+    final l$lon = lon;
     final l$stoptimesWithoutPatterns = stoptimesWithoutPatterns;
     final l$$__typename = $__typename;
     return Object.hashAll([
@@ -2182,6 +2262,8 @@ class Query$StopData$stops {
       l$vehicleMode,
       l$locationType,
       l$platformCode,
+      l$lat,
+      l$lon,
       l$stoptimesWithoutPatterns == null
           ? null
           : Object.hashAll(l$stoptimesWithoutPatterns.map((v) => v)),
@@ -2235,6 +2317,16 @@ class Query$StopData$stops {
     final l$platformCode = platformCode;
     final lOther$platformCode = other.platformCode;
     if (l$platformCode != lOther$platformCode) {
+      return false;
+    }
+    final l$lat = lat;
+    final lOther$lat = other.lat;
+    if (l$lat != lOther$lat) {
+      return false;
+    }
+    final l$lon = lon;
+    final lOther$lon = other.lon;
+    if (l$lon != lOther$lon) {
       return false;
     }
     final l$stoptimesWithoutPatterns = stoptimesWithoutPatterns;
@@ -2292,6 +2384,8 @@ abstract class CopyWith$Query$StopData$stops<TRes> {
     Enum$Mode? vehicleMode,
     Enum$LocationType? locationType,
     String? platformCode,
+    double? lat,
+    double? lon,
     List<Query$StopData$stops$stoptimesWithoutPatterns?>?
         stoptimesWithoutPatterns,
     String? $__typename,
@@ -2326,6 +2420,8 @@ class _CopyWithImpl$Query$StopData$stops<TRes>
     Object? vehicleMode = _undefined,
     Object? locationType = _undefined,
     Object? platformCode = _undefined,
+    Object? lat = _undefined,
+    Object? lon = _undefined,
     Object? stoptimesWithoutPatterns = _undefined,
     Object? $__typename = _undefined,
   }) =>
@@ -2348,6 +2444,8 @@ class _CopyWithImpl$Query$StopData$stops<TRes>
         platformCode: platformCode == _undefined
             ? _instance.platformCode
             : (platformCode as String?),
+        lat: lat == _undefined ? _instance.lat : (lat as double?),
+        lon: lon == _undefined ? _instance.lon : (lon as double?),
         stoptimesWithoutPatterns: stoptimesWithoutPatterns == _undefined
             ? _instance.stoptimesWithoutPatterns
             : (stoptimesWithoutPatterns
@@ -2387,6 +2485,8 @@ class _CopyWithStubImpl$Query$StopData$stops<TRes>
     Enum$Mode? vehicleMode,
     Enum$LocationType? locationType,
     String? platformCode,
+    double? lat,
+    double? lon,
     List<Query$StopData$stops$stoptimesWithoutPatterns?>?
         stoptimesWithoutPatterns,
     String? $__typename,

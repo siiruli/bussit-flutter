@@ -861,6 +861,20 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
                         directives: [],
                         selectionSet: SelectionSetNode(selections: [
                           FieldNode(
+                            name: NameNode(value: 'lat'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'lon'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
                             name: NameNode(value: 'name'),
                             alias: null,
                             arguments: [],
@@ -1005,6 +1019,20 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
                           ),
                           FieldNode(
                             name: NameNode(value: 'gtfsId'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'lat'),
+                            alias: null,
+                            arguments: [],
+                            directives: [],
+                            selectionSet: null,
+                          ),
+                          FieldNode(
+                            name: NameNode(value: 'lon'),
                             alias: null,
                             arguments: [],
                             directives: [],
@@ -3093,6 +3121,8 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$from<TRes>
 
 class Query$Itinerary$plan$itineraries$legs$from$stop {
   Query$Itinerary$plan$itineraries$legs$from$stop({
+    this.lat,
+    this.lon,
     required this.name,
     required this.gtfsId,
     this.code,
@@ -3106,6 +3136,8 @@ class Query$Itinerary$plan$itineraries$legs$from$stop {
 
   factory Query$Itinerary$plan$itineraries$legs$from$stop.fromJson(
       Map<String, dynamic> json) {
+    final l$lat = json['lat'];
+    final l$lon = json['lon'];
     final l$name = json['name'];
     final l$gtfsId = json['gtfsId'];
     final l$code = json['code'];
@@ -3116,6 +3148,8 @@ class Query$Itinerary$plan$itineraries$legs$from$stop {
     final l$platformCode = json['platformCode'];
     final l$$__typename = json['__typename'];
     return Query$Itinerary$plan$itineraries$legs$from$stop(
+      lat: (l$lat as num?)?.toDouble(),
+      lon: (l$lon as num?)?.toDouble(),
       name: (l$name as String),
       gtfsId: (l$gtfsId as String),
       code: (l$code as String?),
@@ -3131,6 +3165,10 @@ class Query$Itinerary$plan$itineraries$legs$from$stop {
       $__typename: (l$$__typename as String),
     );
   }
+
+  final double? lat;
+
+  final double? lon;
 
   final String name;
 
@@ -3152,6 +3190,10 @@ class Query$Itinerary$plan$itineraries$legs$from$stop {
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
+    final l$lat = lat;
+    _resultData['lat'] = l$lat;
+    final l$lon = lon;
+    _resultData['lon'] = l$lon;
     final l$name = name;
     _resultData['name'] = l$name;
     final l$gtfsId = gtfsId;
@@ -3178,6 +3220,8 @@ class Query$Itinerary$plan$itineraries$legs$from$stop {
 
   @override
   int get hashCode {
+    final l$lat = lat;
+    final l$lon = lon;
     final l$name = name;
     final l$gtfsId = gtfsId;
     final l$code = code;
@@ -3188,6 +3232,8 @@ class Query$Itinerary$plan$itineraries$legs$from$stop {
     final l$platformCode = platformCode;
     final l$$__typename = $__typename;
     return Object.hashAll([
+      l$lat,
+      l$lon,
       l$name,
       l$gtfsId,
       l$code,
@@ -3207,6 +3253,16 @@ class Query$Itinerary$plan$itineraries$legs$from$stop {
     }
     if (!(other is Query$Itinerary$plan$itineraries$legs$from$stop) ||
         runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$lat = lat;
+    final lOther$lat = other.lat;
+    if (l$lat != lOther$lat) {
+      return false;
+    }
+    final l$lon = lon;
+    final lOther$lon = other.lon;
+    if (l$lon != lOther$lon) {
       return false;
     }
     final l$name = name;
@@ -3279,6 +3335,8 @@ abstract class CopyWith$Query$Itinerary$plan$itineraries$legs$from$stop<TRes> {
       _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$from$stop;
 
   TRes call({
+    double? lat,
+    double? lon,
     String? name,
     String? gtfsId,
     String? code,
@@ -3305,6 +3363,8 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$from$stop<TRes>
   static const _undefined = {};
 
   TRes call({
+    Object? lat = _undefined,
+    Object? lon = _undefined,
     Object? name = _undefined,
     Object? gtfsId = _undefined,
     Object? code = _undefined,
@@ -3316,6 +3376,8 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$from$stop<TRes>
     Object? $__typename = _undefined,
   }) =>
       _then(Query$Itinerary$plan$itineraries$legs$from$stop(
+        lat: lat == _undefined ? _instance.lat : (lat as double?),
+        lon: lon == _undefined ? _instance.lon : (lon as double?),
         name: name == _undefined || name == null
             ? _instance.name
             : (name as String),
@@ -3347,6 +3409,8 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$from$stop<TRes>
   TRes _res;
 
   call({
+    double? lat,
+    double? lon,
     String? name,
     String? gtfsId,
     String? code,
@@ -3762,6 +3826,8 @@ class Query$Itinerary$plan$itineraries$legs$to$stop {
   Query$Itinerary$plan$itineraries$legs$to$stop({
     required this.name,
     required this.gtfsId,
+    this.lat,
+    this.lon,
     this.code,
     this.desc,
     this.zoneId,
@@ -3775,6 +3841,8 @@ class Query$Itinerary$plan$itineraries$legs$to$stop {
       Map<String, dynamic> json) {
     final l$name = json['name'];
     final l$gtfsId = json['gtfsId'];
+    final l$lat = json['lat'];
+    final l$lon = json['lon'];
     final l$code = json['code'];
     final l$desc = json['desc'];
     final l$zoneId = json['zoneId'];
@@ -3785,6 +3853,8 @@ class Query$Itinerary$plan$itineraries$legs$to$stop {
     return Query$Itinerary$plan$itineraries$legs$to$stop(
       name: (l$name as String),
       gtfsId: (l$gtfsId as String),
+      lat: (l$lat as num?)?.toDouble(),
+      lon: (l$lon as num?)?.toDouble(),
       code: (l$code as String?),
       desc: (l$desc as String?),
       zoneId: (l$zoneId as String?),
@@ -3802,6 +3872,10 @@ class Query$Itinerary$plan$itineraries$legs$to$stop {
   final String name;
 
   final String gtfsId;
+
+  final double? lat;
+
+  final double? lon;
 
   final String? code;
 
@@ -3823,6 +3897,10 @@ class Query$Itinerary$plan$itineraries$legs$to$stop {
     _resultData['name'] = l$name;
     final l$gtfsId = gtfsId;
     _resultData['gtfsId'] = l$gtfsId;
+    final l$lat = lat;
+    _resultData['lat'] = l$lat;
+    final l$lon = lon;
+    _resultData['lon'] = l$lon;
     final l$code = code;
     _resultData['code'] = l$code;
     final l$desc = desc;
@@ -3847,6 +3925,8 @@ class Query$Itinerary$plan$itineraries$legs$to$stop {
   int get hashCode {
     final l$name = name;
     final l$gtfsId = gtfsId;
+    final l$lat = lat;
+    final l$lon = lon;
     final l$code = code;
     final l$desc = desc;
     final l$zoneId = zoneId;
@@ -3857,6 +3937,8 @@ class Query$Itinerary$plan$itineraries$legs$to$stop {
     return Object.hashAll([
       l$name,
       l$gtfsId,
+      l$lat,
+      l$lon,
       l$code,
       l$desc,
       l$zoneId,
@@ -3884,6 +3966,16 @@ class Query$Itinerary$plan$itineraries$legs$to$stop {
     final l$gtfsId = gtfsId;
     final lOther$gtfsId = other.gtfsId;
     if (l$gtfsId != lOther$gtfsId) {
+      return false;
+    }
+    final l$lat = lat;
+    final lOther$lat = other.lat;
+    if (l$lat != lOther$lat) {
+      return false;
+    }
+    final l$lon = lon;
+    final lOther$lon = other.lon;
+    if (l$lon != lOther$lon) {
       return false;
     }
     final l$code = code;
@@ -3948,6 +4040,8 @@ abstract class CopyWith$Query$Itinerary$plan$itineraries$legs$to$stop<TRes> {
   TRes call({
     String? name,
     String? gtfsId,
+    double? lat,
+    double? lon,
     String? code,
     String? desc,
     String? zoneId,
@@ -3974,6 +4068,8 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$to$stop<TRes>
   TRes call({
     Object? name = _undefined,
     Object? gtfsId = _undefined,
+    Object? lat = _undefined,
+    Object? lon = _undefined,
     Object? code = _undefined,
     Object? desc = _undefined,
     Object? zoneId = _undefined,
@@ -3989,6 +4085,8 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$to$stop<TRes>
         gtfsId: gtfsId == _undefined || gtfsId == null
             ? _instance.gtfsId
             : (gtfsId as String),
+        lat: lat == _undefined ? _instance.lat : (lat as double?),
+        lon: lon == _undefined ? _instance.lon : (lon as double?),
         code: code == _undefined ? _instance.code : (code as String?),
         desc: desc == _undefined ? _instance.desc : (desc as String?),
         zoneId: zoneId == _undefined ? _instance.zoneId : (zoneId as String?),
@@ -4016,6 +4114,8 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$to$stop<TRes>
   call({
     String? name,
     String? gtfsId,
+    double? lat,
+    double? lon,
     String? code,
     String? desc,
     String? zoneId,

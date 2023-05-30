@@ -3,6 +3,7 @@ import 'package:bussit/api/location_api.dart';
 import 'package:bussit/database/database.dart';
 import 'package:bussit/database/dao.dart';
 import 'package:bussit/model/address.dart';
+import 'package:bussit/model/user_actions.dart';
 import 'package:bussit/ui/widgets/components/geo_location.dart';
 import 'package:bussit/utils/custom_autocomplete.dart';
 import 'package:flutter/material.dart';
@@ -20,18 +21,16 @@ class LocationsForm extends StatefulWidget {
 
 class _LocationsFormState extends State<LocationsForm>
     with AutomaticKeepAliveClientMixin {
-  final GlobalKey<LocationFieldState> _keyFrom = GlobalKey();
-  final GlobalKey<LocationFieldState> _keyTo = GlobalKey();
-
   @override
   bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final keys = Provider.of<UserActions>(context, listen: false).keys;
     // places
     final fieldFrom = LocationField(
-      key: _keyFrom,
+      key: keys.startAddressField,
       hint: "From...",
       onSaved: (Address? value) {
         Provider.of<ItineraryFormData>(context, listen: false).locationFrom =
@@ -39,20 +38,22 @@ class _LocationsFormState extends State<LocationsForm>
       },
     );
     final fieldTo = LocationField(
-      key: _keyTo,
+      key: keys.endAddressField,
       hint: "To...",
       onSaved: (Address? value) {
         Provider.of<ItineraryFormData>(context, listen: false).locationTo =
             value;
       },
     );
+
+    /// Swap the start and end locations
     final swapButton = IconButton(
       icon: const Icon(Icons.swap_vert),
       onPressed: () {
-        final from = _keyFrom.currentState?.value;
-        final to = _keyTo.currentState?.value;
-        _keyFrom.currentState?.setLocation(to);
-        _keyTo.currentState?.setLocation(from);
+        final from = keys.startAddressField.currentState?.value;
+        final to = keys.endAddressField.currentState?.value;
+        keys.startAddressField.currentState?.setLocation(to);
+        keys.endAddressField.currentState?.setLocation(from);
       },
     );
     final places = Row(

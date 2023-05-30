@@ -9,6 +9,8 @@ query StopData($ids: [String], $name: String, $maxResults: Int){
     vehicleMode
     locationType
     platformCode
+    lat
+    lon
     stoptimesWithoutPatterns {
       scheduledDeparture
       realtimeDeparture
@@ -36,6 +38,8 @@ query StopData($ids: [String], $name: String, $maxResults: Int){
     vehicleMode
     locationType
     platformCode
+    lat
+    lon
     stoptimesWithoutPatterns {
       scheduledDeparture
       realtimeDeparture

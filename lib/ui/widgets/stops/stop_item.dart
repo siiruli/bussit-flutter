@@ -6,6 +6,7 @@ import 'package:bussit/graphql/stops_query.graphql.dart';
 import 'package:bussit/model/saved_stops.dart';
 import 'package:bussit/ui/widgets/components/departure_time.dart';
 
+/// Expandable stop item
 class ExpansionStopItem extends StatelessWidget {
   const ExpansionStopItem(this.stopMaybe, {Key? key}) : super(key: key);
   final dynamic stopMaybe;
@@ -74,7 +75,7 @@ class StopItemWidget extends StatelessWidget {
     subtitleTexts = subtitleTexts.where((element) => element != null).toList();
     List<Widget> subtitle = subtitleTexts.map((e) => Text(e! + ' ')).toList();
 
-    return ListTile(
+    final stopItem = ListTile(
       title: Text.rich(TextSpan(text: stop.name, children: titleText)),
       subtitle: Row(children: subtitle),
       trailing: Row(
@@ -86,6 +87,11 @@ class StopItemWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
       ),
       contentPadding: padding,
+    );
+
+    return GestureMenu(
+      child: stopItem,
+      menu: stopMenu(context, stop),
     );
   }
 }
