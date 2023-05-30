@@ -1,0 +1,21 @@
+
+query Trip(
+  $gtfsId: String!
+){
+  trip(id: $gtfsId)  {
+    gtfsId
+    tripHeadsign
+    routeShortName
+    stoptimes {
+      realtimeArrival
+      stop {
+        lat
+        lon
+        gtfsId
+        name
+        platformCode
+        code
+      }
+    }
+  }
+}

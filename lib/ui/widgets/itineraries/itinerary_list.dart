@@ -10,17 +10,8 @@ import 'dart:developer' as developer;
 
 import 'package:intl/intl.dart';
 
-// Place parameter for the query
-String toPlaceString(Address address) {
-  final name = address.label;
-  final res = '$name::${address.lat},${address.lon}';
-  developer.log(res);
-  return res;
-}
-
-// Widget showin a list of stops
-class ItineraryListWidget extends HookWidget {
-  const ItineraryListWidget({
+class ItineraryVariables extends HookWidget {
+  const ItineraryVariables({
     required this.from,
     required this.to,
     this.nResults,
@@ -37,6 +28,7 @@ class ItineraryListWidget extends HookWidget {
   final bool? arriveBy;
   final List<dynamic>? transportModes;
   final bool? allowBikeRental;
+
   @override
   Widget build(BuildContext context) {
     if (time != null) {
@@ -61,23 +53,29 @@ class ItineraryListWidget extends HookWidget {
       modes?.add(Input$TransportMode(mode: Enum$Mode.WALK));
     }
 
-    final result = useQueryLifecycleAware(
-      Options$Query$Itinerary(
-        fetchPolicy: FetchPolicy.cacheAndNetwork,
-        variables: Variables$Query$Itinerary(
-          fromPlace: toPlaceString(from),
-          toPlace: toPlaceString(to),
-          nResults: nResults,
-          date: time == null ? null : DateFormat('y-MM-dd').format(time!),
-          time: time == null ? null : DateFormat('HH:mm:ss').format(time!),
-          arriveBy: arriveBy,
-          allowBikeRental: allowBikeRental,
-          modes: modes,
-          maxWalkDistance:
-              (usebike == true || allowBikeRental == true) ? 15000 : 2000,
-        ),
-      ),
+    Variables$Query$Itinerary variables = Variables$Query$Itinerary(
+      nResults: nResults,
+      arriveBy: arriveBy,
+      allowBikeRental: allowBikeRental,
+      modes: modes,
+      maxWalkDistance:
+          (usebike == true || allowBikeRental == true) ? 15000 : 2000,
     );
+    variables = useItineraryVariables(variables, from, to, time);
+    return ItineraryResults(variables: variables);
+  }
+}
+
+/// Widget showing a list of stops
+class ItineraryResults extends HookWidget {
+  const ItineraryResults({required this.variables, super.key});
+  final Variables$Query$Itinerary variables;
+  @override
+  Widget build(BuildContext context) {
+    final result = useQueryLifecycleAware(Options$Query$Itinerary(
+      fetchPolicy: FetchPolicy.cacheAndNetwork,
+      variables: variables,
+    ));
 
     return itineraryListBuilder(result.result);
   }

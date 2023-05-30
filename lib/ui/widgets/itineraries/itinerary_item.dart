@@ -3,6 +3,7 @@ import 'package:bussit/graphql/schema.graphql.dart';
 import 'package:bussit/ui/itinerary_details.dart';
 import 'package:bussit/ui/widgets/components/app_icons.dart';
 import 'package:bussit/ui/widgets/components/departure_time.dart';
+import 'package:bussit/ui/widgets/components/gesture_menu.dart';
 import 'package:bussit/ui/widgets/stops/stop_item.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
@@ -229,9 +230,12 @@ class LegItem extends StatelessWidget {
     List<Widget> list = [
       desc,
     ];
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-      child: Row(children: list),
+    return GestureMenu(
+      menu: leg?.transitLeg == true ? tripMenu(context, leg?.trip) : null,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+        child: Row(children: list),
+      ),
     );
   }
 }

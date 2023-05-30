@@ -9,6 +9,8 @@ class Variables$Query$Itinerary {
   factory Variables$Query$Itinerary({
     String? fromPlace,
     String? toPlace,
+    Input$InputCoordinates? from,
+    String? startTransitTripId,
     int? nResults,
     String? time,
     String? date,
@@ -20,6 +22,9 @@ class Variables$Query$Itinerary {
       Variables$Query$Itinerary._({
         if (fromPlace != null) r'fromPlace': fromPlace,
         if (toPlace != null) r'toPlace': toPlace,
+        if (from != null) r'from': from,
+        if (startTransitTripId != null)
+          r'startTransitTripId': startTransitTripId,
         if (nResults != null) r'nResults': nResults,
         if (time != null) r'time': time,
         if (date != null) r'date': date,
@@ -40,6 +45,16 @@ class Variables$Query$Itinerary {
     if (data.containsKey('toPlace')) {
       final l$toPlace = data['toPlace'];
       result$data['toPlace'] = (l$toPlace as String?);
+    }
+    if (data.containsKey('from')) {
+      final l$from = data['from'];
+      result$data['from'] = l$from == null
+          ? null
+          : Input$InputCoordinates.fromJson((l$from as Map<String, dynamic>));
+    }
+    if (data.containsKey('startTransitTripId')) {
+      final l$startTransitTripId = data['startTransitTripId'];
+      result$data['startTransitTripId'] = (l$startTransitTripId as String?);
     }
     if (data.containsKey('nResults')) {
       final l$nResults = data['nResults'];
@@ -80,6 +95,9 @@ class Variables$Query$Itinerary {
 
   String? get fromPlace => (_$data['fromPlace'] as String?);
   String? get toPlace => (_$data['toPlace'] as String?);
+  Input$InputCoordinates? get from =>
+      (_$data['from'] as Input$InputCoordinates?);
+  String? get startTransitTripId => (_$data['startTransitTripId'] as String?);
   int? get nResults => (_$data['nResults'] as int?);
   String? get time => (_$data['time'] as String?);
   String? get date => (_$data['date'] as String?);
@@ -97,6 +115,14 @@ class Variables$Query$Itinerary {
     if (_$data.containsKey('toPlace')) {
       final l$toPlace = toPlace;
       result$data['toPlace'] = l$toPlace;
+    }
+    if (_$data.containsKey('from')) {
+      final l$from = from;
+      result$data['from'] = l$from?.toJson();
+    }
+    if (_$data.containsKey('startTransitTripId')) {
+      final l$startTransitTripId = startTransitTripId;
+      result$data['startTransitTripId'] = l$startTransitTripId;
     }
     if (_$data.containsKey('nResults')) {
       final l$nResults = nResults;
@@ -158,6 +184,23 @@ class Variables$Query$Itinerary {
       return false;
     }
     if (l$toPlace != lOther$toPlace) {
+      return false;
+    }
+    final l$from = from;
+    final lOther$from = other.from;
+    if (_$data.containsKey('from') != other._$data.containsKey('from')) {
+      return false;
+    }
+    if (l$from != lOther$from) {
+      return false;
+    }
+    final l$startTransitTripId = startTransitTripId;
+    final lOther$startTransitTripId = other.startTransitTripId;
+    if (_$data.containsKey('startTransitTripId') !=
+        other._$data.containsKey('startTransitTripId')) {
+      return false;
+    }
+    if (l$startTransitTripId != lOther$startTransitTripId) {
       return false;
     }
     final l$nResults = nResults;
@@ -238,6 +281,8 @@ class Variables$Query$Itinerary {
   int get hashCode {
     final l$fromPlace = fromPlace;
     final l$toPlace = toPlace;
+    final l$from = from;
+    final l$startTransitTripId = startTransitTripId;
     final l$nResults = nResults;
     final l$time = time;
     final l$date = date;
@@ -248,6 +293,10 @@ class Variables$Query$Itinerary {
     return Object.hashAll([
       _$data.containsKey('fromPlace') ? l$fromPlace : const {},
       _$data.containsKey('toPlace') ? l$toPlace : const {},
+      _$data.containsKey('from') ? l$from : const {},
+      _$data.containsKey('startTransitTripId')
+          ? l$startTransitTripId
+          : const {},
       _$data.containsKey('nResults') ? l$nResults : const {},
       _$data.containsKey('time') ? l$time : const {},
       _$data.containsKey('date') ? l$date : const {},
@@ -275,6 +324,8 @@ abstract class CopyWith$Variables$Query$Itinerary<TRes> {
   TRes call({
     String? fromPlace,
     String? toPlace,
+    Input$InputCoordinates? from,
+    String? startTransitTripId,
     int? nResults,
     String? time,
     String? date,
@@ -301,6 +352,8 @@ class _CopyWithImpl$Variables$Query$Itinerary<TRes>
   TRes call({
     Object? fromPlace = _undefined,
     Object? toPlace = _undefined,
+    Object? from = _undefined,
+    Object? startTransitTripId = _undefined,
     Object? nResults = _undefined,
     Object? time = _undefined,
     Object? date = _undefined,
@@ -313,6 +366,9 @@ class _CopyWithImpl$Variables$Query$Itinerary<TRes>
         ..._instance._$data,
         if (fromPlace != _undefined) 'fromPlace': (fromPlace as String?),
         if (toPlace != _undefined) 'toPlace': (toPlace as String?),
+        if (from != _undefined) 'from': (from as Input$InputCoordinates?),
+        if (startTransitTripId != _undefined)
+          'startTransitTripId': (startTransitTripId as String?),
         if (nResults != _undefined) 'nResults': (nResults as int?),
         if (time != _undefined) 'time': (time as String?),
         if (date != _undefined) 'date': (date as String?),
@@ -335,6 +391,8 @@ class _CopyWithStubImpl$Variables$Query$Itinerary<TRes>
   call({
     String? fromPlace,
     String? toPlace,
+    Input$InputCoordinates? from,
+    String? startTransitTripId,
     int? nResults,
     String? time,
     String? date,
@@ -504,6 +562,24 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
         directives: [],
       ),
       VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'from')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'InputCoordinates'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'startTransitTripId')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+      VariableDefinitionNode(
         variable: VariableNode(name: NameNode(value: 'nResults')),
         type: NamedTypeNode(
           name: NameNode(value: 'Int'),
@@ -576,6 +652,14 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
         name: NameNode(value: 'plan'),
         alias: null,
         arguments: [
+          ArgumentNode(
+            name: NameNode(value: 'from'),
+            value: VariableNode(name: NameNode(value: 'from')),
+          ),
+          ArgumentNode(
+            name: NameNode(value: 'startTransitTripId'),
+            value: VariableNode(name: NameNode(value: 'startTransitTripId')),
+          ),
           ArgumentNode(
             name: NameNode(value: 'fromPlace'),
             value: VariableNode(name: NameNode(value: 'fromPlace')),
@@ -1142,6 +1226,13 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
                       ),
                       FieldNode(
                         name: NameNode(value: 'routeShortName'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'gtfsId'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -4291,6 +4382,7 @@ class Query$Itinerary$plan$itineraries$legs$trip {
   Query$Itinerary$plan$itineraries$legs$trip({
     this.tripHeadsign,
     this.routeShortName,
+    required this.gtfsId,
     required this.$__typename,
   });
 
@@ -4298,10 +4390,12 @@ class Query$Itinerary$plan$itineraries$legs$trip {
       Map<String, dynamic> json) {
     final l$tripHeadsign = json['tripHeadsign'];
     final l$routeShortName = json['routeShortName'];
+    final l$gtfsId = json['gtfsId'];
     final l$$__typename = json['__typename'];
     return Query$Itinerary$plan$itineraries$legs$trip(
       tripHeadsign: (l$tripHeadsign as String?),
       routeShortName: (l$routeShortName as String?),
+      gtfsId: (l$gtfsId as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -4309,6 +4403,8 @@ class Query$Itinerary$plan$itineraries$legs$trip {
   final String? tripHeadsign;
 
   final String? routeShortName;
+
+  final String gtfsId;
 
   final String $__typename;
 
@@ -4318,6 +4414,8 @@ class Query$Itinerary$plan$itineraries$legs$trip {
     _resultData['tripHeadsign'] = l$tripHeadsign;
     final l$routeShortName = routeShortName;
     _resultData['routeShortName'] = l$routeShortName;
+    final l$gtfsId = gtfsId;
+    _resultData['gtfsId'] = l$gtfsId;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -4327,10 +4425,12 @@ class Query$Itinerary$plan$itineraries$legs$trip {
   int get hashCode {
     final l$tripHeadsign = tripHeadsign;
     final l$routeShortName = routeShortName;
+    final l$gtfsId = gtfsId;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$tripHeadsign,
       l$routeShortName,
+      l$gtfsId,
       l$$__typename,
     ]);
   }
@@ -4352,6 +4452,11 @@ class Query$Itinerary$plan$itineraries$legs$trip {
     final l$routeShortName = routeShortName;
     final lOther$routeShortName = other.routeShortName;
     if (l$routeShortName != lOther$routeShortName) {
+      return false;
+    }
+    final l$gtfsId = gtfsId;
+    final lOther$gtfsId = other.gtfsId;
+    if (l$gtfsId != lOther$gtfsId) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -4385,6 +4490,7 @@ abstract class CopyWith$Query$Itinerary$plan$itineraries$legs$trip<TRes> {
   TRes call({
     String? tripHeadsign,
     String? routeShortName,
+    String? gtfsId,
     String? $__typename,
   });
 }
@@ -4405,6 +4511,7 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$trip<TRes>
   TRes call({
     Object? tripHeadsign = _undefined,
     Object? routeShortName = _undefined,
+    Object? gtfsId = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Query$Itinerary$plan$itineraries$legs$trip(
@@ -4414,6 +4521,9 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs$trip<TRes>
         routeShortName: routeShortName == _undefined
             ? _instance.routeShortName
             : (routeShortName as String?),
+        gtfsId: gtfsId == _undefined || gtfsId == null
+            ? _instance.gtfsId
+            : (gtfsId as String),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
@@ -4429,6 +4539,7 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs$trip<TRes>
   call({
     String? tripHeadsign,
     String? routeShortName,
+    String? gtfsId,
     String? $__typename,
   }) =>
       _res;

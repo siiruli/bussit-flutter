@@ -2,6 +2,8 @@
 query Itinerary(
   $fromPlace: String,
   $toPlace: String,
+  $from: InputCoordinates,
+  $startTransitTripId: String
   $nResults: Int,
   $time: String,
   $date: String,
@@ -11,6 +13,8 @@ query Itinerary(
   $maxWalkDistance: Float,
 ){
   plan(
+    from: $from,
+    startTransitTripId: $startTransitTripId,
     fromPlace: $fromPlace,
     toPlace: $toPlace,
     numItineraries: $nResults,
@@ -96,6 +100,7 @@ query Itinerary(
         trip {
           tripHeadsign
           routeShortName 
+          gtfsId
         }
       }
     }

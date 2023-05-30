@@ -20,6 +20,9 @@ query StopData($ids: [String], $name: String, $maxResults: Int){
       serviceDay
       headsign
       trip {
+        gtfsId
+        tripHeadsign
+        routeShortName
         route {
           shortName
         }
@@ -52,6 +55,9 @@ query StopData($ids: [String], $name: String, $maxResults: Int){
         route {
           shortName
         }
+        gtfsId
+        tripHeadsign
+        routeShortName
       }
       stop {
         platformCode

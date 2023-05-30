@@ -114,7 +114,7 @@ class StopTimeWidget extends StatelessWidget {
     final platFormCode = stoptime?.stop?.platformCode;
     final code = (platFormCode == null) ? null : Text(platFormCode);
     return GestureMenu(
-      menu: tripMenu(stoptime?.trip),
+      menu: tripMenu(context, stoptime?.trip),
       child: ListTile(
         title: Text(busName),
         leading: depTime,

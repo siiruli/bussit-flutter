@@ -583,6 +583,27 @@ const documentNodeQueryStopData = DocumentNode(definitions: [
                 directives: [],
                 selectionSet: SelectionSetNode(selections: [
                   FieldNode(
+                    name: NameNode(value: 'gtfsId'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                  FieldNode(
+                    name: NameNode(value: 'tripHeadsign'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                  FieldNode(
+                    name: NameNode(value: 'routeShortName'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                  FieldNode(
                     name: NameNode(value: 'route'),
                     alias: null,
                     arguments: [],
@@ -824,6 +845,27 @@ const documentNodeQueryStopData = DocumentNode(definitions: [
                         selectionSet: null,
                       ),
                     ]),
+                  ),
+                  FieldNode(
+                    name: NameNode(value: 'gtfsId'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                  FieldNode(
+                    name: NameNode(value: 'tripHeadsign'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                  FieldNode(
+                    name: NameNode(value: 'routeShortName'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
                   ),
                   FieldNode(
                     name: NameNode(value: '__typename'),
@@ -1704,15 +1746,24 @@ class _CopyWithStubImpl$Query$StopData$stations$stoptimesWithoutPatterns<TRes>
 
 class Query$StopData$stations$stoptimesWithoutPatterns$trip {
   Query$StopData$stations$stoptimesWithoutPatterns$trip({
+    required this.gtfsId,
+    this.tripHeadsign,
+    this.routeShortName,
     required this.route,
     required this.$__typename,
   });
 
   factory Query$StopData$stations$stoptimesWithoutPatterns$trip.fromJson(
       Map<String, dynamic> json) {
+    final l$gtfsId = json['gtfsId'];
+    final l$tripHeadsign = json['tripHeadsign'];
+    final l$routeShortName = json['routeShortName'];
     final l$route = json['route'];
     final l$$__typename = json['__typename'];
     return Query$StopData$stations$stoptimesWithoutPatterns$trip(
+      gtfsId: (l$gtfsId as String),
+      tripHeadsign: (l$tripHeadsign as String?),
+      routeShortName: (l$routeShortName as String?),
       route:
           Query$StopData$stations$stoptimesWithoutPatterns$trip$route.fromJson(
               (l$route as Map<String, dynamic>)),
@@ -1720,12 +1771,24 @@ class Query$StopData$stations$stoptimesWithoutPatterns$trip {
     );
   }
 
+  final String gtfsId;
+
+  final String? tripHeadsign;
+
+  final String? routeShortName;
+
   final Query$StopData$stations$stoptimesWithoutPatterns$trip$route route;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
+    final l$gtfsId = gtfsId;
+    _resultData['gtfsId'] = l$gtfsId;
+    final l$tripHeadsign = tripHeadsign;
+    _resultData['tripHeadsign'] = l$tripHeadsign;
+    final l$routeShortName = routeShortName;
+    _resultData['routeShortName'] = l$routeShortName;
     final l$route = route;
     _resultData['route'] = l$route.toJson();
     final l$$__typename = $__typename;
@@ -1735,9 +1798,15 @@ class Query$StopData$stations$stoptimesWithoutPatterns$trip {
 
   @override
   int get hashCode {
+    final l$gtfsId = gtfsId;
+    final l$tripHeadsign = tripHeadsign;
+    final l$routeShortName = routeShortName;
     final l$route = route;
     final l$$__typename = $__typename;
     return Object.hashAll([
+      l$gtfsId,
+      l$tripHeadsign,
+      l$routeShortName,
       l$route,
       l$$__typename,
     ]);
@@ -1750,6 +1819,21 @@ class Query$StopData$stations$stoptimesWithoutPatterns$trip {
     }
     if (!(other is Query$StopData$stations$stoptimesWithoutPatterns$trip) ||
         runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$gtfsId = gtfsId;
+    final lOther$gtfsId = other.gtfsId;
+    if (l$gtfsId != lOther$gtfsId) {
+      return false;
+    }
+    final l$tripHeadsign = tripHeadsign;
+    final lOther$tripHeadsign = other.tripHeadsign;
+    if (l$tripHeadsign != lOther$tripHeadsign) {
+      return false;
+    }
+    final l$routeShortName = routeShortName;
+    final lOther$routeShortName = other.routeShortName;
+    if (l$routeShortName != lOther$routeShortName) {
       return false;
     }
     final l$route = route;
@@ -1789,6 +1873,9 @@ abstract class CopyWith$Query$StopData$stations$stoptimesWithoutPatterns$trip<
       _CopyWithStubImpl$Query$StopData$stations$stoptimesWithoutPatterns$trip;
 
   TRes call({
+    String? gtfsId,
+    String? tripHeadsign,
+    String? routeShortName,
     Query$StopData$stations$stoptimesWithoutPatterns$trip$route? route,
     String? $__typename,
   });
@@ -1812,10 +1899,22 @@ class _CopyWithImpl$Query$StopData$stations$stoptimesWithoutPatterns$trip<TRes>
   static const _undefined = {};
 
   TRes call({
+    Object? gtfsId = _undefined,
+    Object? tripHeadsign = _undefined,
+    Object? routeShortName = _undefined,
     Object? route = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Query$StopData$stations$stoptimesWithoutPatterns$trip(
+        gtfsId: gtfsId == _undefined || gtfsId == null
+            ? _instance.gtfsId
+            : (gtfsId as String),
+        tripHeadsign: tripHeadsign == _undefined
+            ? _instance.tripHeadsign
+            : (tripHeadsign as String?),
+        routeShortName: routeShortName == _undefined
+            ? _instance.routeShortName
+            : (routeShortName as String?),
         route: route == _undefined || route == null
             ? _instance.route
             : (route
@@ -1842,6 +1941,9 @@ class _CopyWithStubImpl$Query$StopData$stations$stoptimesWithoutPatterns$trip<
   TRes _res;
 
   call({
+    String? gtfsId,
+    String? tripHeadsign,
+    String? routeShortName,
     Query$StopData$stations$stoptimesWithoutPatterns$trip$route? route,
     String? $__typename,
   }) =>
@@ -2818,21 +2920,36 @@ class _CopyWithStubImpl$Query$StopData$stops$stoptimesWithoutPatterns<TRes>
 class Query$StopData$stops$stoptimesWithoutPatterns$trip {
   Query$StopData$stops$stoptimesWithoutPatterns$trip({
     required this.route,
+    required this.gtfsId,
+    this.tripHeadsign,
+    this.routeShortName,
     required this.$__typename,
   });
 
   factory Query$StopData$stops$stoptimesWithoutPatterns$trip.fromJson(
       Map<String, dynamic> json) {
     final l$route = json['route'];
+    final l$gtfsId = json['gtfsId'];
+    final l$tripHeadsign = json['tripHeadsign'];
+    final l$routeShortName = json['routeShortName'];
     final l$$__typename = json['__typename'];
     return Query$StopData$stops$stoptimesWithoutPatterns$trip(
       route: Query$StopData$stops$stoptimesWithoutPatterns$trip$route.fromJson(
           (l$route as Map<String, dynamic>)),
+      gtfsId: (l$gtfsId as String),
+      tripHeadsign: (l$tripHeadsign as String?),
+      routeShortName: (l$routeShortName as String?),
       $__typename: (l$$__typename as String),
     );
   }
 
   final Query$StopData$stops$stoptimesWithoutPatterns$trip$route route;
+
+  final String gtfsId;
+
+  final String? tripHeadsign;
+
+  final String? routeShortName;
 
   final String $__typename;
 
@@ -2840,6 +2957,12 @@ class Query$StopData$stops$stoptimesWithoutPatterns$trip {
     final _resultData = <String, dynamic>{};
     final l$route = route;
     _resultData['route'] = l$route.toJson();
+    final l$gtfsId = gtfsId;
+    _resultData['gtfsId'] = l$gtfsId;
+    final l$tripHeadsign = tripHeadsign;
+    _resultData['tripHeadsign'] = l$tripHeadsign;
+    final l$routeShortName = routeShortName;
+    _resultData['routeShortName'] = l$routeShortName;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2848,9 +2971,15 @@ class Query$StopData$stops$stoptimesWithoutPatterns$trip {
   @override
   int get hashCode {
     final l$route = route;
+    final l$gtfsId = gtfsId;
+    final l$tripHeadsign = tripHeadsign;
+    final l$routeShortName = routeShortName;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$route,
+      l$gtfsId,
+      l$tripHeadsign,
+      l$routeShortName,
       l$$__typename,
     ]);
   }
@@ -2867,6 +2996,21 @@ class Query$StopData$stops$stoptimesWithoutPatterns$trip {
     final l$route = route;
     final lOther$route = other.route;
     if (l$route != lOther$route) {
+      return false;
+    }
+    final l$gtfsId = gtfsId;
+    final lOther$gtfsId = other.gtfsId;
+    if (l$gtfsId != lOther$gtfsId) {
+      return false;
+    }
+    final l$tripHeadsign = tripHeadsign;
+    final lOther$tripHeadsign = other.tripHeadsign;
+    if (l$tripHeadsign != lOther$tripHeadsign) {
+      return false;
+    }
+    final l$routeShortName = routeShortName;
+    final lOther$routeShortName = other.routeShortName;
+    if (l$routeShortName != lOther$routeShortName) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -2902,6 +3046,9 @@ abstract class CopyWith$Query$StopData$stops$stoptimesWithoutPatterns$trip<
 
   TRes call({
     Query$StopData$stops$stoptimesWithoutPatterns$trip$route? route,
+    String? gtfsId,
+    String? tripHeadsign,
+    String? routeShortName,
     String? $__typename,
   });
   CopyWith$Query$StopData$stops$stoptimesWithoutPatterns$trip$route<TRes>
@@ -2924,6 +3071,9 @@ class _CopyWithImpl$Query$StopData$stops$stoptimesWithoutPatterns$trip<TRes>
 
   TRes call({
     Object? route = _undefined,
+    Object? gtfsId = _undefined,
+    Object? tripHeadsign = _undefined,
+    Object? routeShortName = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Query$StopData$stops$stoptimesWithoutPatterns$trip(
@@ -2931,6 +3081,15 @@ class _CopyWithImpl$Query$StopData$stops$stoptimesWithoutPatterns$trip<TRes>
             ? _instance.route
             : (route
                 as Query$StopData$stops$stoptimesWithoutPatterns$trip$route),
+        gtfsId: gtfsId == _undefined || gtfsId == null
+            ? _instance.gtfsId
+            : (gtfsId as String),
+        tripHeadsign: tripHeadsign == _undefined
+            ? _instance.tripHeadsign
+            : (tripHeadsign as String?),
+        routeShortName: routeShortName == _undefined
+            ? _instance.routeShortName
+            : (routeShortName as String?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
@@ -2953,6 +3112,9 @@ class _CopyWithStubImpl$Query$StopData$stops$stoptimesWithoutPatterns$trip<TRes>
 
   call({
     Query$StopData$stops$stoptimesWithoutPatterns$trip$route? route,
+    String? gtfsId,
+    String? tripHeadsign,
+    String? routeShortName,
     String? $__typename,
   }) =>
       _res;

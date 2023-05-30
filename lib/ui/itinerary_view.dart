@@ -53,7 +53,7 @@ class _ItineraryFormState extends State<ItineraryForm>
         ),
       );
       setState(() {
-        _result = ItineraryListWidget(
+        _result = ItineraryVariables(
           from: formData.locationFrom!,
           to: formData.locationTo!,
           nResults: 12,
