@@ -16,3 +16,13 @@ String tripName(trip) {
       ' ' +
       (trip?.tripHeadsign ?? 'no headsign');
 }
+
+DateTime? serviceDate(String? serviceDate) {
+  return serviceDate == null ? null : DateTime.parse(serviceDate);
+}
+
+DateTime? serviceDay(int? serviceDay) {
+  return serviceDay == null
+      ? null
+      : DateTime.fromMicrosecondsSinceEpoch(serviceDay * 1000);
+}

@@ -1,3 +1,4 @@
+import 'package:bussit/model/graphql_data_helpers.dart';
 import 'package:bussit/ui/widgets/components/app_icons.dart';
 import 'package:bussit/ui/widgets/components/gesture_menu.dart';
 import 'package:flutter/material.dart';
@@ -114,7 +115,7 @@ class StopTimeWidget extends StatelessWidget {
     final platFormCode = stoptime?.stop?.platformCode;
     final code = (platFormCode == null) ? null : Text(platFormCode);
     return GestureMenu(
-      menu: tripMenu(context, stoptime?.trip, stoptime?.serviceDay),
+      menu: tripMenu(context, stoptime?.trip, serviceDay(stoptime?.serviceDay)),
       child: ListTile(
         title: Text(busName),
         leading: depTime,

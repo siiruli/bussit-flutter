@@ -8,7 +8,7 @@ import 'package:bussit/ui/widgets/stops/stop_item.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
-import '../../../model/string_builder.dart';
+import '../../../model/graphql_data_helpers.dart';
 
 /// Shows one itinerary
 ///
@@ -247,7 +247,7 @@ class LegItem extends StatelessWidget {
     return GestureMenu(
       child: legItem,
       menu: leg?.transitLeg == true
-          ? tripMenu(context, leg?.trip, leg?.serviceDate)
+          ? tripMenu(context, leg?.trip, serviceDate(leg?.serviceDate))
           : null,
     );
   }

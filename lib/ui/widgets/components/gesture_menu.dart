@@ -86,7 +86,7 @@ Menu stopMenu(BuildContext context, stop) {
 }
 
 /// All menu action that can be done to a trip
-Menu tripMenu(BuildContext context, trip, String? serviceDate) {
+Menu tripMenu(BuildContext context, trip, DateTime? serviceDate) {
   if (trip == null || serviceDate == null) {
     return Menu.fromFunctionItems([]);
   }

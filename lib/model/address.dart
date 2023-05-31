@@ -1,5 +1,5 @@
 import 'package:bussit/api/address_json.dart';
-import 'package:bussit/model/string_builder.dart';
+import 'package:bussit/model/graphql_data_helpers.dart';
 import 'package:latlong2/latlong.dart';
 import 'dart:developer' as developer;
 
@@ -33,12 +33,11 @@ class Address {
   Address.fromStop(stop, {double? lat, double? lon})
       : this(lat ?? stop.lat, lon ?? stop.lon, stopName(stop), stop.gtfsId);
 
-  Address.fromTrip(trip, String serviceDate)
+  Address.fromTrip(trip, this.serviceDate)
       : type = AddressType.trip,
         id = trip.gtfsId,
         label = trip.routeShortName + " " + trip.tripHeadsign,
-        coordinates = LatLng(0, 0),
-        serviceDate = DateTime.parse(serviceDate);
+        coordinates = LatLng(0, 0);
 
   Address.fromAddressJson(AddressJson address)
       : this(address.geometry.lat.toDouble(), address.geometry.lon.toDouble(),
