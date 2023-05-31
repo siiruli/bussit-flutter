@@ -17,12 +17,14 @@ String tripName(trip) {
       (trip?.tripHeadsign ?? 'no headsign');
 }
 
+/// DateTime from string (YYYYMMDD)
 DateTime? serviceDate(String? serviceDate) {
   return serviceDate == null ? null : DateTime.parse(serviceDate);
 }
 
+/// DateTime from Unix time stamp in seconds
 DateTime? serviceDay(int? serviceDay) {
   return serviceDay == null
       ? null
-      : DateTime.fromMicrosecondsSinceEpoch(serviceDay * 1000);
+      : DateTime.fromMillisecondsSinceEpoch(serviceDay * 1000);
 }

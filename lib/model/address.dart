@@ -37,7 +37,12 @@ class Address {
       : type = AddressType.trip,
         id = trip.gtfsId,
         label = trip.routeShortName + " " + trip.tripHeadsign,
-        coordinates = LatLng(0, 0);
+        coordinates = LatLng(0, 0) {
+    developer.log("Address created: " +
+        label +
+        " " +
+        (serviceDate?.toString() ?? "null"));
+  }
 
   Address.fromAddressJson(AddressJson address)
       : this(address.geometry.lat.toDouble(), address.geometry.lon.toDouble(),
