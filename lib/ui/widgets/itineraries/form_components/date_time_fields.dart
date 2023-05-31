@@ -31,6 +31,9 @@ class DateField extends StatelessWidget {
           future.then((value) => value == null ? null : formData.date = value);
         },
         label: Text(dateString(formData.date) ?? ''),
+        style: TextButton.styleFrom(
+          padding: const EdgeInsets.all(0),
+        ),
       ),
     );
   }
@@ -61,6 +64,8 @@ class TimeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final iconSize = IconTheme.of(context).size;
+
     return Consumer<ItineraryFormData>(
       builder: (context, formData, child) {
         return TextButton.icon(
@@ -75,6 +80,14 @@ class TimeField extends StatelessWidget {
               }
             });
           },
+          style: TextButton.styleFrom(
+            visualDensity: VisualDensity.compact,
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.all(0),
+            fixedSize: Size(
+                (iconSize ?? 20) + 50 * MediaQuery.textScaleFactorOf(context),
+                iconSize ?? 0),
+          ),
         );
       },
     );
