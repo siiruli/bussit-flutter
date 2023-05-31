@@ -139,22 +139,19 @@ useItineraryVariables(Variables$Query$Itinerary variables, Address from,
       time = time ?? DateTime.now();
       developer.log("Current time: " + time.toString());
       // find last stop before departure time
-      int idx = trip?.stoptimes?.lastIndexWhere((stoptime) {
-            final arrivalTime = from.serviceDate
-                    ?.add(Duration(seconds: stoptime?.realtimeArrival ?? 0)) ??
-                DateTime.now();
-            developer.log((stoptime?.stop?.name ?? "null") +
-                " " +
-                arrivalTime.toString());
-            return arrivalTime.isBefore(time!);
-          }) ??
-          0;
-      if (idx < 0) {
-        idx = 0;
-      }
-      final Query$Trip$trip$stoptimes? lastStopTime = trip?.stoptimes?[idx];
+      final Query$Trip$trip$stoptimes? firstStopTime =
+          trip?.stoptimes?.firstWhere((stoptime) {
+                final arrivalTime = from.serviceDate?.add(
+                        Duration(seconds: stoptime?.realtimeArrival ?? 0)) ??
+                    DateTime.fromMillisecondsSinceEpoch(0);
+                developer.log((stoptime?.stop?.name ?? "null") +
+                    " " +
+                    arrivalTime.toString());
+                return arrivalTime.isAfter(time!);
+              }) ??
+              (trip?.stoptimes?.isEmpty == true ? trip?.stoptimes?.last : null);
 
-      final address = Address.fromStop(lastStopTime?.stop);
+      final address = Address.fromStop(firstStopTime?.stop);
 
       data["startTransitTripId"] = trip?.gtfsId;
       data["from"] = Input$InputCoordinates(
@@ -162,9 +159,9 @@ useItineraryVariables(Variables$Query$Itinerary variables, Address from,
           .toJson();
       // new departure time matching the stop
       time = from.serviceDate
-              ?.add(Duration(seconds: lastStopTime?.realtimeArrival ?? 0)) ??
+              ?.add(Duration(seconds: firstStopTime?.realtimeArrival ?? 0)) ??
           DateTime.now();
-      developer.log("Stop: " + (lastStopTime?.stop?.name ?? "null"));
+      developer.log("Stop: " + (firstStopTime?.stop?.name ?? "null"));
     }
   }
 
