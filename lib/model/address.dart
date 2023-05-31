@@ -15,9 +15,7 @@ class Address {
 
   AddressType type = AddressType.location;
 
-  DateTime? serviceDate = DateTime.now()
-      .copyWith(hour: 0, minute: 0, second: 0, microsecond: 0, millisecond: 0);
-
+  DateTime? serviceDate;
   String? get tripId => type == AddressType.trip ? id : null;
 
   @override
@@ -35,11 +33,12 @@ class Address {
   Address.fromStop(stop, {double? lat, double? lon})
       : this(lat ?? stop.lat, lon ?? stop.lon, stopName(stop), stop.gtfsId);
 
-  Address.fromTrip(trip)
+  Address.fromTrip(trip, String serviceDate)
       : type = AddressType.trip,
         id = trip.gtfsId,
         label = trip.routeShortName + " " + trip.tripHeadsign,
-        coordinates = LatLng(0, 0);
+        coordinates = LatLng(0, 0),
+        serviceDate = DateTime.parse(serviceDate);
 
   Address.fromAddressJson(AddressJson address)
       : this(address.geometry.lat.toDouble(), address.geometry.lon.toDouble(),

@@ -563,14 +563,14 @@ const documentNodeQueryStopData = DocumentNode(definitions: [
                 selectionSet: null,
               ),
               FieldNode(
-                name: NameNode(value: 'serviceDay'),
+                name: NameNode(value: 'headsign'),
                 alias: null,
                 arguments: [],
                 directives: [],
                 selectionSet: null,
               ),
               FieldNode(
-                name: NameNode(value: 'headsign'),
+                name: NameNode(value: 'serviceDay'),
                 alias: null,
                 arguments: [],
                 directives: [],
@@ -1425,8 +1425,8 @@ class Query$StopData$stations$stoptimesWithoutPatterns {
     this.departureDelay,
     this.realtime,
     this.realtimeState,
-    this.serviceDay,
     this.headsign,
+    this.serviceDay,
     this.trip,
     this.stop,
     required this.$__typename,
@@ -1439,8 +1439,8 @@ class Query$StopData$stations$stoptimesWithoutPatterns {
     final l$departureDelay = json['departureDelay'];
     final l$realtime = json['realtime'];
     final l$realtimeState = json['realtimeState'];
-    final l$serviceDay = json['serviceDay'];
     final l$headsign = json['headsign'];
+    final l$serviceDay = json['serviceDay'];
     final l$trip = json['trip'];
     final l$stop = json['stop'];
     final l$$__typename = json['__typename'];
@@ -1452,8 +1452,8 @@ class Query$StopData$stations$stoptimesWithoutPatterns {
       realtimeState: l$realtimeState == null
           ? null
           : fromJson$Enum$RealtimeState((l$realtimeState as String)),
-      serviceDay: l$serviceDay == null ? null : longFromJson(l$serviceDay),
       headsign: (l$headsign as String?),
+      serviceDay: l$serviceDay == null ? null : longFromJson(l$serviceDay),
       trip: l$trip == null
           ? null
           : Query$StopData$stations$stoptimesWithoutPatterns$trip.fromJson(
@@ -1476,9 +1476,9 @@ class Query$StopData$stations$stoptimesWithoutPatterns {
 
   final Enum$RealtimeState? realtimeState;
 
-  final int? serviceDay;
-
   final String? headsign;
+
+  final int? serviceDay;
 
   final Query$StopData$stations$stoptimesWithoutPatterns$trip? trip;
 
@@ -1500,11 +1500,11 @@ class Query$StopData$stations$stoptimesWithoutPatterns {
     _resultData['realtimeState'] = l$realtimeState == null
         ? null
         : toJson$Enum$RealtimeState(l$realtimeState);
+    final l$headsign = headsign;
+    _resultData['headsign'] = l$headsign;
     final l$serviceDay = serviceDay;
     _resultData['serviceDay'] =
         l$serviceDay == null ? null : longToJson(l$serviceDay);
-    final l$headsign = headsign;
-    _resultData['headsign'] = l$headsign;
     final l$trip = trip;
     _resultData['trip'] = l$trip?.toJson();
     final l$stop = stop;
@@ -1521,8 +1521,8 @@ class Query$StopData$stations$stoptimesWithoutPatterns {
     final l$departureDelay = departureDelay;
     final l$realtime = realtime;
     final l$realtimeState = realtimeState;
-    final l$serviceDay = serviceDay;
     final l$headsign = headsign;
+    final l$serviceDay = serviceDay;
     final l$trip = trip;
     final l$stop = stop;
     final l$$__typename = $__typename;
@@ -1532,8 +1532,8 @@ class Query$StopData$stations$stoptimesWithoutPatterns {
       l$departureDelay,
       l$realtime,
       l$realtimeState,
-      l$serviceDay,
       l$headsign,
+      l$serviceDay,
       l$trip,
       l$stop,
       l$$__typename,
@@ -1574,14 +1574,14 @@ class Query$StopData$stations$stoptimesWithoutPatterns {
     if (l$realtimeState != lOther$realtimeState) {
       return false;
     }
-    final l$serviceDay = serviceDay;
-    final lOther$serviceDay = other.serviceDay;
-    if (l$serviceDay != lOther$serviceDay) {
-      return false;
-    }
     final l$headsign = headsign;
     final lOther$headsign = other.headsign;
     if (l$headsign != lOther$headsign) {
+      return false;
+    }
+    final l$serviceDay = serviceDay;
+    final lOther$serviceDay = other.serviceDay;
+    if (l$serviceDay != lOther$serviceDay) {
       return false;
     }
     final l$trip = trip;
@@ -1629,8 +1629,8 @@ abstract class CopyWith$Query$StopData$stations$stoptimesWithoutPatterns<TRes> {
     int? departureDelay,
     bool? realtime,
     Enum$RealtimeState? realtimeState,
-    int? serviceDay,
     String? headsign,
+    int? serviceDay,
     Query$StopData$stations$stoptimesWithoutPatterns$trip? trip,
     Query$StopData$stations$stoptimesWithoutPatterns$stop? stop,
     String? $__typename,
@@ -1658,8 +1658,8 @@ class _CopyWithImpl$Query$StopData$stations$stoptimesWithoutPatterns<TRes>
     Object? departureDelay = _undefined,
     Object? realtime = _undefined,
     Object? realtimeState = _undefined,
-    Object? serviceDay = _undefined,
     Object? headsign = _undefined,
+    Object? serviceDay = _undefined,
     Object? trip = _undefined,
     Object? stop = _undefined,
     Object? $__typename = _undefined,
@@ -1679,11 +1679,11 @@ class _CopyWithImpl$Query$StopData$stations$stoptimesWithoutPatterns<TRes>
         realtimeState: realtimeState == _undefined
             ? _instance.realtimeState
             : (realtimeState as Enum$RealtimeState?),
+        headsign:
+            headsign == _undefined ? _instance.headsign : (headsign as String?),
         serviceDay: serviceDay == _undefined
             ? _instance.serviceDay
             : (serviceDay as int?),
-        headsign:
-            headsign == _undefined ? _instance.headsign : (headsign as String?),
         trip: trip == _undefined
             ? _instance.trip
             : (trip as Query$StopData$stations$stoptimesWithoutPatterns$trip?),
@@ -1727,8 +1727,8 @@ class _CopyWithStubImpl$Query$StopData$stations$stoptimesWithoutPatterns<TRes>
     int? departureDelay,
     bool? realtime,
     Enum$RealtimeState? realtimeState,
-    int? serviceDay,
     String? headsign,
+    int? serviceDay,
     Query$StopData$stations$stoptimesWithoutPatterns$trip? trip,
     Query$StopData$stations$stoptimesWithoutPatterns$stop? stop,
     String? $__typename,

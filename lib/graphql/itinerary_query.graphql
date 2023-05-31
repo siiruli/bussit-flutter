@@ -40,6 +40,7 @@ query Itinerary(
         rentedBike
         duration
         distance
+        serviceDate
         legGeometry {
           points
         }

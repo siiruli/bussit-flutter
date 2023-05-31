@@ -803,6 +803,13 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
                     selectionSet: null,
                   ),
                   FieldNode(
+                    name: NameNode(value: 'serviceDate'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                  FieldNode(
                     name: NameNode(value: 'legGeometry'),
                     alias: null,
                     arguments: [],
@@ -1828,6 +1835,7 @@ class Query$Itinerary$plan$itineraries$legs {
     this.rentedBike,
     this.duration,
     this.distance,
+    this.serviceDate,
     this.legGeometry,
     this.intermediatePlaces,
     required this.from,
@@ -1846,6 +1854,7 @@ class Query$Itinerary$plan$itineraries$legs {
     final l$rentedBike = json['rentedBike'];
     final l$duration = json['duration'];
     final l$distance = json['distance'];
+    final l$serviceDate = json['serviceDate'];
     final l$legGeometry = json['legGeometry'];
     final l$intermediatePlaces = json['intermediatePlaces'];
     final l$from = json['from'];
@@ -1861,6 +1870,7 @@ class Query$Itinerary$plan$itineraries$legs {
       rentedBike: (l$rentedBike as bool?),
       duration: (l$duration as num?)?.toDouble(),
       distance: (l$distance as num?)?.toDouble(),
+      serviceDate: (l$serviceDate as String?),
       legGeometry: l$legGeometry == null
           ? null
           : Query$Itinerary$plan$itineraries$legs$legGeometry.fromJson(
@@ -1899,6 +1909,8 @@ class Query$Itinerary$plan$itineraries$legs {
 
   final double? distance;
 
+  final String? serviceDate;
+
   final Query$Itinerary$plan$itineraries$legs$legGeometry? legGeometry;
 
   final List<Query$Itinerary$plan$itineraries$legs$intermediatePlaces?>?
@@ -1931,6 +1943,8 @@ class Query$Itinerary$plan$itineraries$legs {
     _resultData['duration'] = l$duration;
     final l$distance = distance;
     _resultData['distance'] = l$distance;
+    final l$serviceDate = serviceDate;
+    _resultData['serviceDate'] = l$serviceDate;
     final l$legGeometry = legGeometry;
     _resultData['legGeometry'] = l$legGeometry?.toJson();
     final l$intermediatePlaces = intermediatePlaces;
@@ -1957,6 +1971,7 @@ class Query$Itinerary$plan$itineraries$legs {
     final l$rentedBike = rentedBike;
     final l$duration = duration;
     final l$distance = distance;
+    final l$serviceDate = serviceDate;
     final l$legGeometry = legGeometry;
     final l$intermediatePlaces = intermediatePlaces;
     final l$from = from;
@@ -1972,6 +1987,7 @@ class Query$Itinerary$plan$itineraries$legs {
       l$rentedBike,
       l$duration,
       l$distance,
+      l$serviceDate,
       l$legGeometry,
       l$intermediatePlaces == null
           ? null
@@ -2030,6 +2046,11 @@ class Query$Itinerary$plan$itineraries$legs {
     final l$distance = distance;
     final lOther$distance = other.distance;
     if (l$distance != lOther$distance) {
+      return false;
+    }
+    final l$serviceDate = serviceDate;
+    final lOther$serviceDate = other.serviceDate;
+    if (l$serviceDate != lOther$serviceDate) {
       return false;
     }
     final l$legGeometry = legGeometry;
@@ -2105,6 +2126,7 @@ abstract class CopyWith$Query$Itinerary$plan$itineraries$legs<TRes> {
     bool? rentedBike,
     double? duration,
     double? distance,
+    String? serviceDate,
     Query$Itinerary$plan$itineraries$legs$legGeometry? legGeometry,
     List<Query$Itinerary$plan$itineraries$legs$intermediatePlaces?>?
         intermediatePlaces,
@@ -2148,6 +2170,7 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs<TRes>
     Object? rentedBike = _undefined,
     Object? duration = _undefined,
     Object? distance = _undefined,
+    Object? serviceDate = _undefined,
     Object? legGeometry = _undefined,
     Object? intermediatePlaces = _undefined,
     Object? from = _undefined,
@@ -2172,6 +2195,9 @@ class _CopyWithImpl$Query$Itinerary$plan$itineraries$legs<TRes>
             duration == _undefined ? _instance.duration : (duration as double?),
         distance:
             distance == _undefined ? _instance.distance : (distance as double?),
+        serviceDate: serviceDate == _undefined
+            ? _instance.serviceDate
+            : (serviceDate as String?),
         legGeometry: legGeometry == _undefined
             ? _instance.legGeometry
             : (legGeometry
@@ -2254,6 +2280,7 @@ class _CopyWithStubImpl$Query$Itinerary$plan$itineraries$legs<TRes>
     bool? rentedBike,
     double? duration,
     double? distance,
+    String? serviceDate,
     Query$Itinerary$plan$itineraries$legs$legGeometry? legGeometry,
     List<Query$Itinerary$plan$itineraries$legs$intermediatePlaces?>?
         intermediatePlaces,

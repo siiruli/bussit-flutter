@@ -246,7 +246,9 @@ class LegItem extends StatelessWidget {
 
     return GestureMenu(
       child: legItem,
-      menu: leg?.transitLeg == true ? tripMenu(context, leg?.trip) : null,
+      menu: leg?.transitLeg == true
+          ? tripMenu(context, leg?.trip, leg?.serviceDate)
+          : null,
     );
   }
 }

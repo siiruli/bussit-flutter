@@ -17,8 +17,8 @@ query StopData($ids: [String], $name: String, $maxResults: Int){
       departureDelay
       realtime
       realtimeState
-      serviceDay
       headsign
+      serviceDay
       trip {
         gtfsId
         tripHeadsign

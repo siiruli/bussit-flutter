@@ -86,8 +86,11 @@ Menu stopMenu(BuildContext context, stop) {
 }
 
 /// All menu action that can be done to a trip
-Menu tripMenu(BuildContext context, trip) {
-  Address address = Address.fromTrip(trip);
+Menu tripMenu(BuildContext context, trip, String? serviceDate) {
+  if (trip == null || serviceDate == null) {
+    return Menu.fromFunctionItems([]);
+  }
+  Address address = Address.fromTrip(trip, serviceDate);
   List<PopupMenuEntry<void Function()>> items = [
     PopupMenuItem(
       child: const Text("Set as start location"),

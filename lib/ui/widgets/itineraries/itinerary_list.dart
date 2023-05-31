@@ -120,6 +120,8 @@ useItineraryVariables(Variables$Query$Itinerary variables, Address from,
       variables: Variables$Query$Trip(gtfsId: from.id));
 
   if (from.type == AddressType.trip) {
+    developer.log("Querying trip id: " + from.id);
+
     final result = useQueryLifecycleAware(options);
 
     developer.log("query result: " + result.result.toString());
@@ -128,42 +130,40 @@ useItineraryVariables(Variables$Query$Itinerary variables, Address from,
     }
 
     Query$Trip$trip? trip;
-    developer.log("Trip data: " + result.result.data.toString());
 
     if (result.result.data != null) {
       trip = Query$Trip.fromJson(result.result.data!).trip;
       developer.log("Trip: " + trip.toString());
-      developer.log("Stoptimes: " +
-          (trip?.stoptimes
-                  ?.map((e) => e?.stop?.name ?? "null")
-                  .toList()
-                  .join(", ") ??
-              "null"));
 
+      // given departure time
+      time = time ?? DateTime.now();
+      developer.log("Current time: " + time.toString());
+      // find last stop before departure time
       int idx = trip?.stoptimes?.lastIndexWhere((stoptime) {
-            final time = from.serviceDate
+            final arrivalTime = from.serviceDate
                     ?.add(Duration(seconds: stoptime?.realtimeArrival ?? 0)) ??
                 DateTime.now();
-            developer
-                .log((stoptime?.stop?.name ?? "null") + " " + time.toString());
-            return time.isBefore(DateTime.now());
+            developer.log((stoptime?.stop?.name ?? "null") +
+                " " +
+                arrivalTime.toString());
+            return arrivalTime.isBefore(time!);
           }) ??
           0;
       if (idx < 0) {
         idx = 0;
       }
       final Query$Trip$trip$stoptimes? lastStopTime = trip?.stoptimes?[idx];
+
       final address = Address.fromStop(lastStopTime?.stop);
 
       data["startTransitTripId"] = trip?.gtfsId;
       data["from"] = Input$InputCoordinates(
               lat: address.lat, lon: address.lon, address: address.label)
           .toJson();
-
+      // new departure time matching the stop
       time = from.serviceDate
               ?.add(Duration(seconds: lastStopTime?.realtimeArrival ?? 0)) ??
           DateTime.now();
-
       developer.log("Stop: " + (lastStopTime?.stop?.name ?? "null"));
     }
   }
