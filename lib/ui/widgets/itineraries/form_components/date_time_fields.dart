@@ -48,7 +48,7 @@ class TimeField extends StatelessWidget {
     var time = await showTimePicker(
       context: context,
       initialTime: current ?? TimeOfDay.now(),
-      initialEntryMode: TimePickerEntryMode.input,
+      initialEntryMode: TimePickerEntryMode.dial,
       builder: (context, childWidget) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaleFactor: 1),

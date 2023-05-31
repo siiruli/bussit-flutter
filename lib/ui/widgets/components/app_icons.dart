@@ -7,9 +7,15 @@ class ZoneIdIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final radius = (IconTheme.of(context).size ?? 20) / 2;
-    return CircleAvatar(
-      radius: radius,
-      child: Center(child: Text(zone ?? '?')),
+    return Theme(
+      data: ThemeData.light(),
+      child: CircleAvatar(
+        radius: radius,
+        child: Center(
+            child: Text(
+          zone ?? '?',
+        )),
+      ),
     );
   }
 }

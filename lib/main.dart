@@ -23,18 +23,25 @@ class MyApp extends StatelessWidget {
   const MyApp(this.database, {Key? key}) : super(key: key);
   final AppDatabase? database;
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     final app = MaterialApp(
       title: 'Bussit',
       theme: ThemeData(
-          primarySwatch: Colors.blue,
-          listTileTheme: const ListTileThemeData(
-            minLeadingWidth: 0,
-          ),
-          expansionTileTheme: const ExpansionTileThemeData(
-            tilePadding: EdgeInsets.zero,
-          )),
+        applyElevationOverlayColor: false,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blue,
+          surfaceTint: Colors.white,
+        ),
+        useMaterial3: true,
+        listTileTheme: const ListTileThemeData(
+          minLeadingWidth: 0,
+        ),
+        expansionTileTheme: const ExpansionTileThemeData(
+          tilePadding: EdgeInsets.zero,
+        ),
+      ),
       home: const MyHomePage(
         title: "Bussit",
       ),
