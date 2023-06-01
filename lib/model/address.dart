@@ -36,7 +36,7 @@ class Address {
   Address.fromTrip(trip, this.serviceDate)
       : type = AddressType.trip,
         id = trip.gtfsId,
-        label = trip.routeShortName + " " + trip.tripHeadsign,
+        label = tripName(trip),
         coordinates = LatLng(0, 0) {
     developer.log("Address created: " +
         label +

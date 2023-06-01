@@ -196,7 +196,7 @@ class LegItem extends StatelessWidget {
         mode == null ? null : TransitModeIcon.fromTransitMode(mode);
     final duration = leg?.duration == null
         ? null
-        : (leg!.duration! / 60).round().toString() + 'min';
+        : ((leg!.duration! / 60).round().toString() + 'min');
     color = Color.lerp(color, Colors.grey[100], 0.6);
 
     // Colored decoration for the widget
