@@ -97,18 +97,18 @@ class _ItineraryFormState extends State<ItineraryForm>
             ),
           );
         }).toList(),
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.selected)) {
-                return Colors.grey[300];
-              }
-              return null;
-            },
-          ),
+        style: const ButtonStyle(
+          // backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+          //   (Set<MaterialState> states) {
+          //     if (states.contains(MaterialState.selected)) {
+          //       return Colors.grey[300];
+          //     }
+          //     return null;
+          //   },
+          // ),
           visualDensity: VisualDensity.compact,
         ),
-        showSelectedIcon: true,
+        showSelectedIcon: false,
         emptySelectionAllowed: true,
         multiSelectionEnabled: true,
         selected: _allowedModes,
