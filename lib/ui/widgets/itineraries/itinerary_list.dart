@@ -25,7 +25,7 @@ class ItineraryVariables extends HookWidget {
   final int? nResults;
   final DateTime? time;
   final bool? arriveBy;
-  final List<dynamic>? transportModes;
+  final List<Input$TransportMode>? transportModes;
   final bool? allowBikeRental;
 
   @override
@@ -34,32 +34,32 @@ class ItineraryVariables extends HookWidget {
       developer.log(DateFormat('y-MM-dd').format(time!));
       developer.log(DateFormat('HH:mm:ss').format(time!));
     }
-    List<Input$TransportMode>? modes = transportModes?.map((e) {
-      if (e is List<dynamic>) {
-        return Input$TransportMode(mode: e[0], qualifier: e[1]);
-      } else {
-        return Input$TransportMode(mode: e);
-      }
-    }).toList();
-
-    // add ferry
-    modes?.add(
-      Input$TransportMode(mode: Enum$Mode.FERRY),
-    );
-    bool usebike = transportModes?.contains(Enum$Mode.BICYCLE) == true;
-    // For some reason, walking has to be off to get bicycle routes
-    if (!usebike) {
-      modes?.add(Input$TransportMode(mode: Enum$Mode.WALK));
+    // Walking itineraries appear only if all other modes are disabled
+    // Add ferry if something else is allowed as well
+    if (transportModes?.isEmpty != true) {
+      // add ferry
+      transportModes?.add(
+        Input$TransportMode(mode: Enum$Mode.FERRY),
+      );
     }
-
+    // For some reason, walking has to be off to get bicycle routes,
+    // so add walking only if bicycling is not allowed
+    bool usebike = transportModes
+            ?.contains(Input$TransportMode(mode: Enum$Mode.BICYCLE)) ==
+        true;
+    if (!usebike) {
+      transportModes?.add(Input$TransportMode(mode: Enum$Mode.WALK));
+    }
+    // Set easy variables
     Variables$Query$Itinerary variables = Variables$Query$Itinerary(
       nResults: nResults,
       arriveBy: arriveBy,
       allowBikeRental: allowBikeRental,
-      modes: modes,
+      modes: transportModes,
       maxWalkDistance:
           (usebike == true || allowBikeRental == true) ? 15000 : 2000,
     );
+    // Set from, to, and time (hook needed in case from is a trip)
     variables = useItineraryVariables(variables, from, to, time);
     return ItineraryResults(variables: variables);
   }

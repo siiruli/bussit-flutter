@@ -32,12 +32,14 @@ class _ItineraryFormState extends State<ItineraryForm>
   Widget? _result;
   bool _allowBikeRental = false;
 
-  Set<dynamic> _allowedModes = {
-    Enum$Mode.BUS,
-    Enum$Mode.TRAM,
-    Enum$Mode.RAIL,
-    Enum$Mode.SUBWAY
-  };
+  /// allowed transport modes
+  late Set<Input$TransportMode> _allowedModes;
+
+  @override
+  void initState() {
+    super.initState();
+    _allowedModes = transit.toSet();
+  }
 
   @override
   bool get wantKeepAlive => true;
@@ -47,6 +49,7 @@ class _ItineraryFormState extends State<ItineraryForm>
       _formKey.currentState!.save();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          duration: const Duration(seconds: 2),
           content: Text(formData.locationFrom.toString() +
               ' -> ' +
               formData.locationTo.toString()),
@@ -83,36 +86,17 @@ class _ItineraryFormState extends State<ItineraryForm>
               formData.arriveBy = value ?? formData.arriveBy;
             });
           });
-      const rentedBike = [Enum$Mode.BICYCLE, Enum$Qualifier.RENT];
-      final bikeButton = SegmentedButton(
-        segments: const [
-          ButtonSegment(
-              value: rentedBike,
-              label: TransitModeIcon(
-                Enum$Mode.BICYCLE,
-                rentedBike: true,
-              )),
-          ButtonSegment(
-            value: Enum$Mode.BICYCLE,
-            label: TransitModeIcon(Enum$Mode.BICYCLE),
-          ),
-          ButtonSegment(
-            value: Enum$Mode.BUS,
-            label: TransitModeIcon(Enum$Mode.BUS),
-          ),
-          ButtonSegment(
-            value: Enum$Mode.TRAM,
-            label: TransitModeIcon(Enum$Mode.TRAM),
-          ),
-          ButtonSegment(
-            value: Enum$Mode.RAIL,
-            label: TransitModeIcon(Enum$Mode.RAIL),
-          ),
-          ButtonSegment(
-            value: Enum$Mode.SUBWAY,
-            label: TransitModeIcon(Enum$Mode.SUBWAY),
-          ),
-        ],
+
+      final modeButtons = SegmentedButton<Input$TransportMode>(
+        segments: modeList.map<ButtonSegment<Input$TransportMode>>((e) {
+          return ButtonSegment(
+            value: e,
+            icon: TransitModeIcon(
+              e.mode,
+              rentedBike: e.qualifier == Enum$Qualifier.RENT,
+            ),
+          );
+        }).toList(),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith<Color?>(
             (Set<MaterialState> states) {
@@ -128,22 +112,17 @@ class _ItineraryFormState extends State<ItineraryForm>
         emptySelectionAllowed: true,
         multiSelectionEnabled: true,
         selected: _allowedModes,
-        onSelectionChanged: (Set<dynamic> modes) {
-          if (modes.contains(Enum$Mode.BICYCLE) &&
-              !_allowedModes.contains(Enum$Mode.BICYCLE)) {
-            modes.removeAll([Enum$Mode.BUS, Enum$Mode.TRAM]);
+        onSelectionChanged: (Set<Input$TransportMode> modes) {
+          // bicycle added, remove transit where bicycle not allowed
+          if (modes.contains(bike) && !_allowedModes.contains(bike)) {
+            modes.removeAll(transitWithoutBike);
           }
-          if (!modes.contains(Enum$Mode.BICYCLE) &&
-              _allowedModes.contains(Enum$Mode.BICYCLE)) {
-            modes.addAll([
-              Enum$Mode.BUS,
-              Enum$Mode.TRAM,
-              Enum$Mode.RAIL,
-              Enum$Mode.SUBWAY
-            ]);
+          // bicycle disabled, add all transit modes
+          if (!modes.contains(bike) && _allowedModes.contains(bike)) {
+            modes.addAll(transit);
           }
           setState(() {
-            _allowedModes = modes;
+            _allowedModes = modes.toSet();
             _allowBikeRental = modes.contains(rentedBike);
           });
         },
@@ -165,7 +144,7 @@ class _ItineraryFormState extends State<ItineraryForm>
                   const DateField(),
                   const TimeField(),
                   TimeControls(formData),
-                  bikeButton,
+                  modeButtons,
                   TextButton(
                     onPressed: () => saveResult(formData),
                     child: const Text("Search routes"),
@@ -183,4 +162,24 @@ class _ItineraryFormState extends State<ItineraryForm>
       );
     });
   }
+
+  /// Transport modes that can be selected or unselected from modeButtons
+  ///
+  /// Other modes (like ferry and walking) may be added in itinerary search
+  final List<Input$TransportMode> modeList = [
+    Input$TransportMode(
+      mode: Enum$Mode.BICYCLE,
+      qualifier: Enum$Qualifier.RENT,
+    ),
+    Input$TransportMode(mode: Enum$Mode.BICYCLE),
+    Input$TransportMode(mode: Enum$Mode.BUS),
+    Input$TransportMode(mode: Enum$Mode.TRAM),
+    Input$TransportMode(mode: Enum$Mode.RAIL),
+    Input$TransportMode(mode: Enum$Mode.SUBWAY),
+  ];
+  Input$TransportMode get rentedBike => modeList[0];
+  Input$TransportMode get bike => modeList[1];
+  List<Input$TransportMode> get transit => modeList.sublist(2);
+  List<Input$TransportMode> get transitWithoutBike =>
+      [modeList[2], modeList[3]];
 }
