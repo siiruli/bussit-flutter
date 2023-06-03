@@ -149,7 +149,7 @@ useItineraryVariables(Variables$Query$Itinerary variables, Address from,
                     arrivalTime.toString());
                 return arrivalTime.isAfter(time!);
               }) ??
-              (trip?.stoptimes?.isEmpty == true ? trip?.stoptimes?.last : null);
+              (trip?.stoptimes?.isEmpty == true ? null : trip?.stoptimes?.last);
 
       final address = Address.fromStop(firstStopTime?.stop);
 
