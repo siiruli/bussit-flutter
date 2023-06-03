@@ -1,4 +1,5 @@
 import 'package:bussit/model/itinerary_form_data.dart';
+import 'package:bussit/utils/reserve_space.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +33,8 @@ class DateField extends StatelessWidget {
         },
         label: Text(dateString(formData.date) ?? ''),
         style: TextButton.styleFrom(
-          padding: const EdgeInsets.all(0),
+          padding: const EdgeInsets.all(4),
+          visualDensity: VisualDensity.compact,
         ),
       ),
     );
@@ -64,13 +66,15 @@ class TimeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final iconSize = IconTheme.of(context).size;
-
     return Consumer<ItineraryFormData>(
       builder: (context, formData, child) {
         return TextButton.icon(
           icon: const Icon(Icons.schedule),
-          label: Text(timeString(context, formData.time)),
+          label: ReserveSpace(
+            child: Text(timeString(context, formData.time)),
+            reserve: const Text("00:00"),
+            alignment: Alignment.centerLeft,
+          ),
           onPressed: () {
             Future<TimeOfDay?> future =
                 displayTimePicker(context, formData.time);
@@ -81,12 +85,12 @@ class TimeField extends StatelessWidget {
             });
           },
           style: TextButton.styleFrom(
-            visualDensity: VisualDensity.compact,
+            visualDensity: VisualDensity(
+              horizontal: VisualDensity.minimumDensity,
+              vertical: VisualDensity.compact.vertical,
+            ),
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.all(0),
-            fixedSize: Size(
-                (iconSize ?? 20) + 50 * MediaQuery.textScaleFactorOf(context),
-                iconSize ?? 0),
+            padding: const EdgeInsets.all(4),
           ),
         );
       },
