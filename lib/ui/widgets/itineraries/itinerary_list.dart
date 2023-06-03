@@ -11,16 +11,15 @@ import 'package:intl/intl.dart';
 import '../../../graphql/trip_query.graphql.dart';
 
 class ItineraryVariables extends HookWidget {
-  const ItineraryVariables({
+  ItineraryVariables({
     required this.from,
     required this.to,
     this.nResults,
     this.time,
     this.arriveBy,
-    super.key,
     this.transportModes,
     this.allowBikeRental,
-  });
+  }) : super(key: UniqueKey());
   final Address from;
   final Address to;
   final int? nResults;
@@ -73,7 +72,7 @@ class ItineraryResults extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final result = useQueryLifecycleAware(Options$Query$Itinerary(
-      fetchPolicy: FetchPolicy.cacheAndNetwork,
+      fetchPolicy: FetchPolicy.networkOnly,
       variables: variables,
     ));
 
