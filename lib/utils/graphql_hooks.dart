@@ -8,9 +8,10 @@ import 'dart:ui';
 /// Adapted from the original useQuery source,
 /// https://github.com/zino-hofmann/graphql-flutter/blob/graphql-v5.1.0/packages/graphql_flutter/lib/src/widgets/hooks/query.dart
 QueryHookResult<TParsed> useQueryLifecycleAware<TParsed>(
-    QueryOptions<TParsed> options) {
+    QueryOptions<TParsed> options,
+    {bool fetchResults = true}) {
   final watchQueryOptions = useMemoized(
-    () => options.asWatchQueryOptions(),
+    () => options.asWatchQueryOptions(fetchResults: fetchResults),
     [options],
   );
   final query = useWatchQuery(watchQueryOptions);
@@ -47,7 +48,7 @@ QueryHookResult<TParsed> useQueryLifecycleAware<TParsed>(
   }
 
   return QueryHookResult(
-    result: snapshot.data!,
+    result: snapshot.data ?? QueryResult.unexecuted,
     refetch: query.refetch,
     fetchMore: query.fetchMore,
   );

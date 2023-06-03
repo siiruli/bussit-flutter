@@ -119,10 +119,11 @@ useItineraryVariables(Variables$Query$Itinerary variables, Address from,
       fetchPolicy: FetchPolicy.cacheAndNetwork,
       variables: Variables$Query$Trip(gtfsId: from.id));
 
+  final result = useQueryLifecycleAware(options,
+      fetchResults: from.type == AddressType.trip);
+
   if (from.type == AddressType.trip) {
     developer.log("Querying trip id: " + from.id);
-
-    final result = useQueryLifecycleAware(options);
 
     developer.log("query result: " + result.result.toString());
     if (result.result.hasException) {
