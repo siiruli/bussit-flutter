@@ -36,8 +36,8 @@ npx get-graphql-schema https://api.digitransit.fi/routing/v1/routers/hsl/index/g
 
 [Install Flutter](https://docs.flutter.dev/get-started/install) to build the project.
 
-After that, run `flutter run` to run the application in debugging mode, and `flutter run --release` for release mode.
-If you want to run the app on an Android device, enable USB debugging and then connect to the device with an USB cable.
+After that, run `flutter run --flavor dev` to run the application in debugging mode, and `flutter run --release --flavor dev` for release mode.
+If you want to run the app on an Android device, enable USB debugging and then connect to the device with a USB cable.
 
 You can also build an apk with `flutter build apk` and then install the apk on your device.
 
