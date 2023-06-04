@@ -90,7 +90,8 @@ class _ItineraryState extends State<ItineraryWidget> {
 }
 
 /// List of legs and the places between them
-List<Widget> legList(List<Query$Itinerary$plan$itineraries$legs?>? legs) {
+List<Widget> legList(List<Query$Itinerary$plan$itineraries$legs?>? legs,
+    {Function? onItemTap}) {
   if (legs == null) {
     return [];
   }
@@ -103,6 +104,7 @@ List<Widget> legList(List<Query$Itinerary$plan$itineraries$legs?>? legs) {
     PlaceItem(
       legs[0]?.from,
       timeWidget: ItineraryTimeStamp(legs[0]?.startTime),
+      onTap: onItemTap,
     ),
   );
   for (Query$Itinerary$plan$itineraries$legs? leg in legs) {
@@ -110,9 +112,14 @@ List<Widget> legList(List<Query$Itinerary$plan$itineraries$legs?>? legs) {
       LegItem(
         leg,
         timeWidget: ItineraryTimeStamp(leg?.startTime),
+        onTap: onItemTap,
       ),
     );
-    items.add(PlaceItem(leg?.to, timeWidget: ItineraryTimeStamp(leg?.endTime)));
+    items.add(PlaceItem(
+      leg?.to,
+      timeWidget: ItineraryTimeStamp(leg?.endTime),
+      onTap: onItemTap,
+    ));
   }
   return items;
 }
@@ -136,9 +143,11 @@ class ItineraryTimeStamp extends StatelessWidget {
 
 /// A place in an itinerary
 class PlaceItem extends StatelessWidget {
-  const PlaceItem(this.place, {this.timeWidget, Key? key}) : super(key: key);
+  const PlaceItem(this.place, {this.timeWidget, this.onTap, Key? key})
+      : super(key: key);
   final dynamic place;
   final Widget? timeWidget;
+  final Function? onTap;
   @override
   Widget build(BuildContext context) {
     Widget res = const Text('');
@@ -156,22 +165,29 @@ class PlaceItem extends StatelessWidget {
         visualDensity: VisualDensity.compact,
       ),
     );
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          timeWidget,
-          Expanded(child: placeWidget),
-        ].whereNotNull().toList(),
+    return GestureDetector(
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            timeWidget,
+            Expanded(child: placeWidget),
+          ].whereNotNull().toList(),
+        ),
       ),
+      onTap: () {
+        onTap?.call(place: place);
+      },
     );
   }
 }
 
 /// A leg in an itinerary
 class LegItem extends StatelessWidget {
-  const LegItem(this.leg, {this.timeWidget, Key? key}) : super(key: key);
+  const LegItem(this.leg, {this.timeWidget, this.onTap, Key? key})
+      : super(key: key);
   final Query$Itinerary$plan$itineraries$legs? leg;
+  final Function? onTap;
   final Widget? timeWidget;
   @override
   Widget build(BuildContext context) {
@@ -244,11 +260,14 @@ class LegItem extends StatelessWidget {
       ),
     );
 
-    return GestureMenu(
-      child: legItem,
-      menu: leg?.transitLeg == true
-          ? tripMenu(context, leg?.trip, serviceDate(leg?.serviceDate))
-          : null,
+    return GestureDetector(
+      child: GestureMenu(
+        child: legItem,
+        menu: leg?.transitLeg == true
+            ? tripMenu(context, leg?.trip, serviceDate(leg?.serviceDate))
+            : null,
+      ),
+      onTap: () => onTap?.call(leg: leg),
     );
   }
 }

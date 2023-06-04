@@ -9,18 +9,28 @@ import 'package:latlong2/latlong.dart';
 import 'package:collection/collection.dart';
 
 class MapWidget extends StatefulWidget {
-  const MapWidget({this.layers, this.showBikeRental, this.bounds, super.key});
+  const MapWidget({
+    this.layers,
+    this.showBikeRental,
+    this.bounds,
+    super.key,
+    this.buttonAlignment,
+    this.fitBoundsOptions,
+    this.mapController,
+  });
   final List<Widget>? layers;
   final bool? showBikeRental;
   final LatLngBounds? bounds;
-  // final mapController = MapController();
+  final MapController? mapController;
+  final Alignment? buttonAlignment;
+  final FitBoundsOptions? fitBoundsOptions;
   @override
   State<MapWidget> createState() => _MapWidgetState();
 }
 
 class _MapWidgetState extends State<MapWidget> {
   Widget? _locationLayer;
-  final mapController = MapController();
+  late MapController mapController = widget.mapController ?? MapController();
   bool _showBikeRental = false;
   @override
   void initState() {
@@ -86,9 +96,10 @@ class _MapWidgetState extends State<MapWidget> {
         minZoom: 5,
         maxZoom: 20,
         bounds: widget.bounds,
-        boundsOptions: const FitBoundsOptions(
-          padding: EdgeInsets.all(32),
-        ),
+        boundsOptions: widget.fitBoundsOptions ??
+            const FitBoundsOptions(
+              padding: EdgeInsets.all(32),
+            ),
         center: LatLng(60.16, 24.93),
         // better zoom and rotation:
         enableMultiFingerGestureRace: true,
@@ -98,7 +109,7 @@ class _MapWidgetState extends State<MapWidget> {
       children: layers.whereNotNull().toList(),
       nonRotatedChildren: [
         Align(
-          alignment: Alignment.bottomRight,
+          alignment: widget.buttonAlignment ?? Alignment.bottomRight,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 16, right: 8),
             child: Column(
