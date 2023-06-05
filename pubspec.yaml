@@ -66,6 +66,7 @@ dev_dependencies:
   graphql_codegen: ^0.11.2
   build_runner: ^2.3.3
   floor_generator: ^1.4.1
+  flutter_launcher_icons: ^0.13.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -114,3 +115,16 @@ flutter:
 dependency_overrides:
   web_socket_channel: 2.2.0
   analyzer: ^5.0.0
+
+flutter_launcher_icons:
+  image_path: "assets/icon/icon-standalone.png"
+  android: true
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/icon/icon-adaptive.png"
+  ios: true
+  ios_image_path: "assets/icon/icon-maskable.png"
+  remove_alpha_ios: true
+  web:
+    # The generated favicon.png isn't used, icon-32.png and icon-128.png are
+    # added manually instead.
+    generate: true
