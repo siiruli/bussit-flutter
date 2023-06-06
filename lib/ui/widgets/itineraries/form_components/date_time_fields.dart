@@ -108,6 +108,7 @@ class TimeControls extends StatelessWidget {
       onPressed: () {
         formData.date = null;
         formData.time = null;
+        formData.arriveBy = false;
       },
       icon: const Icon(Icons.close),
       visualDensity: VisualDensity.compact,
