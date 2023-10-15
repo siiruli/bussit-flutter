@@ -1,10 +1,9 @@
 import 'package:bussit/graphql/itinerary_query.graphql.dart';
 import 'package:bussit/model/map_elements.dart';
-import 'package:bussit/ui/widgets/itineraries/itinerary_item.dart';
+import 'package:bussit/ui/widgets/list_items/itinerary_item.dart';
 import 'package:bussit/ui/widgets/map/map_widget.dart';
 import 'package:bussit/ui/widgets/map/layers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bussit/ui/widgets/stops/stop_list.dart';
+import 'package:bussit/ui/widgets/lists/stop_list.dart';
 
 class SearchStops extends StatefulWidget {
   const SearchStops({Key? key}) : super(key: key);

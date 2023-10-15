@@ -1,5 +1,5 @@
 import 'package:bussit/model/address.dart';
-import 'package:bussit/ui/widgets/itineraries/form_components/locations_form.dart';
+import 'package:bussit/ui/widgets/components/form_components/locations_form.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 

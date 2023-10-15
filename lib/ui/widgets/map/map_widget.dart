@@ -1,5 +1,5 @@
 import 'package:bussit/api/map_api.dart';
-import 'package:bussit/ui/widgets/components/geo_location.dart';
+import 'package:bussit/api/geo_location.dart';
 import 'package:bussit/ui/widgets/map/layers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';

@@ -1,25 +1,18 @@
 import 'package:bussit/graphql/schema.graphql.dart';
 import 'package:bussit/model/itinerary_form_data.dart';
 import 'package:bussit/ui/widgets/components/app_icons.dart';
-import 'package:bussit/ui/widgets/itineraries/form_components/date_time_fields.dart';
-import 'package:bussit/ui/widgets/itineraries/form_components/locations_form.dart';
-import 'package:bussit/ui/widgets/itineraries/itinerary_list.dart';
+import 'package:bussit/ui/widgets/components/form_components/date_time_fields.dart';
+import 'package:bussit/ui/widgets/components/form_components/locations_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ItineraryView extends StatelessWidget {
-  const ItineraryView({Key? key}) : super(key: key);
+import 'itinerary_query.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ItineraryFormData(),
-      child: const ItineraryForm(),
-    );
-  }
-}
-
+/// A widget that shows a form for searching new itineraries
+/// and the results of the search.
 class ItineraryForm extends StatefulWidget {
+  /// Show a form for searching new itineraries
+  /// and the results of the search.
   const ItineraryForm({super.key});
 
   @override
@@ -56,7 +49,7 @@ class _ItineraryFormState extends State<ItineraryForm>
         ),
       );
       setState(() {
-        _result = ItineraryVariables(
+        _result = ItineraryQuery(
           from: formData.locationFrom!,
           to: formData.locationTo!,
           nResults: 12,

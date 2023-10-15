@@ -1,6 +1,6 @@
 import 'package:bussit/model/graphql_data_helpers.dart';
 import 'package:bussit/ui/widgets/components/app_icons.dart';
-import 'package:bussit/ui/widgets/components/gesture_menu.dart';
+import 'package:bussit/ui/widgets/gesture_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bussit/graphql/stops_query.graphql.dart';
