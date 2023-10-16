@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bussit/ui/widgets/lists/stop_list.dart';
+import 'package:bussit/ui/widgets/query_results/stop_results.dart';
 
 class SearchStops extends StatefulWidget {
   const SearchStops({Key? key}) : super(key: key);
@@ -38,7 +38,7 @@ class _SearchStopsState extends State<SearchStops> {
         children: [
           searchNameField,
           Expanded(
-              child: StopListWidget(
+              child: StopQueryResults(
             searchName: searchName,
             maxResults: 10,
           )),

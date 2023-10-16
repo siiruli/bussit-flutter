@@ -1,15 +1,17 @@
 import 'package:bussit/graphql/stops_query.graphql.dart';
+import 'package:bussit/ui/widgets/components/graphql_query_result.dart';
 import 'package:bussit/ui/widgets/list_items/stop_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:bussit/api/hsl_api.dart';
 import 'package:bussit/utils/graphql_hooks.dart';
+import 'package:collection/collection.dart';
 import 'dart:developer' as developer;
 
-// Widget showin a list of stops
-class StopListWidget extends HookWidget {
-  const StopListWidget({this.ids, this.searchName, this.maxResults, Key? key})
+/// Widget showing a list of stops
+class StopQueryResults extends HookWidget {
+  /// Query stops and show the results
+  const StopQueryResults({this.ids, this.searchName, this.maxResults, Key? key})
       : super(key: key);
   final List<String>? ids;
   final String? searchName;
@@ -26,25 +28,22 @@ class StopListWidget extends HookWidget {
       ),
       pollInterval: const Duration(seconds: 5),
     ));
-    return stopListBuilder(result.result);
+    return GraphQLQueryResult(
+      resultBuilder: stopListBuilder,
+      result: result.result,
+    );
   }
 }
 
 // Build a stop list from a query result
-Widget stopListBuilder(QueryResult? result,
-    {VoidCallback? refetch, FetchMore? fetchMore}) {
-  if (result == null) {
-    return const Text("No result...");
-  }
-  if (result.hasException) {
-    return Text(result.exception.toString());
-  }
+Widget stopListBuilder(Map<String, dynamic> result) {
+  final data = Query$StopData.fromJson(result);
+  List<dynamic> stops =
+      ((data.stations ?? List<dynamic>.empty()) + (data.stops ?? []))
+          .whereNotNull()
+          .toList();
 
-  if (result.isLoading) {
-    return const Text('Loading...');
-  }
-  List<dynamic>? stops = convertStopQueryResult(result);
-  if (stops == null || stops.isEmpty) {
+  if (stops.isEmpty) {
     developer.log('zero stops: ' + stops.toString(), name: 'my.app.category');
 
     return const Text('No stops');

@@ -1,4 +1,5 @@
 import 'package:bussit/graphql/itinerary_query.graphql.dart';
+import 'package:bussit/ui/widgets/components/graphql_query_result.dart';
 import 'package:bussit/ui/widgets/list_items/itinerary_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -16,30 +17,17 @@ class ItineraryResults extends HookWidget {
       variables: variables,
     ));
 
-    return itineraryListBuilder(result.result);
+    return GraphQLQueryResult(
+      resultBuilder: itineraryListBuilder,
+      result: result.result,
+    );
   }
 }
 
-// Build a stop list from a query result
-Widget itineraryListBuilder(QueryResult? result,
-    {VoidCallback? refetch, FetchMore? fetchMore}) {
-  if (result == null) {
-    return const Text("No result...");
-  }
-  if (result.hasException) {
-    return Text(result.exception.toString());
-  }
-
-  if (result.isLoading) {
-    return const Text('Loading...');
-  }
-  List<Query$Itinerary$plan$itineraries?>? list;
-
-  if (result.data != null) {
-    list = Query$Itinerary.fromJson(result.data!).plan?.itineraries;
-  } else {
-    return const Text("List is null :(");
-  }
+/// Build a list of itineraries from result data
+Widget itineraryListBuilder(Map<String, dynamic> data) {
+  List<Query$Itinerary$plan$itineraries?>? list =
+      Query$Itinerary.fromJson(data).plan?.itineraries;
   list ??= [];
 
   return Column(
