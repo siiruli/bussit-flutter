@@ -10,10 +10,15 @@ class SearchStops extends StatefulWidget {
 
 class _SearchStopsState extends State<SearchStops> {
   String searchName = "";
+  String searchNameDraft = "";
 
-  void _updSearchName(String name) {
+  void _updSearchName(String? name) {
+    searchNameDraft = name ?? "";
+  }
+
+  void _onSearch() {
     setState(() {
-      searchName = name;
+      searchName = searchNameDraft;
     });
   }
 
@@ -25,6 +30,7 @@ class _SearchStopsState extends State<SearchStops> {
       child: TextFormField(
         autofocus: true,
         onChanged: _updSearchName,
+        onEditingComplete: _onSearch,
         decoration: const InputDecoration(
           hintText: "Stop name...",
         ),
@@ -38,9 +44,10 @@ class _SearchStopsState extends State<SearchStops> {
         children: [
           searchNameField,
           Expanded(
-              child: StopQueryResults(
-            searchName: searchName,
-          )),
+            child: StopQueryResults(
+              searchName: searchName,
+            ),
+          ),
         ],
       ),
     );

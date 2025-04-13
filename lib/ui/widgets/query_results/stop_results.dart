@@ -11,34 +11,44 @@ import 'dart:developer' as developer;
 /// Widget showing a list of stops
 class StopQueryResults extends HookWidget {
   /// Query stops and show the results
-  const StopQueryResults({this.ids, this.searchName, Key? key})
+  const StopQueryResults(
+      {this.ids, this.searchName, this.pollInterval, Key? key})
       : super(key: key);
   final List<String>? ids;
   final String? searchName;
+  final Duration? pollInterval;
   @override
   Widget build(BuildContext context) {
-    final result = useQueryLifecycleAware(Options$Query$StopData(
-      // fetchResults: true,
-      fetchPolicy: FetchPolicy.cacheAndNetwork,
-      variables: Variables$Query$StopData(
-        ids: ids?.toList(),
-        name: searchName,
+    final fetchResults =
+        (searchName ?? "").length > 2 || (ids ?? []).isNotEmpty;
+
+    final result = useQueryLifecycleAware(
+      Options$Query$StopData(
+        // fetchResults: true,
+        fetchPolicy: FetchPolicy.cacheAndNetwork,
+        variables: Variables$Query$StopData(
+          ids: ids?.toList(),
+          name: searchName,
+        ),
+        pollInterval: pollInterval,
       ),
-      pollInterval: const Duration(seconds: 5),
-    ));
+      fetchResults: fetchResults,
+    );
+
+    final maxItems = ids?.length ?? 10;
     return GraphQLQueryResult(
-      resultBuilder: stopListBuilder,
+      resultBuilder: (result) => stopListBuilder(result, maxItems),
       result: result.result,
     );
   }
 }
 
 // Build a stop list from a query result
-Widget stopListBuilder(Map<String, dynamic> result) {
+Widget stopListBuilder(Map<String, dynamic> result, int maxItems) {
   final data = Query$StopData.fromJson(result);
   List<dynamic> stops = (List<dynamic>.empty() +
-          (data.stations ?? List<dynamic>.empty()) +
-          (data.stops ?? List<dynamic>.empty()))
+          (data.stations?.take(maxItems).toList() ?? List<dynamic>.empty()) +
+          (data.stops?.take(maxItems).toList() ?? List<dynamic>.empty()))
       .whereNotNull()
       .toList();
 

@@ -15,7 +15,10 @@ class StopsView extends StatelessWidget {
         developer.log('Stop list: ' + savedIds.ids.toString(),
             name: 'my.app.category');
 
-        return StopQueryResults(ids: savedIds.ids);
+        return StopQueryResults(
+          ids: savedIds.ids,
+          pollInterval: const Duration(seconds: 5),
+        );
       },
     );
 
