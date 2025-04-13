@@ -24,8 +24,7 @@ class StopQueryResults extends HookWidget {
 
     final result = useQueryLifecycleAware(
       Options$Query$StopData(
-        // fetchResults: true,
-        fetchPolicy: FetchPolicy.cacheAndNetwork,
+        fetchPolicy: FetchPolicy.noCache,
         variables: Variables$Query$StopData(
           ids: ids?.toList(),
           name: searchName,
