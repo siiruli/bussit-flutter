@@ -29,7 +29,13 @@ The documentation for the API can be found in https://digitransit.fi/en/develope
 
 To update [`lib/graphql/schema.graphql`](lib/graphql/schema.graphql), run
 ``` 
-npx get-graphql-schema https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql?digitransit-subscription-key=<api_key> > lib/graphql/schema.graphql
+npx get-graphql-schema https://api.digitransit.fi/routing/v2/hsl/gtfs/v1?digitransit-subscription-key=<api_key> > lib/graphql/schema.graphql
+```
+
+Then use [graphql_codegen](https://pub.dev/packages/graphql_codegen) to generate the dart code
+for the queries:
+```
+dart run build_runner build
 ```
 
 ### Installation 

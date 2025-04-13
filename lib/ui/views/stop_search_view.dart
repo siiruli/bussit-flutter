@@ -40,7 +40,6 @@ class _SearchStopsState extends State<SearchStops> {
           Expanded(
               child: StopQueryResults(
             searchName: searchName,
-            maxResults: 10,
           )),
         ],
       ),

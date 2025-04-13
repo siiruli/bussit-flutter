@@ -11,11 +11,10 @@ import 'dart:developer' as developer;
 /// Widget showing a list of stops
 class StopQueryResults extends HookWidget {
   /// Query stops and show the results
-  const StopQueryResults({this.ids, this.searchName, this.maxResults, Key? key})
+  const StopQueryResults({this.ids, this.searchName, Key? key})
       : super(key: key);
   final List<String>? ids;
   final String? searchName;
-  final int? maxResults;
   @override
   Widget build(BuildContext context) {
     final result = useQueryLifecycleAware(Options$Query$StopData(
@@ -24,7 +23,6 @@ class StopQueryResults extends HookWidget {
       variables: Variables$Query$StopData(
         ids: ids?.toList(),
         name: searchName,
-        maxResults: (searchName == '') ? 0 : maxResults,
       ),
       pollInterval: const Duration(seconds: 5),
     ));
@@ -38,10 +36,11 @@ class StopQueryResults extends HookWidget {
 // Build a stop list from a query result
 Widget stopListBuilder(Map<String, dynamic> result) {
   final data = Query$StopData.fromJson(result);
-  List<dynamic> stops =
-      ((data.stations ?? List<dynamic>.empty()) + (data.stops ?? []))
-          .whereNotNull()
-          .toList();
+  List<dynamic> stops = (List<dynamic>.empty() +
+          (data.stations ?? List<dynamic>.empty()) +
+          (data.stops ?? List<dynamic>.empty()))
+      .whereNotNull()
+      .toList();
 
   if (stops.isEmpty) {
     developer.log('zero stops: ' + stops.toString(), name: 'my.app.category');

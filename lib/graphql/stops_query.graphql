@@ -1,6 +1,6 @@
 
-query StopData($ids: [String], $name: String, $maxResults: Int){
-  stations(ids: $ids, name: $name, maxResults: $maxResults) {
+query StopData($ids: [String], $name: String){
+  stations(ids: $ids, name: $name) {
     name
     gtfsId
     code
@@ -32,7 +32,7 @@ query StopData($ids: [String], $name: String, $maxResults: Int){
       }
     }
   }
-  stops(ids: $ids, name: $name, maxResults: $maxResults) {
+  stops(ids: $ids, name: $name) {
     name
     gtfsId
     code

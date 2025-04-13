@@ -55,7 +55,6 @@ class _ItineraryFormState extends State<ItineraryForm>
           nResults: 12,
           time: formData.datetime,
           arriveBy: formData.arriveBy,
-          allowBikeRental: _allowBikeRental,
           transportModes: _allowedModes.toList(),
         );
       });

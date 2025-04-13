@@ -20,7 +20,6 @@ class ItineraryQuery extends HookWidget {
     this.time,
     this.arriveBy,
     this.transportModes,
-    this.allowBikeRental,
   }) : super(key: UniqueKey());
   final Address from;
   final Address to;
@@ -28,7 +27,6 @@ class ItineraryQuery extends HookWidget {
   final DateTime? time;
   final bool? arriveBy;
   final List<Input$TransportMode>? transportModes;
-  final bool? allowBikeRental;
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +54,7 @@ class ItineraryQuery extends HookWidget {
     Variables$Query$Itinerary variables = Variables$Query$Itinerary(
       nResults: nResults,
       arriveBy: arriveBy,
-      allowBikeRental: allowBikeRental,
       modes: transportModes,
-      maxWalkDistance:
-          (usebike == true || allowBikeRental == true) ? 15000 : 2000,
     );
     // Set from, to, and time (hook needed in case from is a trip)
     variables = useItineraryVariables(variables, from, to, time);
@@ -113,7 +108,6 @@ useItineraryVariables(Variables$Query$Itinerary variables, Address from,
 
       final address = Address.fromStop(firstStopTime?.stop);
 
-      data["startTransitTripId"] = trip?.gtfsId;
       data["from"] = Input$InputCoordinates(
               lat: address.lat, lon: address.lon, address: address.label)
           .toJson();
