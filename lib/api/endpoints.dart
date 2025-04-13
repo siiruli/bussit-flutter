@@ -1,18 +1,17 @@
 import 'package:bussit/api/secrets.dart';
 
-const String routingApi =
-    "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
+const String routingApi = "https://api.digitransit.fi/routing/v2/hsl/gtfs/v1";
 
 const String locationApi =
     'http://api.digitransit.fi/geocoding/v1/autocomplete';
 
 const String mapBackground =
-    'https://cdn.digitransit.fi/map/v2/hsl-map/{z}/{x}/{y}.png';
+    'https://cdn.digitransit.fi/map/v3/hsl-map/{z}/{x}/{y}.png';
 // 'https://cdn.digitransit.fi/map/v2/hsl-map/16/37313/18958.png';
 // 'https://cdn.digitransit.fi/map/v2/:hsl-map/:{z}/:{x}/:{y}.png';
 
 const String mapPointsOfInterest =
-    'https://cdn.digitransit.fi/map/v2/hsl-stop-map/{z}/{x}/{y}.pbf';
+    'https://cdn.digitransit.fi/map/v3/hsl-stop-map/{z}/{x}/{y}.pbf';
 
 const String mapStyles =
     'https://raw.githubusercontent.com/HSLdevcom/hsl-map-style/master/style.json';

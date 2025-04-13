@@ -10,28 +10,21 @@ class Variables$Query$Itinerary {
     String? fromPlace,
     String? toPlace,
     Input$InputCoordinates? from,
-    String? startTransitTripId,
     int? nResults,
     String? time,
     String? date,
     bool? arriveBy,
-    bool? allowBikeRental,
     List<Input$TransportMode?>? modes,
-    double? maxWalkDistance,
   }) =>
       Variables$Query$Itinerary._({
         if (fromPlace != null) r'fromPlace': fromPlace,
         if (toPlace != null) r'toPlace': toPlace,
         if (from != null) r'from': from,
-        if (startTransitTripId != null)
-          r'startTransitTripId': startTransitTripId,
         if (nResults != null) r'nResults': nResults,
         if (time != null) r'time': time,
         if (date != null) r'date': date,
         if (arriveBy != null) r'arriveBy': arriveBy,
-        if (allowBikeRental != null) r'allowBikeRental': allowBikeRental,
         if (modes != null) r'modes': modes,
-        if (maxWalkDistance != null) r'maxWalkDistance': maxWalkDistance,
       });
 
   Variables$Query$Itinerary._(this._$data);
@@ -52,10 +45,6 @@ class Variables$Query$Itinerary {
           ? null
           : Input$InputCoordinates.fromJson((l$from as Map<String, dynamic>));
     }
-    if (data.containsKey('startTransitTripId')) {
-      final l$startTransitTripId = data['startTransitTripId'];
-      result$data['startTransitTripId'] = (l$startTransitTripId as String?);
-    }
     if (data.containsKey('nResults')) {
       final l$nResults = data['nResults'];
       result$data['nResults'] = (l$nResults as int?);
@@ -72,10 +61,6 @@ class Variables$Query$Itinerary {
       final l$arriveBy = data['arriveBy'];
       result$data['arriveBy'] = (l$arriveBy as bool?);
     }
-    if (data.containsKey('allowBikeRental')) {
-      final l$allowBikeRental = data['allowBikeRental'];
-      result$data['allowBikeRental'] = (l$allowBikeRental as bool?);
-    }
     if (data.containsKey('modes')) {
       final l$modes = data['modes'];
       result$data['modes'] = (l$modes as List<dynamic>?)
@@ -83,10 +68,6 @@ class Variables$Query$Itinerary {
               ? null
               : Input$TransportMode.fromJson((e as Map<String, dynamic>)))
           .toList();
-    }
-    if (data.containsKey('maxWalkDistance')) {
-      final l$maxWalkDistance = data['maxWalkDistance'];
-      result$data['maxWalkDistance'] = (l$maxWalkDistance as num?)?.toDouble();
     }
     return Variables$Query$Itinerary._(result$data);
   }
@@ -97,15 +78,12 @@ class Variables$Query$Itinerary {
   String? get toPlace => (_$data['toPlace'] as String?);
   Input$InputCoordinates? get from =>
       (_$data['from'] as Input$InputCoordinates?);
-  String? get startTransitTripId => (_$data['startTransitTripId'] as String?);
   int? get nResults => (_$data['nResults'] as int?);
   String? get time => (_$data['time'] as String?);
   String? get date => (_$data['date'] as String?);
   bool? get arriveBy => (_$data['arriveBy'] as bool?);
-  bool? get allowBikeRental => (_$data['allowBikeRental'] as bool?);
   List<Input$TransportMode?>? get modes =>
       (_$data['modes'] as List<Input$TransportMode?>?);
-  double? get maxWalkDistance => (_$data['maxWalkDistance'] as double?);
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     if (_$data.containsKey('fromPlace')) {
@@ -119,10 +97,6 @@ class Variables$Query$Itinerary {
     if (_$data.containsKey('from')) {
       final l$from = from;
       result$data['from'] = l$from?.toJson();
-    }
-    if (_$data.containsKey('startTransitTripId')) {
-      final l$startTransitTripId = startTransitTripId;
-      result$data['startTransitTripId'] = l$startTransitTripId;
     }
     if (_$data.containsKey('nResults')) {
       final l$nResults = nResults;
@@ -140,17 +114,9 @@ class Variables$Query$Itinerary {
       final l$arriveBy = arriveBy;
       result$data['arriveBy'] = l$arriveBy;
     }
-    if (_$data.containsKey('allowBikeRental')) {
-      final l$allowBikeRental = allowBikeRental;
-      result$data['allowBikeRental'] = l$allowBikeRental;
-    }
     if (_$data.containsKey('modes')) {
       final l$modes = modes;
       result$data['modes'] = l$modes?.map((e) => e?.toJson()).toList();
-    }
-    if (_$data.containsKey('maxWalkDistance')) {
-      final l$maxWalkDistance = maxWalkDistance;
-      result$data['maxWalkDistance'] = l$maxWalkDistance;
     }
     return result$data;
   }
@@ -194,15 +160,6 @@ class Variables$Query$Itinerary {
     if (l$from != lOther$from) {
       return false;
     }
-    final l$startTransitTripId = startTransitTripId;
-    final lOther$startTransitTripId = other.startTransitTripId;
-    if (_$data.containsKey('startTransitTripId') !=
-        other._$data.containsKey('startTransitTripId')) {
-      return false;
-    }
-    if (l$startTransitTripId != lOther$startTransitTripId) {
-      return false;
-    }
     final l$nResults = nResults;
     final lOther$nResults = other.nResults;
     if (_$data.containsKey('nResults') !=
@@ -237,15 +194,6 @@ class Variables$Query$Itinerary {
     if (l$arriveBy != lOther$arriveBy) {
       return false;
     }
-    final l$allowBikeRental = allowBikeRental;
-    final lOther$allowBikeRental = other.allowBikeRental;
-    if (_$data.containsKey('allowBikeRental') !=
-        other._$data.containsKey('allowBikeRental')) {
-      return false;
-    }
-    if (l$allowBikeRental != lOther$allowBikeRental) {
-      return false;
-    }
     final l$modes = modes;
     final lOther$modes = other.modes;
     if (_$data.containsKey('modes') != other._$data.containsKey('modes')) {
@@ -265,15 +213,6 @@ class Variables$Query$Itinerary {
     } else if (l$modes != lOther$modes) {
       return false;
     }
-    final l$maxWalkDistance = maxWalkDistance;
-    final lOther$maxWalkDistance = other.maxWalkDistance;
-    if (_$data.containsKey('maxWalkDistance') !=
-        other._$data.containsKey('maxWalkDistance')) {
-      return false;
-    }
-    if (l$maxWalkDistance != lOther$maxWalkDistance) {
-      return false;
-    }
     return true;
   }
 
@@ -282,32 +221,24 @@ class Variables$Query$Itinerary {
     final l$fromPlace = fromPlace;
     final l$toPlace = toPlace;
     final l$from = from;
-    final l$startTransitTripId = startTransitTripId;
     final l$nResults = nResults;
     final l$time = time;
     final l$date = date;
     final l$arriveBy = arriveBy;
-    final l$allowBikeRental = allowBikeRental;
     final l$modes = modes;
-    final l$maxWalkDistance = maxWalkDistance;
     return Object.hashAll([
       _$data.containsKey('fromPlace') ? l$fromPlace : const {},
       _$data.containsKey('toPlace') ? l$toPlace : const {},
       _$data.containsKey('from') ? l$from : const {},
-      _$data.containsKey('startTransitTripId')
-          ? l$startTransitTripId
-          : const {},
       _$data.containsKey('nResults') ? l$nResults : const {},
       _$data.containsKey('time') ? l$time : const {},
       _$data.containsKey('date') ? l$date : const {},
       _$data.containsKey('arriveBy') ? l$arriveBy : const {},
-      _$data.containsKey('allowBikeRental') ? l$allowBikeRental : const {},
       _$data.containsKey('modes')
           ? l$modes == null
               ? null
               : Object.hashAll(l$modes.map((v) => v))
           : const {},
-      _$data.containsKey('maxWalkDistance') ? l$maxWalkDistance : const {},
     ]);
   }
 }
@@ -325,14 +256,11 @@ abstract class CopyWith$Variables$Query$Itinerary<TRes> {
     String? fromPlace,
     String? toPlace,
     Input$InputCoordinates? from,
-    String? startTransitTripId,
     int? nResults,
     String? time,
     String? date,
     bool? arriveBy,
-    bool? allowBikeRental,
     List<Input$TransportMode?>? modes,
-    double? maxWalkDistance,
   });
 }
 
@@ -353,32 +281,23 @@ class _CopyWithImpl$Variables$Query$Itinerary<TRes>
     Object? fromPlace = _undefined,
     Object? toPlace = _undefined,
     Object? from = _undefined,
-    Object? startTransitTripId = _undefined,
     Object? nResults = _undefined,
     Object? time = _undefined,
     Object? date = _undefined,
     Object? arriveBy = _undefined,
-    Object? allowBikeRental = _undefined,
     Object? modes = _undefined,
-    Object? maxWalkDistance = _undefined,
   }) =>
       _then(Variables$Query$Itinerary._({
         ..._instance._$data,
         if (fromPlace != _undefined) 'fromPlace': (fromPlace as String?),
         if (toPlace != _undefined) 'toPlace': (toPlace as String?),
         if (from != _undefined) 'from': (from as Input$InputCoordinates?),
-        if (startTransitTripId != _undefined)
-          'startTransitTripId': (startTransitTripId as String?),
         if (nResults != _undefined) 'nResults': (nResults as int?),
         if (time != _undefined) 'time': (time as String?),
         if (date != _undefined) 'date': (date as String?),
         if (arriveBy != _undefined) 'arriveBy': (arriveBy as bool?),
-        if (allowBikeRental != _undefined)
-          'allowBikeRental': (allowBikeRental as bool?),
         if (modes != _undefined)
           'modes': (modes as List<Input$TransportMode?>?),
-        if (maxWalkDistance != _undefined)
-          'maxWalkDistance': (maxWalkDistance as double?),
       }));
 }
 
@@ -392,14 +311,11 @@ class _CopyWithStubImpl$Variables$Query$Itinerary<TRes>
     String? fromPlace,
     String? toPlace,
     Input$InputCoordinates? from,
-    String? startTransitTripId,
     int? nResults,
     String? time,
     String? date,
     bool? arriveBy,
-    bool? allowBikeRental,
     List<Input$TransportMode?>? modes,
-    double? maxWalkDistance,
   }) =>
       _res;
 }
@@ -571,15 +487,6 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
         directives: [],
       ),
       VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'startTransitTripId')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: false,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-      VariableDefinitionNode(
         variable: VariableNode(name: NameNode(value: 'nResults')),
         type: NamedTypeNode(
           name: NameNode(value: 'Int'),
@@ -616,30 +523,12 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
         directives: [],
       ),
       VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'allowBikeRental')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'Boolean'),
-          isNonNull: false,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-      VariableDefinitionNode(
         variable: VariableNode(name: NameNode(value: 'modes')),
         type: ListTypeNode(
           type: NamedTypeNode(
             name: NameNode(value: 'TransportMode'),
             isNonNull: false,
           ),
-          isNonNull: false,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'maxWalkDistance')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'Float'),
           isNonNull: false,
         ),
         defaultValue: DefaultValueNode(value: null),
@@ -655,10 +544,6 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
           ArgumentNode(
             name: NameNode(value: 'from'),
             value: VariableNode(name: NameNode(value: 'from')),
-          ),
-          ArgumentNode(
-            name: NameNode(value: 'startTransitTripId'),
-            value: VariableNode(name: NameNode(value: 'startTransitTripId')),
           ),
           ArgumentNode(
             name: NameNode(value: 'fromPlace'),
@@ -685,16 +570,8 @@ const documentNodeQueryItinerary = DocumentNode(definitions: [
             value: VariableNode(name: NameNode(value: 'arriveBy')),
           ),
           ArgumentNode(
-            name: NameNode(value: 'allowBikeRental'),
-            value: VariableNode(name: NameNode(value: 'allowBikeRental')),
-          ),
-          ArgumentNode(
             name: NameNode(value: 'transportModes'),
             value: VariableNode(name: NameNode(value: 'modes')),
-          ),
-          ArgumentNode(
-            name: NameNode(value: 'maxWalkDistance'),
-            value: VariableNode(name: NameNode(value: 'maxWalkDistance')),
           ),
         ],
         directives: [],

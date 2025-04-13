@@ -1,10 +1,10 @@
 import 'package:bussit/graphql/itinerary_query.graphql.dart';
 import 'package:bussit/graphql/schema.graphql.dart';
-import 'package:bussit/ui/itinerary_details.dart';
+import 'package:bussit/ui/widgets/itinerary/itinerary_details.dart';
 import 'package:bussit/ui/widgets/components/app_icons.dart';
 import 'package:bussit/ui/widgets/components/departure_time.dart';
-import 'package:bussit/ui/widgets/components/gesture_menu.dart';
-import 'package:bussit/ui/widgets/stops/stop_item.dart';
+import 'package:bussit/ui/widgets/gesture_menu.dart';
+import 'package:bussit/ui/widgets/list_items/stop_item.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 

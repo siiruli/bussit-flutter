@@ -1,24 +1,25 @@
 import 'package:bussit/graphql/itinerary_query.graphql.dart';
 import 'package:bussit/graphql/schema.graphql.dart';
+import 'package:bussit/graphql/trip_query.graphql.dart';
 import 'package:bussit/model/address.dart';
-import 'package:bussit/ui/widgets/itineraries/itinerary_item.dart';
-import 'package:flutter/material.dart';
+import 'package:bussit/ui/widgets/itinerary/itinerary_results.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:bussit/utils/graphql_hooks.dart';
-import 'dart:developer' as developer;
+import 'package:graphql/client.dart';
 import 'package:intl/intl.dart';
-import '../../../graphql/trip_query.graphql.dart';
+import 'dart:developer' as developer;
 
-class ItineraryVariables extends HookWidget {
-  ItineraryVariables({
+import '../../../utils/graphql_hooks.dart';
+
+class ItineraryQuery extends HookWidget {
+  /// Store the parameters extracted from an ItineraryForm
+  ItineraryQuery({
     required this.from,
     required this.to,
     this.nResults,
     this.time,
     this.arriveBy,
     this.transportModes,
-    this.allowBikeRental,
   }) : super(key: UniqueKey());
   final Address from;
   final Address to;
@@ -26,7 +27,6 @@ class ItineraryVariables extends HookWidget {
   final DateTime? time;
   final bool? arriveBy;
   final List<Input$TransportMode>? transportModes;
-  final bool? allowBikeRental;
 
   @override
   Widget build(BuildContext context) {
@@ -54,57 +54,12 @@ class ItineraryVariables extends HookWidget {
     Variables$Query$Itinerary variables = Variables$Query$Itinerary(
       nResults: nResults,
       arriveBy: arriveBy,
-      allowBikeRental: allowBikeRental,
       modes: transportModes,
-      maxWalkDistance:
-          (usebike == true || allowBikeRental == true) ? 15000 : 2000,
     );
     // Set from, to, and time (hook needed in case from is a trip)
     variables = useItineraryVariables(variables, from, to, time);
     return ItineraryResults(variables: variables);
   }
-}
-
-/// Widget showing a list of stops
-class ItineraryResults extends HookWidget {
-  const ItineraryResults({required this.variables, super.key});
-  final Variables$Query$Itinerary variables;
-  @override
-  Widget build(BuildContext context) {
-    final result = useQueryLifecycleAware(Options$Query$Itinerary(
-      fetchPolicy: FetchPolicy.networkOnly,
-      variables: variables,
-    ));
-
-    return itineraryListBuilder(result.result);
-  }
-}
-
-// Build a stop list from a query result
-Widget itineraryListBuilder(QueryResult? result,
-    {VoidCallback? refetch, FetchMore? fetchMore}) {
-  if (result == null) {
-    return const Text("No result...");
-  }
-  if (result.hasException) {
-    return Text(result.exception.toString());
-  }
-
-  if (result.isLoading) {
-    return const Text('Loading...');
-  }
-  List<Query$Itinerary$plan$itineraries?>? list;
-
-  if (result.data != null) {
-    list = Query$Itinerary.fromJson(result.data!).plan?.itineraries;
-  } else {
-    return const Text("List is null :(");
-  }
-  list ??= [];
-
-  return Column(
-    children: list.map((e) => ItineraryWidget(itinerary: e)).toList(),
-  );
 }
 
 /// A hook to get relevant variables from start and end locations
@@ -153,7 +108,6 @@ useItineraryVariables(Variables$Query$Itinerary variables, Address from,
 
       final address = Address.fromStop(firstStopTime?.stop);
 
-      data["startTransitTripId"] = trip?.gtfsId;
       data["from"] = Input$InputCoordinates(
               lat: address.lat, lon: address.lon, address: address.label)
           .toJson();

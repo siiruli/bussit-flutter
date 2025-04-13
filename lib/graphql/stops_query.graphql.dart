@@ -9,12 +9,10 @@ class Variables$Query$StopData {
   factory Variables$Query$StopData({
     List<String?>? ids,
     String? name,
-    int? maxResults,
   }) =>
       Variables$Query$StopData._({
         if (ids != null) r'ids': ids,
         if (name != null) r'name': name,
-        if (maxResults != null) r'maxResults': maxResults,
       });
 
   Variables$Query$StopData._(this._$data);
@@ -30,10 +28,6 @@ class Variables$Query$StopData {
       final l$name = data['name'];
       result$data['name'] = (l$name as String?);
     }
-    if (data.containsKey('maxResults')) {
-      final l$maxResults = data['maxResults'];
-      result$data['maxResults'] = (l$maxResults as int?);
-    }
     return Variables$Query$StopData._(result$data);
   }
 
@@ -41,7 +35,6 @@ class Variables$Query$StopData {
 
   List<String?>? get ids => (_$data['ids'] as List<String?>?);
   String? get name => (_$data['name'] as String?);
-  int? get maxResults => (_$data['maxResults'] as int?);
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     if (_$data.containsKey('ids')) {
@@ -51,10 +44,6 @@ class Variables$Query$StopData {
     if (_$data.containsKey('name')) {
       final l$name = name;
       result$data['name'] = l$name;
-    }
-    if (_$data.containsKey('maxResults')) {
-      final l$maxResults = maxResults;
-      result$data['maxResults'] = l$maxResults;
     }
     return result$data;
   }
@@ -100,15 +89,6 @@ class Variables$Query$StopData {
     if (l$name != lOther$name) {
       return false;
     }
-    final l$maxResults = maxResults;
-    final lOther$maxResults = other.maxResults;
-    if (_$data.containsKey('maxResults') !=
-        other._$data.containsKey('maxResults')) {
-      return false;
-    }
-    if (l$maxResults != lOther$maxResults) {
-      return false;
-    }
     return true;
   }
 
@@ -116,7 +96,6 @@ class Variables$Query$StopData {
   int get hashCode {
     final l$ids = ids;
     final l$name = name;
-    final l$maxResults = maxResults;
     return Object.hashAll([
       _$data.containsKey('ids')
           ? l$ids == null
@@ -124,7 +103,6 @@ class Variables$Query$StopData {
               : Object.hashAll(l$ids.map((v) => v))
           : const {},
       _$data.containsKey('name') ? l$name : const {},
-      _$data.containsKey('maxResults') ? l$maxResults : const {},
     ]);
   }
 }
@@ -141,7 +119,6 @@ abstract class CopyWith$Variables$Query$StopData<TRes> {
   TRes call({
     List<String?>? ids,
     String? name,
-    int? maxResults,
   });
 }
 
@@ -161,13 +138,11 @@ class _CopyWithImpl$Variables$Query$StopData<TRes>
   TRes call({
     Object? ids = _undefined,
     Object? name = _undefined,
-    Object? maxResults = _undefined,
   }) =>
       _then(Variables$Query$StopData._({
         ..._instance._$data,
         if (ids != _undefined) 'ids': (ids as List<String?>?),
         if (name != _undefined) 'name': (name as String?),
-        if (maxResults != _undefined) 'maxResults': (maxResults as int?),
       }));
 }
 
@@ -180,7 +155,6 @@ class _CopyWithStubImpl$Variables$Query$StopData<TRes>
   call({
     List<String?>? ids,
     String? name,
-    int? maxResults,
   }) =>
       _res;
 }
@@ -420,15 +394,6 @@ const documentNodeQueryStopData = DocumentNode(definitions: [
         defaultValue: DefaultValueNode(value: null),
         directives: [],
       ),
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'maxResults')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'Int'),
-          isNonNull: false,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
     ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
@@ -443,10 +408,6 @@ const documentNodeQueryStopData = DocumentNode(definitions: [
           ArgumentNode(
             name: NameNode(value: 'name'),
             value: VariableNode(name: NameNode(value: 'name')),
-          ),
-          ArgumentNode(
-            name: NameNode(value: 'maxResults'),
-            value: VariableNode(name: NameNode(value: 'maxResults')),
           ),
         ],
         directives: [],
@@ -685,10 +646,6 @@ const documentNodeQueryStopData = DocumentNode(definitions: [
           ArgumentNode(
             name: NameNode(value: 'name'),
             value: VariableNode(name: NameNode(value: 'name')),
-          ),
-          ArgumentNode(
-            name: NameNode(value: 'maxResults'),
-            value: VariableNode(name: NameNode(value: 'maxResults')),
           ),
         ],
         directives: [],

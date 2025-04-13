@@ -4,7 +4,7 @@ import 'package:bussit/database/database.dart';
 import 'package:bussit/database/dao.dart';
 import 'package:bussit/model/address.dart';
 import 'package:bussit/model/user_actions.dart';
-import 'package:bussit/ui/widgets/components/geo_location.dart';
+import 'package:bussit/api/geo_location.dart';
 import 'package:bussit/utils/custom_autocomplete.dart';
 import 'package:flutter/material.dart';
 import 'package:bussit/model/itinerary_form_data.dart';
