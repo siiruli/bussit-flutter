@@ -23,7 +23,6 @@ class _ItineraryFormState extends State<ItineraryForm>
     with AutomaticKeepAliveClientMixin {
   final _formKey = GlobalKey<FormState>();
   Widget? _result;
-  bool _allowBikeRental = false;
 
   /// allowed transport modes
   late Set<Input$TransportMode> _allowedModes;
@@ -115,7 +114,6 @@ class _ItineraryFormState extends State<ItineraryForm>
           }
           setState(() {
             _allowedModes = modes.toSet();
-            _allowBikeRental = modes.contains(rentedBike);
           });
         },
       );
