@@ -46,6 +46,8 @@ class StopQueryResults extends HookWidget {
 // Build a stop list from a query result
 Widget stopListBuilder(Map<String, dynamic> result, int maxItems) {
   final data = Query$StopData.fromJson(result);
+
+  // Force the type to be dynamic to avoid errors
   List<dynamic> stops = (List<dynamic>.empty() +
           (data.stations?.take(maxItems).toList() ?? List<dynamic>.empty()) +
           (data.stops?.take(maxItems).toList() ?? List<dynamic>.empty()))
